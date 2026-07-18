@@ -1,0 +1,80 @@
+<a
+  routerLink="/users"
+  class="mb-6 inline-block text-sm text-(--muted-foreground) transition-colors hover:text-(--foreground)">
+  {{ 'userDetail.back' | transloco }}
+</a>
+
+<h1 class="mb-6 text-2xl font-semibold tracking-tight">{{ 'createUser.title' | transloco }}</h1>
+
+<form
+  (submit)="$event.preventDefault(); submit()"
+  novalidate
+  class="space-y-4 rounded-lg border border-(--border) bg-(--card) p-6">
+  <div>
+    <label for="firstName" class="block text-sm font-medium">{{ 'createUser.firstName' | transloco }}</label>
+    <input
+      id="firstName"
+      type="text"
+      [formField]="form.firstName"
+      autocomplete="given-name"
+      data-testid="create-user-first-name"
+      [attr.aria-invalid]="showError(form.firstName)"
+      [attr.aria-describedby]="showError(form.firstName) ? 'firstName-error' : null"
+      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm" />
+    @if (showError(form.firstName)) {
+      <p id="firstName-error" class="mt-1 text-xs text-(--destructive)">
+        {{ 'createUser.errors.required' | transloco }}
+      </p>
+    }
+  </div>
+
+  <div>
+    <label for="lastName" class="block text-sm font-medium">{{ 'createUser.lastName' | transloco }}</label>
+    <input
+      id="lastName"
+      type="text"
+      [formField]="form.lastName"
+      autocomplete="family-name"
+      data-testid="create-user-last-name"
+      [attr.aria-invalid]="showError(form.lastName)"
+      [attr.aria-describedby]="showError(form.lastName) ? 'lastName-error' : null"
+      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm" />
+    @if (showError(form.lastName)) {
+      <p id="lastName-error" class="mt-1 text-xs text-(--destructive)">
+        {{ 'createUser.errors.required' | transloco }}
+      </p>
+    }
+  </div>
+
+  <div>
+    <label for="email" class="block text-sm font-medium">{{ 'createUser.email' | transloco }}</label>
+    <input
+      id="email"
+      type="email"
+      [formField]="form.email"
+      autocomplete="email"
+      data-testid="create-user-email"
+      [attr.aria-invalid]="showError(form.email)"
+      [attr.aria-describedby]="showError(form.email) ? 'email-error' : null"
+      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm" />
+    @if (showError(form.email)) {
+      <p id="email-error" class="mt-1 text-xs text-(--destructive)">
+        {{ (hasRequiredError(form.email) ? 'createUser.errors.required' : 'createUser.errors.email') | transloco }}
+      </p>
+    }
+  </div>
+
+  @if (submitError()) {
+    <p role="alert" data-testid="create-user-error" class="text-sm text-(--destructive)">
+      {{ 'createUser.error' | transloco }}
+    </p>
+  }
+
+  <button
+    type="submit"
+    [disabled]="form().submitting()"
+    data-testid="create-user-submit"
+    class="inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90 disabled:opacity-50">
+    {{ 'createUser.submit' | transloco }}
+  </button>
+</form>

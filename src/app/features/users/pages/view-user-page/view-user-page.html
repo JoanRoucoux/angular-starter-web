@@ -1,0 +1,29 @@
+<a
+  routerLink="/users"
+  class="mb-4 inline-block text-sm font-medium text-(--muted-foreground) hover:text-(--foreground)">
+  {{ 'userDetail.back' | transloco }}
+</a>
+
+@if (user.isLoading()) {
+  <p class="rounded-lg border border-(--border) bg-(--card) p-6 text-sm text-(--muted-foreground)">
+    {{ 'userDetail.loading' | transloco }}
+  </p>
+} @else if (user.error()) {
+  <p class="rounded-lg border border-(--border) bg-(--card) p-6 text-sm text-(--destructive)">
+    {{ 'userDetail.error' | transloco }}
+  </p>
+} @else if (user.hasValue()) {
+  <div class="rounded-lg border border-(--border) bg-(--card) p-6 shadow-sm">
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl font-semibold tracking-tight">{{ user.value().firstName }} {{ user.value().lastName }}</h1>
+      <span class="rounded-full bg-(--secondary) px-2.5 py-0.5 text-xs font-semibold text-(--secondary-foreground)">
+        {{ 'users.status.' + user.value().status | transloco }}
+      </span>
+    </div>
+    <a
+      [href]="'mailto:' + user.value().email"
+      class="mt-2 inline-block text-sm text-(--muted-foreground) underline-offset-4 hover:text-(--foreground) hover:underline">
+      {{ user.value().email }}
+    </a>
+  </div>
+}
