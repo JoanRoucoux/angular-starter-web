@@ -8,7 +8,8 @@
   },
   "home": {
     "title": "Welcome to angular-starter-web",
-    "description": "Ready to use Angular starter: ESLint, Prettier, Vitest, Playwright, Transloco and Orval."
+    "description": "Ready to use Angular starter: ESLint, Prettier, Vitest, Playwright, Transloco and Orval.",
+    "usersCta": "Manage users"
   },
   "users": {
     "title": "Users",
