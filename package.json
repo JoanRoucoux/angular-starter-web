@@ -1,7 +1,7 @@
 {
   "name": "angular-starter-web",
   "version": "0.0.0",
-  "description": "Ready-to-use Angular starter with ESLint, Prettier, Tailwind CSS, Vitest, Playwright, Transloco and Orval.",
+  "description": "Ready-to-use Angular starter with ESLint, Prettier, Tailwind CSS, Vitest, Playwright, Transloco, Orval and Sheriff.",
   "keywords": [
     "angular",
     "starter",
@@ -13,7 +13,8 @@
     "vitest",
     "playwright",
     "transloco",
-    "orval"
+    "orval",
+    "sheriff"
   ],
   "homepage": "https://github.com/JoanRoucoux/angular-starter-web#readme",
   "bugs": {
