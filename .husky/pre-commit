@@ -1,0 +1,3 @@
+echo "pre-commit: running lint-staged (format + lint of staged files)..."
+pnpm exec lint-staged
+echo "pre-commit: OK"

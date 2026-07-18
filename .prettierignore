@@ -1,0 +1,11 @@
+# Build outputs and caches
+/.angular
+/coverage
+/dist
+node_modules
+
+# Generated OpenAPI clients and models (Orval)
+/src/app/core/api
+
+# Lockfile
+pnpm-lock.yaml
