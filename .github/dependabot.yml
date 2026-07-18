@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      angular:
+        patterns:
+          - '@angular/*'
+          - 'angular-eslint'
+      dev-dependencies:
+        dependency-type: development
+        exclude-patterns:
+          - '@angular/*'
+          - 'angular-eslint'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
