@@ -7,7 +7,7 @@
 
 Ready-to-use Angular starter for building a new web application connected to a backend, with every best practice and tool already wired up.
 
-Apps built from this starter are meant to be embedded in a portal that owns the global chrome (header, sidebar, main navigation): the app only renders its body. No integration mechanism is assumed — the app remains a standalone SPA that builds, runs and tests on its own. Language and theme are meant to be driven by the host portal through `LanguageService` and `ThemeService`.
+Apps built from this starter are meant to be embedded in a portal that owns the global chrome (header, sidebar, main navigation): the app only renders its body. No integration mechanism is assumed — the app remains a standalone SPA that builds, runs and tests on its own. Language is meant to be driven by the host portal through `LanguageService.setActiveLang()`; the theme follows the OS preference unless the host forces one by setting `data-theme` on `<html>`.
 
 ## Stack
 
@@ -17,7 +17,7 @@ Apps built from this starter are meant to be embedded in a portal that owns the 
 | [Tailwind CSS](https://tailwindcss.com)                                                                                                                                                | Utility-first CSS                                     |
 | [ESLint](https://eslint.org) + [angular-eslint](https://github.com/angular-eslint/angular-eslint)                                                                                      | Lint for TypeScript code and templates                |
 | [Prettier](https://prettier.io) + [sort-imports](https://github.com/trivago/prettier-plugin-sort-imports) + [tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) | Code formatting, import ordering and class sorting    |
-| [Vitest](https://vitest.dev)                                                                                                                                                           | Unit tests (Angular's default runner)                 |
+| [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com/docs/angular-testing-library/intro)                                                                       | Unit tests (Angular's default runner)                 |
 | [Playwright](https://playwright.dev)                                                                                                                                                   | End-to-end tests                                      |
 | [Transloco](https://jsverse.gitbook.io/transloco)                                                                                                                                      | Internationalization (en/fr, runtime language switch) |
 | [Orval](https://orval.dev)                                                                                                                                                             | Generates models and HTTP clients from OpenAPI        |
@@ -53,6 +53,8 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 | `pnpm run format:check`  | Check formatting without modifying anything          |
 | `pnpm run generate:api`  | Regenerates clients and models from the OpenAPI spec |
 
+Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Services, interceptors and form schemas are tested with plain `TestBed`. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
+
 E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test fixtures), next to the app rather than in a separate package.
 
 ## Project structure
@@ -68,8 +70,7 @@ src/
 │   │   ├── interceptors/      # HTTP interceptors (error handling, ...)
 │   │   ├── logger/            # LoggerService (only place allowed to call console)
 │   │   ├── models/            # Shared core models (LogLevel, ...)
-│   │   ├── not-found-page/    # 404 page
-│   │   └── theme/             # ThemeService (light/system/dark, driven by the portal)
+│   │   └── not-found-page/    # 404 page
 │   ├── features/              # Business features, grouped by domain
 │   │   ├── home/              # Home page (eagerly loaded)
 │   │   │   └── pages/home-page/
@@ -131,10 +132,13 @@ HTTP error handling is centralized in `core/interceptors/error-handler-intercept
 
 ## Internationalization
 
-Translations live in `public/i18n/<lang>.json` (en and fr). In templates:
+Translations live in `public/i18n/` (en and fr) and are split in two layers:
+
+- `public/i18n/<lang>.json` — global keys, preloaded before the app renders. Keep it minimal: only cross-cutting keys that must resolve synchronously, such as `pageTitle.*` (the title strategy translates on navigation, before any lazy scope has loaded) and the 404 page.
+- `public/i18n/<feature>/<lang>.json` — one [scope](https://jsverse.gitbook.io/transloco/lazy-load/scope-configuration) per feature, declared with `provideTranslocoScope('<feature>')` in the feature's routes and fetched lazily alongside it. Keys are read with the scope as prefix:
 
 ```html
-<h1>{{ 'users.title' | transloco }}</h1>
+<h1>{{ 'users.browse.title' | transloco }}</h1>
 ```
 
 The language can be switched at runtime via `LanguageService.setActiveLang()` (called by the host portal) and is persisted in a cookie. Page titles are translated and suffixed automatically by `core/i18n/title-strategy.ts`.
