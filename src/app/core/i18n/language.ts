@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Injectable, Signal, effect, inject } from '@angular/core';
+import { Injectable, type Signal, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { TranslocoService } from '@jsverse/transloco';
@@ -10,10 +10,6 @@ import { TranslocoService } from '@jsverse/transloco';
 export class LanguageService {
   #translocoService = inject(TranslocoService);
   #document = inject(DOCUMENT);
-
-  readonly availableLangs: string[] = this.#translocoService
-    .getAvailableLangs()
-    .map((lang) => (typeof lang === 'string' ? lang : lang.id));
 
   readonly activeLang: Signal<string> = toSignal(this.#translocoService.langChanges$, {
     initialValue: this.#translocoService.getActiveLang(),

@@ -6,8 +6,8 @@
  * even without a component library installed.
  *
  * Each token declares its light and dark value with light-dark(); the active
- * scheme follows the OS preference unless the user forces one, in which case
- * ThemeService sets data-theme on <html> (persisted in localStorage).
+ * scheme follows the OS preference unless the host (e.g. the portal embedding
+ * this app) forces one by setting data-theme on <html>.
  */
 
 :root {

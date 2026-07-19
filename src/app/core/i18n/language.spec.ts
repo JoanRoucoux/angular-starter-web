@@ -16,11 +16,6 @@ describe('LanguageService', () => {
     });
   });
 
-  it('should expose the available languages', () => {
-    const service = TestBed.inject(LanguageService);
-    expect(service.availableLangs).toEqual(['en', 'fr']);
-  });
-
   it('should switch the active language and update <html lang>', () => {
     const service = TestBed.inject(LanguageService);
     const translocoService = TestBed.inject(TranslocoService);
@@ -32,22 +27,5 @@ describe('LanguageService', () => {
 
     expect(service.activeLang()).toBe('fr');
     expect(document.documentElement.lang).toBe('fr');
-  });
-
-  it('should normalize languages declared as objects', () => {
-    // Transloco also accepts `{ id, label }` language definitions: the service must expose plain ids.
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
-      imports: [
-        getTranslocoTestingModule({
-          translocoConfig: { availableLangs: [{ id: 'en', label: 'English' }], defaultLang: 'en' },
-        }),
-      ],
-      providers: [provideZonelessChangeDetection()],
-    });
-
-    const service = TestBed.inject(LanguageService);
-
-    expect(service.availableLangs).toEqual(['en']);
   });
 });
