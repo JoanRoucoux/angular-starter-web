@@ -6,41 +6,6 @@
     "createUser": "Nouvel utilisateur",
     "notFound": "Page introuvable"
   },
-  "home": {
-    "title": "Bienvenue sur angular-starter-web",
-    "description": "Starter Angular prêt à l'emploi : ESLint, Prettier, Vitest, Playwright, Transloco et Orval.",
-    "usersCta": "Gérer les utilisateurs"
-  },
-  "users": {
-    "title": "Utilisateurs",
-    "loading": "Chargement des utilisateurs…",
-    "error": "Impossible de charger les utilisateurs.",
-    "retry": "Réessayer",
-    "empty": "Aucun utilisateur.",
-    "create": "Nouvel utilisateur",
-    "status": {
-      "active": "Actif",
-      "inactive": "Inactif",
-      "pending": "En attente"
-    }
-  },
-  "userDetail": {
-    "back": "← Retour à la liste",
-    "loading": "Chargement de l'utilisateur…",
-    "error": "Impossible de charger l'utilisateur."
-  },
-  "createUser": {
-    "title": "Nouvel utilisateur",
-    "firstName": "Prénom",
-    "lastName": "Nom",
-    "email": "Email",
-    "submit": "Créer l'utilisateur",
-    "error": "Impossible de créer l'utilisateur.",
-    "errors": {
-      "required": "Ce champ est obligatoire.",
-      "email": "Saisissez une adresse email valide."
-    }
-  },
   "notFound": {
     "title": "Page introuvable",
     "description": "La page demandée n'existe pas.",

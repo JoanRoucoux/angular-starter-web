@@ -1,0 +1,32 @@
+{
+  "browse": {
+    "title": "Utilisateurs",
+    "loading": "Chargement des utilisateurs…",
+    "error": "Impossible de charger les utilisateurs.",
+    "retry": "Réessayer",
+    "empty": "Aucun utilisateur.",
+    "create": "Nouvel utilisateur"
+  },
+  "detail": {
+    "back": "← Retour à la liste",
+    "loading": "Chargement de l'utilisateur…",
+    "error": "Impossible de charger l'utilisateur."
+  },
+  "create": {
+    "title": "Nouvel utilisateur",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "submit": "Créer l'utilisateur",
+    "error": "Impossible de créer l'utilisateur.",
+    "errors": {
+      "required": "Ce champ est obligatoire.",
+      "email": "Saisissez une adresse email valide."
+    }
+  },
+  "status": {
+    "active": "Actif",
+    "inactive": "Inactif",
+    "pending": "En attente"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "browse": {
+    "title": "Users",
+    "loading": "Loading users…",
+    "error": "Unable to load users.",
+    "retry": "Retry",
+    "empty": "No users.",
+    "create": "New user"
+  },
+  "detail": {
+    "back": "← Back to the list",
+    "loading": "Loading user…",
+    "error": "Unable to load user."
+  },
+  "create": {
+    "title": "New user",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "submit": "Create user",
+    "error": "Unable to create the user.",
+    "errors": {
+      "required": "This field is required.",
+      "email": "Enter a valid email address."
+    }
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending"
+  }
+}

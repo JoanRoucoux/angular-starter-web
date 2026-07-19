@@ -6,41 +6,6 @@
     "createUser": "New user",
     "notFound": "Page not found"
   },
-  "home": {
-    "title": "Welcome to angular-starter-web",
-    "description": "Ready to use Angular starter: ESLint, Prettier, Vitest, Playwright, Transloco and Orval.",
-    "usersCta": "Manage users"
-  },
-  "users": {
-    "title": "Users",
-    "loading": "Loading users…",
-    "error": "Unable to load users.",
-    "retry": "Retry",
-    "empty": "No users.",
-    "create": "New user",
-    "status": {
-      "active": "Active",
-      "inactive": "Inactive",
-      "pending": "Pending"
-    }
-  },
-  "userDetail": {
-    "back": "← Back to the list",
-    "loading": "Loading user…",
-    "error": "Unable to load user."
-  },
-  "createUser": {
-    "title": "New user",
-    "firstName": "First name",
-    "lastName": "Last name",
-    "email": "Email",
-    "submit": "Create user",
-    "error": "Unable to create the user.",
-    "errors": {
-      "required": "This field is required.",
-      "email": "Enter a valid email address."
-    }
-  },
   "notFound": {
     "title": "Page not found",
     "description": "The requested page does not exist.",
