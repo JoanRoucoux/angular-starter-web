@@ -12,6 +12,8 @@
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",

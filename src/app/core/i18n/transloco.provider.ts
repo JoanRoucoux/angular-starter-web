@@ -1,5 +1,5 @@
 import {
-  EnvironmentProviders,
+  type EnvironmentProviders,
   inject,
   isDevMode,
   makeEnvironmentProviders,

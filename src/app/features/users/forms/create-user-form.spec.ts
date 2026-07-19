@@ -1,8 +1,8 @@
 import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FieldTree, form } from '@angular/forms/signals';
+import { type FieldTree, form } from '@angular/forms/signals';
 
-import { UserCreation } from '@core/api/angularStarterWebAPI.schemas';
+import type { UserCreation } from '@core/api/angularStarterWebAPI.schemas';
 
 import { hasRequiredError } from '@shared/forms/form-helpers';
 

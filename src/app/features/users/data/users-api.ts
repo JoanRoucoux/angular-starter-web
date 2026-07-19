@@ -1,9 +1,9 @@
-import { Injectable, ResourceRef, inject } from '@angular/core';
+import { Injectable, type ResourceRef, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
-import { Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 
-import { User, UserCreation } from '@core/api/angularStarterWebAPI.schemas';
+import type { User, UserCreation } from '@core/api/angularStarterWebAPI.schemas';
 import { UsersService } from '@core/api/users/users.service';
 
 /**

@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FieldTree, email, form, required } from '@angular/forms/signals';
+import { type FieldTree, email, form, required } from '@angular/forms/signals';
 
 import { hasRequiredError, showError } from './form-helpers';
 

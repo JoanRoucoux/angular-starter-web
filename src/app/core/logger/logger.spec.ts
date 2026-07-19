@@ -1,4 +1,4 @@
-import { MockInstance, vi } from 'vitest';
+import { type MockInstance, vi } from 'vitest';
 
 import { LogLevel } from '@core/models/log-level';
 
