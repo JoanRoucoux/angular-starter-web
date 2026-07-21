@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.0.1...v1.1.0) (2026-07-21)
+
+
+### Features
+
+* make the starter generator-enabled ([9ad80a6](https://github.com/JoanRoucoux/angular-starter-web/commit/9ad80a69be035e76271206f363baaa5cd3674591))
+
+
+### Bug Fixes
+
+* correct remaining npm references to pnpm ([9645c38](https://github.com/JoanRoucoux/angular-starter-web/commit/9645c387f89bdb0a92637ff9dd7ab22807262b0f))
+* use the camel-cased scope alias in generated feature translations ([1c858c1](https://github.com/JoanRoucoux/angular-starter-web/commit/1c858c1bf9b9253521491f665bccc1f1d5bcd82f))
+
 ## [1.0.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.0.0...v1.0.1) (2026-07-21)
 
 
