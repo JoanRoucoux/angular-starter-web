@@ -25,7 +25,7 @@
   --muted-foreground: light-dark(hsl(240 3.8% 46.1%), hsl(240 5% 64.9%));
   --accent: light-dark(hsl(240 4.8% 95.9%), hsl(240 3.7% 15.9%));
   --accent-foreground: light-dark(hsl(240 5.9% 10%), hsl(0 0% 98%));
-  --destructive: light-dark(hsl(0 84.2% 60.2%), hsl(0 62.8% 30.6%));
+  --destructive: light-dark(hsl(0 84.2% 45%), hsl(0 62.8% 30.6%));
   --destructive-foreground: light-dark(hsl(0 0% 98%), hsl(0 0% 98%));
 }
 
