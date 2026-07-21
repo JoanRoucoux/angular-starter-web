@@ -38,10 +38,15 @@ export default defineConfig([
       ],
       '@angular-eslint/prefer-signals': 'warn',
       '@angular-eslint/prefer-standalone': 'warn',
+      '@angular-eslint/no-empty-lifecycle-method': 'warn',
+      '@angular-eslint/prefer-output-readonly': 'warn',
       // TypeScript
       '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
       '@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'no-public' }],
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
+      '@typescript-eslint/no-shadow': 'warn',
+      '@typescript-eslint/no-empty-function': 'warn',
       // General
       'max-lines': ['error', 400],
       complexity: ['error', 20],
@@ -69,6 +74,11 @@ export default defineConfig([
     rules: {
       '@angular-eslint/template/prefer-control-flow': 'error',
       '@angular-eslint/template/eqeqeq': 'error',
+      '@angular-eslint/template/use-track-by-function': 'warn',
+      '@angular-eslint/template/button-has-type': 'warn',
+      '@angular-eslint/template/prefer-self-closing-tags': 'warn',
+      '@angular-eslint/template/cyclomatic-complexity': ['warn', { maxComplexity: 10 }],
+      '@angular-eslint/template/attributes-order': ['warn', { alphabetical: true }],
     },
   },
 ]);

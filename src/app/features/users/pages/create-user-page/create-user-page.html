@@ -1,80 +1,80 @@
 <a
-  routerLink="/users"
-  class="mb-6 inline-block text-sm text-(--muted-foreground) transition-colors hover:text-(--foreground)">
+  class="mb-6 inline-block text-sm text-(--muted-foreground) transition-colors hover:text-(--foreground)"
+  routerLink="/users">
   {{ 'users.detail.back' | transloco }}
 </a>
 
 <h1 class="mb-6 text-2xl font-semibold tracking-tight">{{ 'users.create.title' | transloco }}</h1>
 
 <form
-  (submit)="$event.preventDefault(); submit()"
+  class="space-y-4 rounded-lg border border-(--border) bg-(--card) p-6"
   novalidate
-  class="space-y-4 rounded-lg border border-(--border) bg-(--card) p-6">
+  (submit)="$event.preventDefault(); submit()">
   <div>
-    <label for="firstName" class="block text-sm font-medium">{{ 'users.create.firstName' | transloco }}</label>
+    <label class="block text-sm font-medium" for="firstName">{{ 'users.create.firstName' | transloco }}</label>
     <input
+      autocomplete="given-name"
+      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
+      data-testid="create-user-first-name"
       id="firstName"
       type="text"
-      [formField]="form.firstName"
-      autocomplete="given-name"
-      data-testid="create-user-first-name"
-      [attr.aria-invalid]="showError(form.firstName)"
       [attr.aria-describedby]="showError(form.firstName) ? 'firstName-error' : null"
-      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm" />
+      [attr.aria-invalid]="showError(form.firstName)"
+      [formField]="form.firstName" />
     @if (showError(form.firstName)) {
-      <p id="firstName-error" class="mt-1 text-xs text-(--destructive)">
+      <p class="mt-1 text-xs text-(--destructive)" id="firstName-error">
         {{ 'users.create.errors.required' | transloco }}
       </p>
     }
   </div>
 
   <div>
-    <label for="lastName" class="block text-sm font-medium">{{ 'users.create.lastName' | transloco }}</label>
+    <label class="block text-sm font-medium" for="lastName">{{ 'users.create.lastName' | transloco }}</label>
     <input
+      autocomplete="family-name"
+      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
+      data-testid="create-user-last-name"
       id="lastName"
       type="text"
-      [formField]="form.lastName"
-      autocomplete="family-name"
-      data-testid="create-user-last-name"
-      [attr.aria-invalid]="showError(form.lastName)"
       [attr.aria-describedby]="showError(form.lastName) ? 'lastName-error' : null"
-      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm" />
+      [attr.aria-invalid]="showError(form.lastName)"
+      [formField]="form.lastName" />
     @if (showError(form.lastName)) {
-      <p id="lastName-error" class="mt-1 text-xs text-(--destructive)">
+      <p class="mt-1 text-xs text-(--destructive)" id="lastName-error">
         {{ 'users.create.errors.required' | transloco }}
       </p>
     }
   </div>
 
   <div>
-    <label for="email" class="block text-sm font-medium">{{ 'users.create.email' | transloco }}</label>
+    <label class="block text-sm font-medium" for="email">{{ 'users.create.email' | transloco }}</label>
     <input
+      autocomplete="email"
+      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
+      data-testid="create-user-email"
       id="email"
       type="email"
-      [formField]="form.email"
-      autocomplete="email"
-      data-testid="create-user-email"
-      [attr.aria-invalid]="showError(form.email)"
       [attr.aria-describedby]="showError(form.email) ? 'email-error' : null"
-      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm" />
+      [attr.aria-invalid]="showError(form.email)"
+      [formField]="form.email" />
     @if (showError(form.email)) {
-      <p id="email-error" class="mt-1 text-xs text-(--destructive)">
+      <p class="mt-1 text-xs text-(--destructive)" id="email-error">
         {{ (hasRequiredError(form.email) ? 'users.create.errors.required' : 'users.create.errors.email') | transloco }}
       </p>
     }
   </div>
 
   @if (submitError()) {
-    <p role="alert" data-testid="create-user-error" class="text-sm text-(--destructive)">
+    <p class="text-sm text-(--destructive)" data-testid="create-user-error" role="alert">
       {{ 'users.create.error' | transloco }}
     </p>
   }
 
   <button
-    type="submit"
-    [disabled]="form().submitting()"
+    class="inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90 disabled:opacity-50"
     data-testid="create-user-submit"
-    class="inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90 disabled:opacity-50">
+    type="submit"
+    [disabled]="form().submitting()">
     {{ 'users.create.submit' | transloco }}
   </button>
 </form>
