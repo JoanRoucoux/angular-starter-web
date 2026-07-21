@@ -4,7 +4,7 @@ info:
   description: |
     Example API specification for the starter application.
     Replace this file with your real backend contract, models and HTTP clients
-    are generated from it with Orval (`npm run generate:api`).
+    are generated from it with Orval (`pnpm run generate:api`).
   version: 1.0.0
 tags:
   - name: users
