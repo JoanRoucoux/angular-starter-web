@@ -89,6 +89,11 @@ jobs:
         working-directory: ${{ runner.temp }}/generated/ci-check-web
         run: pnpm install
 
+      # Mirrors the generator's postInstall step (skipped above with --skip-install).
+      - name: Format the generated app
+        working-directory: ${{ runner.temp }}/generated/ci-check-web
+        run: pnpm run format
+
       - name: Check the generated app (format, lint, tests, build)
         working-directory: ${{ runner.temp }}/generated/ci-check-web
         run: |
