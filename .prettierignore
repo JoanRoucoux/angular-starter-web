@@ -7,6 +7,9 @@ node_modules
 # Generated OpenAPI clients and models (Orval)
 /src/app/core/api
 
+# Generator templates contain {{tokens}} and are not valid syntax
+/.generator/templates
+
 # Lockfile
 pnpm-lock.yaml
 

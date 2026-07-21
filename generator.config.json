@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "starter": "angular-starter-web",
+  "nameSuffix": "-web",
+  "prompts": ["feature"],
+  "copyIgnore": [
+    ".git",
+    "node_modules",
+    "dist",
+    "coverage",
+    ".angular",
+    "test-results",
+    "playwright-report",
+    "blob-report",
+    ".claude/settings.local.json",
+    "pnpm-debug.log"
+  ],
+  "remove": [
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "LICENSE",
+    ".github/assets",
+    ".github/ISSUE_TEMPLATE",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/workflows/release-please.yml",
+    "src/app/features/home",
+    "src/app/features/users",
+    "src/app/core/api",
+    "public/i18n/home",
+    "public/i18n/users",
+    "e2e"
+  ],
+  "jsonPatch": [
+    {
+      "file": "package.json",
+      "set": {
+        "name": "{{projectName}}",
+        "version": "0.1.0",
+        "description": "{{title}} — Angular application generated from angular-starter-web."
+      },
+      "delete": ["keywords", "homepage", "bugs", "repository", "license", "author"]
+    }
+  ],
+  "replace": [
+    {
+      "file": "angular.json",
+      "search": "angular-starter-web",
+      "value": "{{projectName}}"
+    },
+    {
+      "file": "src/index.html",
+      "search": "<title>Angular Starter Web</title>",
+      "value": "<title>{{title}}</title>"
+    },
+    {
+      "file": "openapi/openapi.yaml",
+      "search": "angular-starter-web API",
+      "value": "{{projectName}} API",
+      "optional": true
+    }
+  ],
+  "openapiTarget": "openapi/openapi.yaml",
+  "install": "pnpm install",
+  "postInstall": ["pnpm run format"],
+  "nextSteps": ["pnpm start"]
+}

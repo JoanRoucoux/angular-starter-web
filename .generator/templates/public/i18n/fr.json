@@ -1,0 +1,11 @@
+{
+  "pageTitle": {
+    "{{featureCamel}}": "{{title}}",
+    "notFound": "Page introuvable"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "La page demandée n'existe pas.",
+    "home": "Retour à l'accueil"
+  }
+}

@@ -55,6 +55,18 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 - Coverage is at 100% and must stay there; the CI thresholds (85/80/70/85) are intentionally lower so downstream users of the starter are not blocked — do not raise them.
 - `data-testid` attributes in templates are used by the Playwright e2e page objects — keep them even where unit tests query by role.
 
+## Generator
+
+New applications are scaffolded from this starter by [starter-generator](https://github.com/JoanRoucoux/starter-generator), a generic engine: everything starter-specific lives **here**, in [generator.config.json](generator.config.json) (files removed from generated apps, renames, install commands — full spec in the generator's README) and `.generator/templates/` (scaffold files rendered with `{{token}}` content placeholders and `__feature__` path placeholders).
+
+Keep them in sync with the starter:
+
+- `.generator/templates/src/app/shared/testing/transloco-testing.ts` mirrors [src/app/shared/testing/transloco-testing.ts](src/app/shared/testing/transloco-testing.ts) with the demo scopes swapped for `{{feature}}` — when one changes, change the other.
+- The scaffold templates (feature page, routes, i18n files, e2e spec) follow the conventions of this file — when a convention changes, re-check the templates.
+- Template-only content (demo features, community files, release tooling) must be listed in the manifest's `remove`; new root-level files that should not ship in generated apps must be added there.
+- Templates contain tokens and are not valid syntax: `.generator/templates/` stays excluded in [.prettierignore](.prettierignore) and the ESLint `globalIgnores`.
+- The `generate` job in [ci.yml](.github/workflows/ci.yml) generates an app from the working tree and runs its quality gates — it fails when the manifest or templates drift.
+
 ## Gotchas
 
 - `typescript` is pinned to `~6.0.2`: TypeScript 7 breaks `typescript-eslint` (via `ts-api-utils`). Do not bump until typescript-eslint supports TS 7.

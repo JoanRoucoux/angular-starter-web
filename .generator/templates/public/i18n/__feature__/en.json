@@ -1,0 +1,4 @@
+{
+  "title": "{{title}}",
+  "description": "Welcome to {{title}}. Build your first page in src/app/features/{{feature}}/."
+}

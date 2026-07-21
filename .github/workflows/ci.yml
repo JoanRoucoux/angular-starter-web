@@ -57,3 +57,50 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+  # Guards against drift between the starter and its generator manifest/templates
+  # (generator.config.json, .generator/templates/): generates an app from this
+  # working tree with starter-generator and runs the app's own quality gates.
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@008330803749db0355799c700092d9a85fd074e9 # v6.0.9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Fetch starter-generator
+        run: |
+          git clone --depth 1 https://github.com/JoanRoucoux/starter-generator "$RUNNER_TEMP/starter-generator"
+          pnpm install --frozen-lockfile --dir "$RUNNER_TEMP/starter-generator"
+
+      - name: Generate an app from this working tree
+        run: node "$RUNNER_TEMP/starter-generator/index.mjs" "$RUNNER_TEMP/generated/ci-check-web" --template . --title "CI Check" --skip-install --skip-git --yes
+
+      # Also generates the OpenAPI clients and models of the generated app (postinstall).
+      - name: Install generated app dependencies
+        working-directory: ${{ runner.temp }}/generated/ci-check-web
+        run: pnpm install
+
+      - name: Check the generated app (format, lint, tests, build)
+        working-directory: ${{ runner.temp }}/generated/ci-check-web
+        run: |
+          pnpm run format:check
+          pnpm run lint
+          pnpm run test:coverage
+          pnpm run build
+
+      - name: Install Playwright browsers
+        working-directory: ${{ runner.temp }}/generated/ci-check-web
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: End-to-end tests on the generated app
+        working-directory: ${{ runner.temp }}/generated/ci-check-web
+        run: pnpm run e2e
