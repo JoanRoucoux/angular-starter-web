@@ -40,6 +40,7 @@ export default defineConfig([
       '@angular-eslint/prefer-standalone': 'warn',
       '@angular-eslint/no-empty-lifecycle-method': 'warn',
       '@angular-eslint/prefer-output-readonly': 'warn',
+
       // TypeScript
       '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
       '@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'no-public' }],
@@ -47,6 +48,7 @@ export default defineConfig([
       '@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
       '@typescript-eslint/no-shadow': 'warn',
       '@typescript-eslint/no-empty-function': 'warn',
+
       // General
       'max-lines': ['error', 400],
       complexity: ['error', 20],
