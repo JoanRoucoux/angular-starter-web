@@ -3,7 +3,8 @@
   <a
     class="inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90"
     data-testid="users-create"
-    routerLink="new">
+    routerLink="new"
+  >
     {{ 'users.browse.create' | transloco }}
   </a>
 </div>
@@ -11,7 +12,8 @@
 @if (users.isLoading()) {
   <p
     class="rounded-lg border border-(--border) bg-(--card) p-6 text-sm text-(--muted-foreground)"
-    data-testid="users-loading">
+    data-testid="users-loading"
+  >
     {{ 'users.browse.loading' | transloco }}
   </p>
 } @else if (users.error()) {
@@ -21,14 +23,16 @@
       class="mt-3 inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90"
       data-testid="users-retry"
       type="button"
-      (click)="users.reload()">
+      (click)="users.reload()"
+    >
       {{ 'users.browse.retry' | transloco }}
     </button>
   </div>
 } @else {
   <ul
     class="divide-y divide-(--border) overflow-hidden rounded-lg border border-(--border) bg-(--card)"
-    data-testid="users-list">
+    data-testid="users-list"
+  >
     @for (user of users.value(); track user.id) {
       <li class="flex items-center justify-between px-4 py-3 transition-colors hover:bg-(--accent)/50">
         <a class="text-sm font-medium hover:underline" data-testid="user-item" [routerLink]="[user.id]">

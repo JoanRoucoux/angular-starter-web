@@ -14,9 +14,9 @@ describe('create-user-form', () => {
   });
 
   // form() must be called from an injection context, like in a component.
-  function createForm(model: UserCreation = initialUserCreation()): FieldTree<UserCreation> {
+  const createForm = (model: UserCreation = initialUserCreation()): FieldTree<UserCreation> => {
     return TestBed.runInInjectionContext(() => form(signal(model), userCreationSchema));
-  }
+  };
 
   it('should require every field', () => {
     const userForm = createForm();

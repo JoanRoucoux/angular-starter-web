@@ -1,6 +1,7 @@
 <a
   class="mb-4 inline-block text-sm font-medium text-(--muted-foreground) hover:text-(--foreground)"
-  routerLink="/users">
+  routerLink="/users"
+>
   {{ 'users.detail.back' | transloco }}
 </a>
 
@@ -22,7 +23,8 @@
     </div>
     <a
       class="mt-2 inline-block text-sm text-(--muted-foreground) underline-offset-4 hover:text-(--foreground) hover:underline"
-      [href]="'mailto:' + user.value().email">
+      [href]="'mailto:' + user.value().email"
+    >
       {{ user.value().email }}
     </a>
   </div>

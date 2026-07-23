@@ -34,7 +34,7 @@ describe('LoggerService', () => {
 
     for (const level of Object.values(LogLevel)) {
       expect(consoleSpies[level]).toHaveBeenCalledWith(
-        expect.stringContaining(`[${level.toUpperCase()}] [MyComponent]`),
+        expect.stringContaining(`[${level.toUpperCase()}][MyComponent]`),
         'message',
       );
     }

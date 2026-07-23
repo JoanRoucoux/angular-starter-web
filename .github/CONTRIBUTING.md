@@ -11,7 +11,7 @@ Thanks for your interest in this project!
 ## Workflow
 
 1. Create a branch from `main` (`feat/...`, `fix/...`).
-2. Develop following the project conventions (see [README](README.md#quality-and-conventions)).
+2. Develop following the project conventions (see [README](../README.md#quality-and-conventions)).
 3. Check locally before committing:
    ```bash
    pnpm run lint

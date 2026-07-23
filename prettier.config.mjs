@@ -1,6 +1,5 @@
 /** @type {import("prettier").Config} */
 export default {
-  bracketSameLine: true,
   printWidth: 120,
   singleQuote: true,
   plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],

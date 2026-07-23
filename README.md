@@ -48,6 +48,7 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 | ------------------------ | ---------------------------------------------------- |
 | `pnpm start`             | Dev server (with API proxy)                          |
 | `pnpm run build`         | Production build into `dist/`                        |
+| `pnpm run build:dev`     | Development build into `dist/`                       |
 | `pnpm test`              | Unit tests (Vitest)                                  |
 | `pnpm run test:coverage` | Unit tests with coverage report and thresholds       |
 | `pnpm run e2e`           | End-to-end tests (Playwright)                        |
@@ -165,7 +166,7 @@ The language can be switched at runtime via `LanguageService.setActiveLang()` (c
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community guidelines. To report a vulnerability, see [SECURITY.md](SECURITY.md).
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for the contribution workflow and [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md) for community guidelines. To report a vulnerability, see [SECURITY.md](.github/SECURITY.md).
 
 ## License
 

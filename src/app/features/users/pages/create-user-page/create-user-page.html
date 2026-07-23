@@ -1,6 +1,7 @@
 <a
   class="mb-6 inline-block text-sm text-(--muted-foreground) transition-colors hover:text-(--foreground)"
-  routerLink="/users">
+  routerLink="/users"
+>
   {{ 'users.detail.back' | transloco }}
 </a>
 
@@ -9,7 +10,8 @@
 <form
   class="space-y-4 rounded-lg border border-(--border) bg-(--card) p-6"
   novalidate
-  (submit)="$event.preventDefault(); submit()">
+  (submit)="$event.preventDefault(); submit()"
+>
   <div>
     <label class="block text-sm font-medium" for="firstName">{{ 'users.create.firstName' | transloco }}</label>
     <input
@@ -20,7 +22,8 @@
       type="text"
       [attr.aria-describedby]="showError(form.firstName) ? 'firstName-error' : null"
       [attr.aria-invalid]="showError(form.firstName)"
-      [formField]="form.firstName" />
+      [formField]="form.firstName"
+    />
     @if (showError(form.firstName)) {
       <p class="mt-1 text-xs text-(--destructive)" id="firstName-error">
         {{ 'users.create.errors.required' | transloco }}
@@ -38,7 +41,8 @@
       type="text"
       [attr.aria-describedby]="showError(form.lastName) ? 'lastName-error' : null"
       [attr.aria-invalid]="showError(form.lastName)"
-      [formField]="form.lastName" />
+      [formField]="form.lastName"
+    />
     @if (showError(form.lastName)) {
       <p class="mt-1 text-xs text-(--destructive)" id="lastName-error">
         {{ 'users.create.errors.required' | transloco }}
@@ -56,7 +60,8 @@
       type="email"
       [attr.aria-describedby]="showError(form.email) ? 'email-error' : null"
       [attr.aria-invalid]="showError(form.email)"
-      [formField]="form.email" />
+      [formField]="form.email"
+    />
     @if (showError(form.email)) {
       <p class="mt-1 text-xs text-(--destructive)" id="email-error">
         {{ (hasRequiredError(form.email) ? 'users.create.errors.required' : 'users.create.errors.email') | transloco }}
@@ -74,7 +79,8 @@
     class="inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90 disabled:opacity-50"
     data-testid="create-user-submit"
     type="submit"
-    [disabled]="form().submitting()">
+    [disabled]="form().submitting()"
+  >
     {{ 'users.create.submit' | transloco }}
   </button>
 </form>

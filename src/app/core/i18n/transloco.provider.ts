@@ -12,7 +12,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { TranslocoHttpLoader } from '@core/i18n/transloco-loader';
 
-export function provideTranslocoGlobal(): EnvironmentProviders {
+export const provideTranslocoGlobal = (): EnvironmentProviders => {
   return makeEnvironmentProviders([
     provideTransloco({
       config: {
@@ -36,4 +36,4 @@ export function provideTranslocoGlobal(): EnvironmentProviders {
       return firstValueFrom(translocoService.load(translocoService.getActiveLang()));
     }),
   ]);
-}
+};

@@ -8,9 +8,9 @@ import { TranslocoTestingModule, type TranslocoTestingOptions } from '@jsverse/t
  * Feature scopes are registered empty so specs can mirror the route-level
  * `provideTranslocoScope(...)` wiring without loading real translation files.
  */
-export function getTranslocoTestingModule(
+export const getTranslocoTestingModule = (
   options: TranslocoTestingOptions = {},
-): ModuleWithProviders<TranslocoTestingModule> {
+): ModuleWithProviders<TranslocoTestingModule> => {
   return TranslocoTestingModule.forRoot({
     langs: { en: {}, fr: {}, 'home/en': {}, 'home/fr': {}, 'users/en': {}, 'users/fr': {} },
     translocoConfig: {
@@ -20,4 +20,4 @@ export function getTranslocoTestingModule(
     preloadLangs: true,
     ...options,
   });
-}
+};

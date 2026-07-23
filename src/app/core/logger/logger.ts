@@ -17,8 +17,8 @@ export class LoggerService {
     const timestamp = new Date().toISOString();
     const ctx = context ? `[${context}]` : '';
 
-    // example: [2025-01-01T12:00:00.000Z] [INFO] [MyComponent] Message
-    consoleMethod(`[${timestamp}] [${level.toUpperCase()}] ${ctx}`, ...args);
+    // example: [2025-01-01T12:00:00.000Z][INFO][MyComponent] Message
+    consoleMethod(`[${timestamp}][${level.toUpperCase()}]${ctx} `, ...args);
   };
 
   debug(context = '', ...args: unknown[]): void {

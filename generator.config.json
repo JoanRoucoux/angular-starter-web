@@ -17,9 +17,9 @@
   ],
   "remove": [
     "CHANGELOG.md",
-    "CODE_OF_CONDUCT.md",
-    "CONTRIBUTING.md",
-    "SECURITY.md",
+    ".github/CODE_OF_CONDUCT.md",
+    ".github/CONTRIBUTING.md",
+    ".github/SECURITY.md",
     "LICENSE",
     ".github/assets",
     ".github/ISSUE_TEMPLATE",

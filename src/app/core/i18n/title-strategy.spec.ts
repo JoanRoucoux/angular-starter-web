@@ -20,10 +20,10 @@ describe('AppTitleStrategy', () => {
     });
   });
 
-  function mockSnapshotWithTitle(strategy: AppTitleStrategy, title: string | undefined): RouterStateSnapshot {
+  const mockSnapshotWithTitle = (strategy: AppTitleStrategy, title: string | undefined): RouterStateSnapshot => {
     vi.spyOn(strategy, 'buildTitle').mockReturnValue(title);
     return {} as RouterStateSnapshot;
-  }
+  };
 
   it('should translate the route title and append the app name', () => {
     const strategy = TestBed.inject(AppTitleStrategy);

@@ -10,14 +10,14 @@ describe('form-helpers', () => {
   });
 
   // form() must be called from an injection context, like in a component.
-  function createForm(value: string): FieldTree<{ name: string }> {
+  const createForm = (value: string): FieldTree<{ name: string }> => {
     return TestBed.runInInjectionContext(() =>
       form(signal({ name: value }), (model) => {
         required(model.name);
         email(model.name);
       }),
     );
-  }
+  };
 
   it('should only show errors once the field has been touched', () => {
     const testForm = createForm('');
