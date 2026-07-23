@@ -29,7 +29,7 @@ Apps built from this starter are meant to be embedded in a portal that owns the 
 | [Sheriff](https://sheriff.softarc.io)                                                                                                                                                  | Enforces module boundaries (core/features/shared)     |
 | [Husky](https://typicode.github.io/husky) + [lint-staged](https://github.com/lint-staged/lint-staged)                                                                                  | Git hooks (format + lint on commit)                   |
 | [commitlint](https://commitlint.js.org)                                                                                                                                                | Commit message validation (Conventional Commits)      |
-| GitHub Actions                                                                                                                                                                         | CI: format, lint, tests, build, e2e                   |
+| [GitHub Actions](https://github.com/features/actions)                                                                                                                                  | CI: format, lint, tests, build, e2e                   |
 
 The UI component library is not included: plug in the one of your choice.
 
@@ -65,7 +65,7 @@ E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test
 
 ## Project structure
 
-Based on the [angular-tips](https://angular-tips.dev) recommendations: grouped by business domain, not by technical type.
+Based on the [Angular style guide](https://angular.dev/style-guide) recommendations: grouped by business domain, not by technical type.
 
 ```txt
 src/
@@ -157,7 +157,7 @@ The language can be switched at runtime via `LanguageService.setActiveLang()` (c
 
 - **On commit**: lint-staged formats and lints the staged files; commitlint enforces [Conventional Commits](https://www.conventionalcommits.org) (`feat: ...`, `fix: ...`, ...).
 - **In CI** ([.github/workflows/ci.yml](.github/workflows/ci.yml)): format check, lint, unit tests, build and e2e on every push/PR.
-- **Code conventions**: see [angular-tips](https://angular-tips.dev) and the [Angular style guide](https://angular.dev/style-guide). In short: standalone components (`OnPush` change detection is the Angular default since v22, no need to declare it), signals (`input()`, `computed()`, `rxResource`), `inject()`, private `#` properties, control flow (`@if`, `@for`), no `.component`/`.service` suffix in file names, pages suffixed with `-page`.
+- **Code conventions**: see the [Angular style guide](https://angular.dev/style-guide). In short: standalone components (`OnPush` change detection is the Angular default since v22, no need to declare it), signals (`input()`, `computed()`, `rxResource`), `inject()`, private `#` properties, control flow (`@if`, `@for`), no `.component`/`.service` suffix in file names, pages suffixed with `-page`.
 - **Config files** use ESM `.mjs` where the tool supports it: [eslint.config.mjs](eslint.config.mjs), [prettier.config.mjs](prettier.config.mjs), [commitlint.config.mjs](commitlint.config.mjs).
 
 ## Environments
