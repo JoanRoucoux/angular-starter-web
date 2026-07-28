@@ -5,7 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import { throwError } from 'rxjs';
 import { vi } from 'vitest';
 
-import { LoggerService } from '@core/logger/logger';
+import { LoggerService } from '@core/logger/logger-service';
 
 import { errorHandlerInterceptor } from './error-handler-interceptor';
 

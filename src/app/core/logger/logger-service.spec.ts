@@ -4,7 +4,7 @@ import { LogLevel } from '@core/models/log-level';
 
 import { environment } from '@environments/environment';
 
-import { LoggerService } from './logger';
+import { LoggerService } from './logger-service';
 
 describe('LoggerService', () => {
   let logger: LoggerService;

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 import { tap } from 'rxjs';
 
-import { LoggerService } from '@core/logger/logger';
+import { LoggerService } from '@core/logger/logger-service';
 
 import { environment } from '@environments/environment';
 
