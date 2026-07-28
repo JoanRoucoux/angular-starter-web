@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { UsersApi } from '@features/users/data/users-api';
+import { UsersApi } from '@features/users/services/users-service';
 
 @Component({
   selector: 'app-browse-users-page',

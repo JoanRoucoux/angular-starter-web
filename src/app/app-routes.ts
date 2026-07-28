@@ -17,7 +17,7 @@ export const routes: Routes = [
   // Lazy load non-essential features.
   {
     path: 'users',
-    loadChildren: () => import('./features/users/users.routes').then((m) => m.USERS_ROUTES),
+    loadChildren: () => import('./features/users/users-routes').then((m) => m.USERS_ROUTES),
   },
   // Fallback route, keep it at the end.
   {

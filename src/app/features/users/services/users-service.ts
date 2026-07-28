@@ -7,9 +7,9 @@ import type { User, UserCreation } from '@core/api/angularStarterWebAPI.schemas'
 import { UsersService } from '@core/api/users/users.service';
 
 /**
- * Data layer of the users feature: single place for its inbound/outbound calls.
- * Wraps the generated client (core/api) and owns the data/error/loading state
- * (rxResource), so pages only consume ready-made resources.
+ * Service of the users feature: single place for its logic and its inbound/
+ * outbound calls. Wraps the generated client (core/api) and owns the data/
+ * error/loading state (rxResource), so pages only consume ready-made resources.
  */
 @Injectable({ providedIn: 'root' })
 export class UsersApi {

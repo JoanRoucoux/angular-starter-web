@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { UsersApi } from '@features/users/data/users-api';
+import { UsersApi } from '@features/users/services/users-service';
 
 @Component({
   selector: 'app-view-user-page',
@@ -13,7 +13,7 @@ import { UsersApi } from '@features/users/data/users-api';
 export class ViewUserPage {
   #usersApi = inject(UsersApi);
 
-  // Route parameter bound by the router, see withComponentInputBinding() in app.config.ts.
+  // Route parameter bound by the router, see withComponentInputBinding() in app-config.ts.
   readonly userId = input.required({ transform: numberAttribute });
 
   user = this.#usersApi.userResource(this.userId);

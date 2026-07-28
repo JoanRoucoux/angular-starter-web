@@ -5,8 +5,8 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { firstValueFrom } from 'rxjs';
 
-import { UsersApi } from '@features/users/data/users-api';
 import { initialUserCreation, userCreationSchema } from '@features/users/forms/create-user-form';
+import { UsersApi } from '@features/users/services/users-service';
 
 import { hasRequiredError, showError } from '@shared/forms/form-helpers';
 

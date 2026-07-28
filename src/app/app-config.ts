@@ -3,10 +3,10 @@ import { type ApplicationConfig, provideBrowserGlobalErrorListeners } from '@ang
 import { TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { AppTitleStrategy } from '@core/i18n/title-strategy';
-import { provideTranslocoGlobal } from '@core/i18n/transloco.provider';
+import { provideTranslocoGlobal } from '@core/i18n/transloco-provider';
 import { errorHandlerInterceptor } from '@core/interceptors/error-handler-interceptor';
 
-import { routes } from './app.routes';
+import { routes } from './app-routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
