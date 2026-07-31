@@ -17,7 +17,7 @@
     <input
       autocomplete="given-name"
       class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
-      data-testid="create-user-first-name"
+      data-testid="user-create-first-name"
       id="firstName"
       type="text"
       [attr.aria-describedby]="showError(form.firstName) ? 'firstName-error' : null"
@@ -36,7 +36,7 @@
     <input
       autocomplete="family-name"
       class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
-      data-testid="create-user-last-name"
+      data-testid="user-create-last-name"
       id="lastName"
       type="text"
       [attr.aria-describedby]="showError(form.lastName) ? 'lastName-error' : null"
@@ -55,7 +55,7 @@
     <input
       autocomplete="email"
       class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
-      data-testid="create-user-email"
+      data-testid="user-create-email"
       id="email"
       type="email"
       [attr.aria-describedby]="showError(form.email) ? 'email-error' : null"
@@ -70,14 +70,14 @@
   </div>
 
   @if (submitError()) {
-    <p class="text-sm text-(--destructive)" data-testid="create-user-error" role="alert">
+    <p class="text-sm text-(--destructive)" data-testid="user-create-error" role="alert">
       {{ 'users.create.error' | transloco }}
     </p>
   }
 
   <button
     class="inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90 disabled:opacity-50"
-    data-testid="create-user-submit"
+    data-testid="user-create-submit"
     type="submit"
     [disabled]="form().submitting()"
   >

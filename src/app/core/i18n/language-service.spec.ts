@@ -6,7 +6,7 @@ import { TranslocoService } from '@jsverse/transloco';
 
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
-import { LanguageService } from './language';
+import { LanguageService } from './language-service';
 
 describe('LanguageService', () => {
   beforeEach(() => {

@@ -15,12 +15,12 @@ export class UsersPage {
 
   constructor(page: Page) {
     this.#page = page;
-    this.list = page.getByTestId('users-list');
+    this.list = page.getByTestId('user-list');
     this.userItems = page.getByTestId('user-item');
-    this.emptyState = page.getByTestId('users-empty');
-    this.loadingState = page.getByTestId('users-loading');
-    this.errorState = page.getByTestId('users-error');
-    this.retryButton = page.getByTestId('users-retry');
+    this.emptyState = page.getByTestId('user-list-empty');
+    this.loadingState = page.getByTestId('user-list-loading');
+    this.errorState = page.getByTestId('user-list-error');
+    this.retryButton = page.getByTestId('user-list-retry');
   }
 
   async goto(): Promise<void> {

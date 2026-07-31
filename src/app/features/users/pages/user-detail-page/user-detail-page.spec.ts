@@ -11,13 +11,13 @@ import type { User } from '@core/api/angularStarterWebAPI.schemas';
 
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
-import { ViewUserPage } from './view-user-page';
+import { UserDetailPage } from './user-detail-page';
 
-describe('ViewUserPage', () => {
+describe('UserDetailPage', () => {
   let httpTesting: HttpTestingController;
 
   const renderPage = async (): Promise<void> => {
-    await render(ViewUserPage, {
+    await render(UserDetailPage, {
       inputs: { userId: 1 },
       imports: [getTranslocoTestingModule()],
       providers: [

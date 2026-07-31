@@ -1,5 +1,5 @@
 {
-  "browse": {
+  "list": {
     "title": "Utilisateurs",
     "loading": "Chargement des utilisateurs…",
     "error": "Impossible de charger les utilisateurs.",

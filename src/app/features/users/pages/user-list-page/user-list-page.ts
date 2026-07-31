@@ -3,16 +3,16 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { UsersApi } from '@features/users/services/users-service';
+import { UserListService } from '@features/users/services/user-list-service';
 
 @Component({
-  selector: 'app-browse-users-page',
+  selector: 'app-user-list-page',
   imports: [RouterLink, TranslocoPipe],
-  templateUrl: './browse-users-page.html',
+  templateUrl: './user-list-page.html',
 })
-export class BrowseUsersPage {
-  #usersApi = inject(UsersApi);
+export class UserListPage {
+  #userListService = inject(UserListService);
 
   // Exposes value(), error(), isLoading() and reload() to handle every state of the request.
-  users = this.#usersApi.usersResource();
+  users = this.#userListService.usersResource();
 }

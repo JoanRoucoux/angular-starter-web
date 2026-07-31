@@ -3,18 +3,18 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { UsersApi } from '@features/users/services/users-service';
+import { UserDetailService } from '@features/users/services/user-detail-service';
 
 @Component({
-  selector: 'app-view-user-page',
+  selector: 'app-user-detail-page',
   imports: [RouterLink, TranslocoPipe],
-  templateUrl: './view-user-page.html',
+  templateUrl: './user-detail-page.html',
 })
-export class ViewUserPage {
-  #usersApi = inject(UsersApi);
+export class UserDetailPage {
+  #userDetailService = inject(UserDetailService);
 
   // Route parameter bound by the router, see withComponentInputBinding() in app-config.ts.
   readonly userId = input.required({ transform: numberAttribute });
 
-  user = this.#usersApi.userResource(this.userId);
+  user = this.#userDetailService.userResource(this.userId);
 }

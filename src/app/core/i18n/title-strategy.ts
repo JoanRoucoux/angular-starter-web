@@ -4,7 +4,7 @@ import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 
 import { TranslocoService } from '@jsverse/transloco';
 
-import { LanguageService } from '@core/i18n/language';
+import { LanguageService } from '@core/i18n/language-service';
 
 const APP_TITLE = 'Angular Starter Web';
 

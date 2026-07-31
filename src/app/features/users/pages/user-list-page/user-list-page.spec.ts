@@ -12,13 +12,13 @@ import type { User } from '@core/api/angularStarterWebAPI.schemas';
 
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
-import { BrowseUsersPage } from './browse-users-page';
+import { UserListPage } from './user-list-page';
 
-describe('BrowseUsersPage', () => {
+describe('UserListPage', () => {
   let httpTesting: HttpTestingController;
 
   const renderPage = async (): Promise<void> => {
-    await render(BrowseUsersPage, {
+    await render(UserListPage, {
       imports: [getTranslocoTestingModule()],
       providers: [
         provideZonelessChangeDetection(),
@@ -55,15 +55,15 @@ describe('BrowseUsersPage', () => {
     httpTesting.expectOne('/api/users').flush(null, { status: 500, statusText: 'Internal Server Error' });
 
     // Translations resolve to their key in tests.
-    expect(await screen.findByText('users.browse.error')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'users.browse.retry' })).toBeInTheDocument();
+    expect(await screen.findByText('users.list.error')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'users.list.retry' })).toBeInTheDocument();
   });
 
   it('should reload the users when the retry button is clicked', async () => {
     await renderPage();
 
     httpTesting.expectOne('/api/users').flush(null, { status: 500, statusText: 'Internal Server Error' });
-    await userEvent.click(await screen.findByRole('button', { name: 'users.browse.retry' }));
+    await userEvent.click(await screen.findByRole('button', { name: 'users.list.retry' }));
 
     // reload() re-subscribes through the effect scheduler, wait for the new request to be issued.
     const request = await vi.waitFor(() => httpTesting.expectOne('/api/users'));
@@ -77,6 +77,6 @@ describe('BrowseUsersPage', () => {
 
     httpTesting.expectOne('/api/users').flush([]);
 
-    expect(await screen.findByText('users.browse.empty')).toBeInTheDocument();
+    expect(await screen.findByText('users.list.empty')).toBeInTheDocument();
   });
 });

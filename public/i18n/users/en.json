@@ -1,5 +1,5 @@
 {
-  "browse": {
+  "list": {
     "title": "Users",
     "loading": "Loading users…",
     "error": "Unable to load users.",

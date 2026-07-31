@@ -6,9 +6,9 @@ import type { UserCreation } from '@core/api/angularStarterWebAPI.schemas';
 
 import { hasRequiredError } from '@shared/forms/form-helpers';
 
-import { initialUserCreation, userCreationSchema } from './create-user-form';
+import { initialUserCreation, userCreationSchema } from './user-create-form';
 
-describe('create-user-form', () => {
+describe('user-create-form', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] });
   });

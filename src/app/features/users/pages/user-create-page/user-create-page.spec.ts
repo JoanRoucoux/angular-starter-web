@@ -12,13 +12,13 @@ import type { User } from '@core/api/angularStarterWebAPI.schemas';
 
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
-import { CreateUserPage } from './create-user-page';
+import { UserCreatePage } from './user-create-page';
 
-describe('CreateUserPage', () => {
+describe('UserCreatePage', () => {
   let httpTesting: HttpTestingController;
 
   const renderPage = async (): Promise<void> => {
-    await render(CreateUserPage, {
+    await render(UserCreatePage, {
       imports: [getTranslocoTestingModule()],
       providers: [
         provideZonelessChangeDetection(),
