@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.1.0...v1.2.0) (2026-07-31)
+
+
+### Features
+
+* consolidate users services into one per feature ([756b3c4](https://github.com/JoanRoucoux/angular-starter-web/commit/756b3c49c445fa3bcdd9d467cdde357c09fcfbbd))
+
 ## [1.1.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.0.1...v1.1.0) (2026-07-21)
 
 
