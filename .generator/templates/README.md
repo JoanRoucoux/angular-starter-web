@@ -27,7 +27,7 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 ## Next steps
 
 - Make sure `openapi/openapi.yaml` is your real backend contract (replace the placeholder if needed), then run `pnpm run generate:api`.
-- Build your pages in `src/app/features/{{feature}}/`: one folder per page under `pages/`, one service per page under `services/`, forms under `forms/` — see "Adding a page to a feature" in [AGENTS.md](AGENTS.md) for the exact naming recipe.
+- Build your pages in `src/app/features/{{feature}}/`: one folder per page under `pages/`, one service per feature under `services/`, forms under `forms/` — see "Adding a page to a feature" in [AGENTS.md](AGENTS.md) for the exact naming recipe.
 - Adjust the dev proxy target in [proxy.conf.json](proxy.conf.json).
 
 See [AGENTS.md](AGENTS.md) for the architecture, conventions and testing guidelines inherited from the starter.

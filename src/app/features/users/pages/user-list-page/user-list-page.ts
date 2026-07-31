@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { UserListService } from '@features/users/services/user-list-service';
+import { UsersService } from '@features/users/services/users-service';
 
 @Component({
   selector: 'app-user-list-page',
@@ -11,8 +11,8 @@ import { UserListService } from '@features/users/services/user-list-service';
   templateUrl: './user-list-page.html',
 })
 export class UserListPage {
-  #userListService = inject(UserListService);
+  #usersService = inject(UsersService);
 
   // Exposes value(), error(), isLoading() and reload() to handle every state of the request.
-  users = this.#userListService.usersResource();
+  users = this.#usersService.usersResource();
 }

@@ -6,7 +6,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { firstValueFrom } from 'rxjs';
 
 import { initialUserCreation, userCreationSchema } from '@features/users/forms/user-create-form';
-import { UserCreateService } from '@features/users/services/user-create-service';
+import { UsersService } from '@features/users/services/users-service';
 
 import { hasRequiredError, showError } from '@shared/forms/form-helpers';
 
@@ -16,7 +16,7 @@ import { hasRequiredError, showError } from '@shared/forms/form-helpers';
   templateUrl: './user-create-page.html',
 })
 export class UserCreatePage {
-  #userCreateService = inject(UserCreateService);
+  #usersService = inject(UsersService);
   #router = inject(Router);
 
   readonly #model = signal(initialUserCreation());
@@ -34,7 +34,7 @@ export class UserCreatePage {
     this.submitError.set(false);
     await submit(this.form, async () => {
       try {
-        const user = await firstValueFrom(this.#userCreateService.createUser(this.#model()));
+        const user = await firstValueFrom(this.#usersService.createUser(this.#model()));
         await this.#router.navigate(['/users', user.id]);
       } catch {
         this.submitError.set(true);
