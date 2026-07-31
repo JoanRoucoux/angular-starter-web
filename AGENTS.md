@@ -30,6 +30,14 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 - Module boundaries are enforced at lint time by Sheriff ([sheriff.config.ts](sheriff.config.ts)): `features` → `core`/`shared`; `core` → `shared`; features never import each other. Modules are barrel-less: no `index.ts`, import files directly; private files go in an `internal/` subdirectory.
 - Import aliases: `@core/*`, `@features/*`, `@shared/*`, `@environments/*`.
 
+## Adding a page to a feature
+
+1. Create `pages/<entity>-<action>-page/` with `<entity>-<action>-page.ts` (+ `.html`, `.spec.ts`), selector `app-<entity>-<action>-page`.
+2. If the page has any I/O, add a dedicated `services/<entity>-<action>-service.ts` — one service per page, wrapping `core/api` and owning its `rxResource` state (see `services/user-list-service.ts`). A page with no I/O (e.g. a purely static page) doesn't need one.
+3. Wire the page into `<feature>-routes.ts`, with a `pageTitle.<key>` title.
+4. Add its translations under the feature's i18n scope (`public/i18n/<feature>/<lang>.json`), keyed by action (`<feature>.<action>.*`) — see `users.list.*`, `users.create.*`, `users.detail.*`.
+5. A form used by the page lives in the feature's `forms/` folder, named after the page (`user-create-form.ts` for `user-create-page`), not after the service.
+
 ## Conventions
 
 - Everything in the repo is written in **English** (code, comments, docs, commit messages).
