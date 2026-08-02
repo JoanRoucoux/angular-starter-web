@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.2.0...v1.2.1) (2026-08-02)
+
+
+### Bug Fixes
+
+* **deps:** revert typescript to 6.0.3 ([15ccdda](https://github.com/JoanRoucoux/angular-starter-web/commit/15ccdda7e4e0976369d09a3df3aa4ca8648e6922))
+
 ## [1.2.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.1.0...v1.2.0) (2026-07-31)
 
 
