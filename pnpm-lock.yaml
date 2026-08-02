@@ -9,128 +9,128 @@ importers:
   .:
     dependencies:
       '@angular/common':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2)
       '@angular/compiler':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8
       '@angular/core':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)
       '@angular/forms':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@angular/platform-browser':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))
       '@angular/router':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@jsverse/transloco':
-        specifier: ^8.4.0
+        specifier: 8.4.0
         version: 8.4.0(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2)(typescript@6.0.3)
       '@jsverse/transloco-persist-lang':
-        specifier: ^8.4.0
+        specifier: 8.4.0
         version: 8.4.0(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@jsverse/transloco@8.4.0(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2)(typescript@6.0.3))(@jsverse/utils@1.0.0-beta.5)
       rxjs:
-        specifier: ~7.8.0
+        specifier: 7.8.2
         version: 7.8.2
       tslib:
-        specifier: ^2.3.0
+        specifier: 2.8.1
         version: 2.8.1
     devDependencies:
       '@angular/build':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@angular/compiler-cli@22.0.8(@angular/compiler@22.0.8)(typescript@6.0.3))(@angular/compiler@22.0.8)(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(@types/node@26.1.1)(chokidar@5.0.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.24)(tailwindcss@4.3.3)(tslib@2.8.1)(typescript@6.0.3)(vitest@4.1.10)(yaml@2.9.0)
       '@angular/cli':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@types/node@26.1.1)(chokidar@5.0.0)
       '@angular/compiler-cli':
-        specifier: ^22.0.8
+        specifier: 22.0.8
         version: 22.0.8(@angular/compiler@22.0.8)(typescript@6.0.3)
       '@commitlint/cli':
-        specifier: ^21.2.1
+        specifier: 21.2.1
         version: 21.2.1(@types/node@26.1.1)(conventional-commits-parser@7.1.0)(typescript@6.0.3)
       '@commitlint/config-conventional':
-        specifier: ^21.2.0
+        specifier: 21.2.0
         version: 21.2.0
       '@eslint/js':
-        specifier: ^10.0.1
+        specifier: 10.0.1
         version: 10.0.1(eslint@10.8.0(jiti@2.7.0))
       '@playwright/test':
-        specifier: ^1.62.0
+        specifier: 1.62.0
         version: 1.62.0
       '@softarc/eslint-plugin-sheriff':
-        specifier: ^0.19.6
+        specifier: 0.19.6
         version: 0.19.6(@softarc/sheriff-core@0.19.6(typescript@6.0.3))(@typescript-eslint/utils@8.65.0(eslint@10.8.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.8.0(jiti@2.7.0))
       '@softarc/sheriff-core':
-        specifier: ^0.19.6
+        specifier: 0.19.6
         version: 0.19.6(typescript@6.0.3)
       '@tailwindcss/postcss':
-        specifier: ^4.3.3
+        specifier: 4.3.3
         version: 4.3.3
       '@testing-library/angular':
-        specifier: ^19.4.1
+        specifier: 19.4.1
         version: 19.4.1(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(@angular/router@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2))(@testing-library/dom@10.4.1)
       '@testing-library/dom':
-        specifier: ^10.4.1
+        specifier: 10.4.1
         version: 10.4.1
       '@testing-library/jest-dom':
-        specifier: ^7.0.0
+        specifier: 7.0.0
         version: 7.0.0(@testing-library/dom@10.4.1)
       '@testing-library/user-event':
-        specifier: ^14.6.1
+        specifier: 14.6.1
         version: 14.6.1(@testing-library/dom@10.4.1)
       '@trivago/prettier-plugin-sort-imports':
-        specifier: ^6.0.2
+        specifier: 6.0.2
         version: 6.0.2(prettier@3.9.6)
       '@vitest/coverage-v8':
-        specifier: ^4.1.10
+        specifier: 4.1.10
         version: 4.1.10(vitest@4.1.10)
       angular-eslint:
         specifier: 22.1.0
         version: 22.1.0(@angular/cli@22.0.8(@types/node@26.1.1)(chokidar@5.0.0))(chokidar@5.0.0)(eslint@10.8.0(jiti@2.7.0))(typescript-eslint@8.65.0(eslint@10.8.0(jiti@2.7.0))(typescript@6.0.3))(typescript@6.0.3)
       eslint:
-        specifier: ^10.8.0
+        specifier: 10.8.0
         version: 10.8.0(jiti@2.7.0)
       eslint-config-prettier:
-        specifier: ^10.1.8
+        specifier: 10.1.8
         version: 10.1.8(eslint@10.8.0(jiti@2.7.0))
       eslint-plugin-prettier:
-        specifier: ^5.5.6
+        specifier: 5.5.6
         version: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.8.0(jiti@2.7.0)))(eslint@10.8.0(jiti@2.7.0))(prettier@3.9.6)
       husky:
-        specifier: ^9.1.7
+        specifier: 9.1.7
         version: 9.1.7
       jsdom:
-        specifier: ^30.0.1
+        specifier: 30.0.1
         version: 30.0.1
       lint-staged:
-        specifier: ^17.2.0
+        specifier: 17.2.0
         version: 17.2.0
       orval:
-        specifier: ^8.22.0
+        specifier: 8.23.0
         version: 8.23.0(prettier@3.9.6)(typescript@6.0.3)
       postcss:
-        specifier: ^8.5.24
+        specifier: 8.5.24
         version: 8.5.24
       prettier:
-        specifier: ^3.9.6
+        specifier: 3.9.6
         version: 3.9.6
       prettier-plugin-tailwindcss:
-        specifier: ^0.8.1
+        specifier: 0.8.1
         version: 0.8.1(@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.9.6))(prettier@3.9.6)
       tailwindcss:
-        specifier: ^4.3.3
+        specifier: 4.3.3
         version: 4.3.3
       typescript:
-        specifier: ~6.0.3
+        specifier: 6.0.3
         version: 6.0.3
       typescript-eslint:
         specifier: 8.65.0
         version: 8.65.0(eslint@10.8.0(jiti@2.7.0))(typescript@6.0.3)
       vitest:
-        specifier: ^4.1.10
+        specifier: 4.1.10
         version: 4.1.10(@types/node@26.1.1)(@vitest/coverage-v8@4.1.10)(jsdom@30.0.1)(vite@7.3.6(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.99.0)(yaml@2.9.0))
 
 packages:
