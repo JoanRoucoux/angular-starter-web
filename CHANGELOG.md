@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.2.1...v1.3.0) (2026-08-02)
+
+
+### Features
+
+* add a production Dockerfile ([2b4e364](https://github.com/JoanRoucoux/angular-starter-web/commit/2b4e3647827907cacd0d7add52fbdf2e3ec14f8b))
+
 ## [1.2.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.2.0...v1.2.1) (2026-08-02)
 
 
