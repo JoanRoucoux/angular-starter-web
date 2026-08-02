@@ -1,0 +1,15 @@
+.git
+.github
+.husky
+.vscode
+.claude
+.generator
+node_modules
+dist
+coverage
+.angular
+e2e
+test-results
+playwright-report
+blob-report
+*.md
