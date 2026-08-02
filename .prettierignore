@@ -5,7 +5,7 @@
 node_modules
 
 # Generated OpenAPI clients and models (Orval)
-/src/app/core/api
+/src/app/core/api-client
 
 # Generator templates contain {{tokens}} and are not valid syntax
 /.generator/templates

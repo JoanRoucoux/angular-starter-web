@@ -5,7 +5,7 @@ export default defineConfig({
     input: './openapi/openapi.yaml',
     output: {
       mode: 'tags-split',
-      target: './src/app/core/api',
+      target: './src/app/core/api-client',
       client: 'angular',
       baseUrl: '/api',
       formatter: 'prettier',

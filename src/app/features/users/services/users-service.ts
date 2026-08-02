@@ -3,9 +3,9 @@ import { rxResource } from '@angular/core/rxjs-interop';
 
 import type { Observable } from 'rxjs';
 
-import type { User, UserCreation } from '@core/api/angularStarterWebAPI.schemas';
+import type { User, UserCreation } from '@core/api-client/angularStarterWebAPI.schemas';
 // Aliased to avoid clashing with this feature's own UsersService below.
-import { UsersService as UsersApiClient } from '@core/api/users/users.service';
+import { UsersService as UsersApiClient } from '@core/api-client/users/users.service';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {

@@ -7,7 +7,7 @@ import { provideRouter } from '@angular/router';
 import { provideTranslocoScope } from '@jsverse/transloco';
 import { render, screen } from '@testing-library/angular';
 
-import type { User } from '@core/api/angularStarterWebAPI.schemas';
+import type { User } from '@core/api-client/angularStarterWebAPI.schemas';
 
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 

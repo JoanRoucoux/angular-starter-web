@@ -1,4 +1,4 @@
-import { User } from '../src/app/core/api/angularStarterWebAPI.schemas';
+import { User } from '../src/app/core/api-client/angularStarterWebAPI.schemas';
 import { expect, test } from './fixtures/test';
 
 test('displays users fetched from the API', async ({ page, usersPage }) => {
