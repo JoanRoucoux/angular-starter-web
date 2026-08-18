@@ -59,7 +59,7 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 | `pnpm run format:check`  | Check formatting without modifying anything          |
 | `pnpm run generate:api`  | Regenerates clients and models from the OpenAPI spec |
 
-Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Services, interceptors and form schemas are tested with plain `TestBed`. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
+Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Stores, interceptors and form schemas are tested with plain `TestBed`, without rendering a template. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
 
 E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test fixtures), next to the app rather than in a separate package.
 
@@ -78,15 +78,13 @@ src/
 │   │   ├── models/            # Shared core models (LogLevel, ...)
 │   │   └── not-found-page/    # 404 page
 │   ├── features/              # Business features, grouped by domain
-│   │   ├── home/              # Home page (eagerly loaded)
-│   │   │   └── pages/home-page/
+│   │   ├── home/              # Single-screen feature: the page sits at its root
+│   │   │   ├── home-page.ts
+│   │   │   └── home-routes.ts
 │   │   └── users/             # Example of a full feature (lazy loaded)
-│   │       ├── pages/         # One folder per page, named <entity>-<action>-page
-│   │       │   ├── user-list-page/      # User list (rxResource)
-│   │       │   ├── user-create-page/    # User creation (signal form)
-│   │       │   └── user-detail-page/    # User detail (route param + rxResource)
-│   │       ├── services/      # One service per feature (wraps the generated core/api-client)
-│   │       ├── forms/         # Form models and validation schemas
+│   │       ├── list/          # User list: page + route-scoped store (rxResource, search)
+│   │       ├── detail/        # User detail (route param + rxResource, no store needed)
+│   │       ├── create/        # User creation: page + its signal form
 │   │       └── users-routes.ts
 │   └── shared/                # Reusable code
 │       ├── forms/             # Generic form helpers (error display, ...)
@@ -95,7 +93,9 @@ src/
 └── styles.css                 # Global styles: Tailwind import + --app-* CSS variables
 ```
 
-Anatomy of a feature: `pages/` (one folder per page: component + template + spec), `services/` (one service per feature, a thin data-access layer wrapping the generated client — pages never import `core/api-client` directly; logic specific to one page stays in that page's component), `forms/` (form models and validation schemas, tested on their own), and a routes file. Pages are named `<entity>-<action>-page` (list, create, detail, ...) and each lives in a folder carrying its full name, matching what `ng generate component` produces. Feature-specific configuration lives in a colocated file (e.g. an `InjectionToken` in `users-config.ts`) when a real need appears; configuration common to all features belongs in `core` or `src/environments`.
+Anatomy of a feature: one folder per screen, named after its route segment (`list/`, `detail/`, `create/`), plus a routes file. A screen folder holds everything that serves only that screen — the page (component + template + spec), its store if it has one, its form — because grouping is by domain, not by technical type. **The folder carries the short name, the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`, selector `app-user-list-page`. A feature with a single screen keeps its page at the root (`home/home-page.ts`). Every feature owns a `<feature>-routes.ts`, whatever its number of screens: it is the feature's public API, carrying its paths, titles and `provideTranslocoScope`, and it is the only file [app-routes.ts](src/app/app-routes.ts) imports from it.
+
+A page never injects the API client: any I/O lives in a `<screen>-store.ts` colocated with the screen, and the page interacts with nothing but that store, kept as a private dependency and re-exposed to the template member by member. A store is **provided by its route**, never in root, so it is created and destroyed with the screen — see [users-routes.ts](src/app/features/users/users-routes.ts). It reads from `ActivatedRoute` the parameters it depends on, and returns results rather than navigating: navigation stays in the page. A screen that does no I/O has no store (`home-page.ts`). Code shared by two screens moves up to the feature root; two sibling screens never import each other. Feature-specific configuration lives in a colocated file (e.g. an `InjectionToken` in `users-config.ts`) when a real need appears; configuration common to all features belongs in `core` or `src/environments`.
 
 Dependency rules, enforced at lint time by [Sheriff](https://sheriff.softarc.io) ([sheriff.config.ts](sheriff.config.ts)): `features` can import `core` and `shared`; `core` can import `shared`; `shared` imports neither `core` nor `features`; features cannot import each other — code shared between features belongs in `core` or `shared`. Modules are barrel-less: import files directly (no `index.ts`), and place files a module wants to keep private in an `internal/` subdirectory.
 
@@ -109,33 +109,31 @@ To bootstrap a real project:
 
 1. Replace `openapi/openapi.yaml` with your backend's specification (or point `orval.config.ts` at its URL).
 2. Run `pnpm run generate:api`.
-3. Wrap the generated services in the feature's `services/` layer, one service per feature, which owns the data/error/loading states with `rxResource`; pages consume ready-made resources:
+3. Inject the generated client where the data is used — in the page, or in its store once the screen has enough state to deserve one. There is no hand-written pass-through layer: the generated client already is the data-access layer, and the tests mock HTTP, not the service.
 
 ```ts
-// features/users/services/users-service.ts
-// Aliased to avoid clashing with this feature's own UsersService below.
-import { UsersService as UsersApiClient } from '@core/api-client/users/users.service';
+// features/users/list/user-list-store.ts — provided by the route, not in root
+@Injectable()
+export class UserListStore {
+  #usersApiClient = inject(UsersService); // the generated client
 
-@Injectable({ providedIn: 'root' })
-export class UsersService {
-  #usersApiClient = inject(UsersApiClient);
+  readonly search = signal('');
+  readonly users = rxResource({
+    stream: () => this.#usersApiClient.getUsers(),
+    defaultValue: [],
+  });
+  // → users.value(), users.error(), users.isLoading(), users.reload()
 
-  usersResource(): ResourceRef<User[]> {
-    return rxResource({
-      stream: () => this.#usersApiClient.getUsers(),
-      defaultValue: [],
-    });
-  }
+  readonly filteredUsers = computed(() => /* ... */);
 }
 
-// features/users/pages/user-list-page/user-list-page.ts
+// features/users/list/user-list-page.ts — the page is left with the rendering
 export class UserListPage {
-  #usersService = inject(UsersService);
-
-  users = this.#usersService.usersResource();
-  // → users.value(), users.error(), users.isLoading(), users.reload()
+  protected readonly store = inject(UserListStore);
 }
 ```
+
+Add a hand-written `<feature>-repository.ts` at the feature root only when it earns its place: aggregating several calls into one business operation, mapping DTOs to a view model shared by several pages, or absorbing an API quirk you do not want to spread.
 
 HTTP error handling is centralized in `core/interceptors/error-handler-interceptor.ts`: hook up the toast/notification component of your UI library there.
 

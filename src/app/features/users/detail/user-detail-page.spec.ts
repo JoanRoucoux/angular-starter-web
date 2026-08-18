@@ -2,23 +2,24 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 
 import { provideTranslocoScope } from '@jsverse/transloco';
 import { render, screen } from '@testing-library/angular';
+import { of } from 'rxjs';
 
 import type { User } from '@core/api-client/angularStarterWebAPI.schemas';
 
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
 import { UserDetailPage } from './user-detail-page';
+import { UserDetailStore } from './user-detail-store';
 
 describe('UserDetailPage', () => {
   let httpTesting: HttpTestingController;
 
   const renderPage = async (): Promise<void> => {
     await render(UserDetailPage, {
-      inputs: { userId: 1 },
       imports: [getTranslocoTestingModule()],
       providers: [
         provideZonelessChangeDetection(),
@@ -27,6 +28,9 @@ describe('UserDetailPage', () => {
         provideHttpClientTesting(),
         // Provided by the route in the app, the test must mirror it.
         provideTranslocoScope('users'),
+        // The store reads the route parameter, so the test supplies the route.
+        { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: '1' })) } },
+        UserDetailStore,
       ],
     });
     httpTesting = TestBed.inject(HttpTestingController);

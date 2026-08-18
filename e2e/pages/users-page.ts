@@ -7,6 +7,7 @@ import { Locator, Page } from '@playwright/test';
 export class UsersPage {
   readonly #page: Page;
   readonly list: Locator;
+  readonly searchInput: Locator;
   readonly userItems: Locator;
   readonly emptyState: Locator;
   readonly loadingState: Locator;
@@ -16,6 +17,7 @@ export class UsersPage {
   constructor(page: Page) {
     this.#page = page;
     this.list = page.getByTestId('user-list');
+    this.searchInput = page.getByTestId('user-list-search');
     this.userItems = page.getByTestId('user-item');
     this.emptyState = page.getByTestId('user-list-empty');
     this.loadingState = page.getByTestId('user-list-loading');

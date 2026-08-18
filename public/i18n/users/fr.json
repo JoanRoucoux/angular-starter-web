@@ -1,6 +1,7 @@
 {
   "list": {
     "title": "Utilisateurs",
+    "search": "Rechercher un utilisateur…",
     "loading": "Chargement des utilisateurs…",
     "error": "Impossible de charger les utilisateurs.",
     "retry": "Réessayer",

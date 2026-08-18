@@ -2,7 +2,7 @@ import { type Routes } from '@angular/router';
 
 import { provideTranslocoScope } from '@jsverse/transloco';
 
-import { {{featurePascal}}Page } from './pages/{{feature}}-page/{{feature}}-page';
+import { {{featurePascal}}Page } from './{{feature}}-page';
 
 export const {{featureConst}}_ROUTES: Routes = [
   {

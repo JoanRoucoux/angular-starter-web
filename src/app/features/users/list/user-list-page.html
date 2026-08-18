@@ -9,6 +9,16 @@
   </a>
 </div>
 
+<input
+  class="mb-4 w-full rounded-md border border-(--border) bg-(--card) px-3 py-2 text-sm outline-none focus:border-(--primary)"
+  data-testid="user-list-search"
+  type="search"
+  [attr.aria-label]="'users.list.search' | transloco"
+  [attr.placeholder]="'users.list.search' | transloco"
+  [value]="search()"
+  (input)="onSearchInput($event)"
+/>
+
 @if (users.isLoading()) {
   <p
     class="rounded-lg border border-(--border) bg-(--card) p-6 text-sm text-(--muted-foreground)"
@@ -33,7 +43,7 @@
     class="divide-y divide-(--border) overflow-hidden rounded-lg border border-(--border) bg-(--card)"
     data-testid="user-list"
   >
-    @for (user of users.value(); track user.id) {
+    @for (user of filteredUsers(); track user.id) {
       <li class="flex items-center justify-between px-4 py-3 transition-colors hover:bg-(--accent)/50">
         <a class="text-sm font-medium hover:underline" data-testid="user-item" [routerLink]="[user.id]">
           {{ user.firstName }} {{ user.lastName }}

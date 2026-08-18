@@ -1,18 +1,14 @@
 import { type Routes } from '@angular/router';
 
-import { provideTranslocoScope } from '@jsverse/transloco';
-
 import { NotFoundPage } from '@core/not-found-page/not-found-page';
 
-import { HomePage } from '@features/home/pages/home-page/home-page';
+import { HOME_ROUTES } from '@features/home/home-routes';
 
 export const routes: Routes = [
-  // Eagerly load the landing page. Its translations still load lazily with the scope.
+  // Eagerly load the landing feature. Its translations still load lazily with the scope.
   {
     path: '',
-    component: HomePage,
-    title: 'pageTitle.home',
-    providers: [provideTranslocoScope('home')],
+    children: HOME_ROUTES,
   },
   // Lazy load non-essential features.
   {

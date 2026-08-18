@@ -13,6 +13,7 @@ import type { User } from '@core/api-client/angularStarterWebAPI.schemas';
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
 import { UserListPage } from './user-list-page';
+import { UserListStore } from './user-list-store';
 
 describe('UserListPage', () => {
   let httpTesting: HttpTestingController;
@@ -27,6 +28,7 @@ describe('UserListPage', () => {
         provideHttpClientTesting(),
         // Provided by the route in the app, the test must mirror it.
         provideTranslocoScope('users'),
+        UserListStore,
       ],
     });
     httpTesting = TestBed.inject(HttpTestingController);
@@ -78,5 +80,22 @@ describe('UserListPage', () => {
     httpTesting.expectOne('/api/users').flush([]);
 
     expect(await screen.findByText('users.list.empty')).toBeInTheDocument();
+  });
+
+  it('should filter the displayed users when typing in the search field', async () => {
+    await renderPage();
+
+    const users: User[] = [
+      { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' },
+      { id: 2, firstName: 'Alice', lastName: 'Smith', email: 'alice.smith@example.com', status: 'pending' },
+    ];
+    httpTesting.expectOne('/api/users').flush(users);
+
+    expect(await screen.findAllByRole('listitem')).toHaveLength(2);
+
+    await userEvent.type(await screen.findByRole('searchbox', { name: 'users.list.search' }), 'alice');
+
+    expect(await screen.findAllByRole('listitem')).toHaveLength(1);
+    expect(screen.getByRole('link', { name: 'Alice Smith' })).toBeInTheDocument();
   });
 });
