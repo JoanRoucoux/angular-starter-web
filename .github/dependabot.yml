@@ -4,6 +4,11 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # TypeScript 7 breaks typescript-eslint (via ts-api-utils). Remove once
+      # typescript-eslint supports TS 7 — see AGENTS.md Gotchas.
+      - dependency-name: 'typescript'
+        versions: ['>=7']
     groups:
       angular:
         patterns:
