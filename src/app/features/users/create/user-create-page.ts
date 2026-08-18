@@ -5,10 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { firstValueFrom } from 'rxjs';
 
-import { initialUserCreation, userCreationSchema } from '@features/users/forms/user-create-form';
-import { UsersService } from '@features/users/services/users-service';
+import { UsersService } from '@core/api-client/users/users.service';
 
 import { hasRequiredError, showError } from '@shared/forms/form-helpers';
+
+import { initialUserCreation, userCreationSchema } from './user-create-form';
 
 @Component({
   selector: 'app-user-create-page',
@@ -16,7 +17,7 @@ import { hasRequiredError, showError } from '@shared/forms/form-helpers';
   templateUrl: './user-create-page.html',
 })
 export class UserCreatePage {
-  #usersService = inject(UsersService);
+  #usersApiClient = inject(UsersService);
   #router = inject(Router);
 
   readonly #model = signal(initialUserCreation());
@@ -34,7 +35,7 @@ export class UserCreatePage {
     this.submitError.set(false);
     await submit(this.form, async () => {
       try {
-        const user = await firstValueFrom(this.#usersService.createUser(this.#model()));
+        const user = await firstValueFrom(this.#usersApiClient.createUser(this.#model()));
         await this.#router.navigate(['/users', user.id]);
       } catch {
         this.submitError.set(true);

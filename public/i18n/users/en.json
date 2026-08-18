@@ -1,6 +1,7 @@
 {
   "list": {
     "title": "Users",
+    "search": "Search a user…",
     "loading": "Loading users…",
     "error": "Unable to load users.",
     "retry": "Retry",

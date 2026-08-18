@@ -4,7 +4,7 @@ import { provideTranslocoScope } from '@jsverse/transloco';
 
 import { NotFoundPage } from '@core/not-found-page/not-found-page';
 
-import { HomePage } from '@features/home/pages/home-page/home-page';
+import { HomePage } from '@features/home/home-page';
 
 export const routes: Routes = [
   // Eagerly load the landing page. Its translations still load lazily with the scope.
