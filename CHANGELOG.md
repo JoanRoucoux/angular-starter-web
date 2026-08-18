@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.3.1...v1.4.0) (2026-08-18)
+
+
+### Features
+
+* colocate feature files by screen and scope page state to its route ([8098851](https://github.com/JoanRoucoux/angular-starter-web/commit/8098851e52a49ced449067f1e4c8e1647418ee88))
+
+
+### Bug Fixes
+
+* stop tsc from emitting, which TypeScript 6 rejects as configured ([2d8e219](https://github.com/JoanRoucoux/angular-starter-web/commit/2d8e2199eff7896d7c383cd5ad976bdf701b9ce2))
+
 ## [1.3.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.3.0...v1.3.1) (2026-08-18)
 
 
