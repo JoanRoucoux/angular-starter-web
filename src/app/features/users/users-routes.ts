@@ -3,7 +3,9 @@ import { type Routes } from '@angular/router';
 import { provideTranslocoScope } from '@jsverse/transloco';
 
 import { UserCreatePage } from './create/user-create-page';
+import { UserCreateStore } from './create/user-create-store';
 import { UserDetailPage } from './detail/user-detail-page';
+import { UserDetailStore } from './detail/user-detail-store';
 import { UserListPage } from './list/user-list-page';
 import { UserListStore } from './list/user-list-store';
 
@@ -25,11 +27,13 @@ export const USERS_ROUTES: Routes = [
         path: 'new',
         component: UserCreatePage,
         title: 'pageTitle.createUser',
+        providers: [UserCreateStore],
       },
       {
         path: ':userId',
         component: UserDetailPage,
         title: 'pageTitle.userDetail',
+        providers: [UserDetailStore],
       },
     ],
   },

@@ -11,9 +11,13 @@ import { UserListStore } from './user-list-store';
   templateUrl: './user-list-page.html',
 })
 export class UserListPage {
-  protected readonly store = inject(UserListStore);
+  #store = inject(UserListStore);
+
+  protected readonly users = this.#store.users;
+  protected readonly filteredUsers = this.#store.filteredUsers;
+  protected readonly search = this.#store.search;
 
   protected onSearchInput(event: Event): void {
-    this.store.search.set((event.target as HTMLInputElement).value);
+    this.search.set((event.target as HTMLInputElement).value);
   }
 }
