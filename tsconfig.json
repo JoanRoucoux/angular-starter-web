@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "noEmit": true,
     "strict": true,
     "allowUnreachableCode": false,
     "noImplicitOverride": true,
