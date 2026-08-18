@@ -59,7 +59,7 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 | `pnpm run format:check`  | Check formatting without modifying anything          |
 | `pnpm run generate:api`  | Regenerates clients and models from the OpenAPI spec |
 
-Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Services, interceptors and form schemas are tested with plain `TestBed`. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
+Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Stores, interceptors and form schemas are tested with plain `TestBed`, without rendering a template. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
 
 E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test fixtures), next to the app rather than in a separate package.
 
@@ -79,7 +79,8 @@ src/
 │   │   └── not-found-page/    # 404 page
 │   ├── features/              # Business features, grouped by domain
 │   │   ├── home/              # Single-screen feature: the page sits at its root
-│   │   │   └── home-page.ts
+│   │   │   ├── home-page.ts
+│   │   │   └── home-routes.ts
 │   │   └── users/             # Example of a full feature (lazy loaded)
 │   │       ├── list/          # User list: page + route-scoped store (rxResource, search)
 │   │       ├── detail/        # User detail (route param + rxResource, no store needed)
@@ -92,7 +93,7 @@ src/
 └── styles.css                 # Global styles: Tailwind import + --app-* CSS variables
 ```
 
-Anatomy of a feature: one folder per screen, named after its route segment (`list/`, `detail/`, `create/`), plus a routes file. A screen folder holds everything that serves only that screen — the page (component + template + spec), its store if it has one, its form — because grouping is by domain, not by technical type. **The folder carries the short name, the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`, selector `app-user-list-page`. A feature with a single screen keeps its page at the root (`home/home-page.ts`).
+Anatomy of a feature: one folder per screen, named after its route segment (`list/`, `detail/`, `create/`), plus a routes file. A screen folder holds everything that serves only that screen — the page (component + template + spec), its store if it has one, its form — because grouping is by domain, not by technical type. **The folder carries the short name, the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`, selector `app-user-list-page`. A feature with a single screen keeps its page at the root (`home/home-page.ts`). Every feature owns a `<feature>-routes.ts`, whatever its number of screens: it is the feature's public API, carrying its paths, titles and `provideTranslocoScope`, and it is the only file [app-routes.ts](src/app/app-routes.ts) imports from it.
 
 State lives in the page by default and moves to a colocated `<page>-store.ts` when the component grows, when the state deserves tests without a template, or when two screens of the feature share a slice of it. A store is **provided by its route**, never in root, so it is created and destroyed with the screen — see `UserListStore` in [users-routes.ts](src/app/features/users/users-routes.ts). Code shared by two screens moves up to the feature root; two sibling screens never import each other. Feature-specific configuration lives in a colocated file (e.g. an `InjectionToken` in `users-config.ts`) when a real need appears; configuration common to all features belongs in `core` or `src/environments`.
 
