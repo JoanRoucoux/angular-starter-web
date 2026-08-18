@@ -1,6 +1,6 @@
 {
   "name": "angular-starter-web",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Ready-to-use Angular starter with ESLint, Prettier, Tailwind CSS, Vitest, Playwright, Transloco, Orval and Sheriff.",
   "keywords": [
     "angular",
