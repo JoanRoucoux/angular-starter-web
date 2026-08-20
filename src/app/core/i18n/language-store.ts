@@ -7,7 +7,7 @@ import { TranslocoService } from '@jsverse/transloco';
 @Injectable({
   providedIn: 'root',
 })
-export class LanguageService {
+export class LanguageStore {
   #translocoService = inject(TranslocoService);
   #document = inject(DOCUMENT);
 

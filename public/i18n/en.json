@@ -3,7 +3,7 @@
     "home": "Home",
     "users": "Users",
     "userDetail": "User details",
-    "createUser": "New user",
+    "userCreate": "New user",
     "notFound": "Page not found"
   },
   "notFound": {

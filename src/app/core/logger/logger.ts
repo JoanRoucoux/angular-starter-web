@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { LogLevel } from '@core/models/log-level';
+import { LogLevel } from '@core/logger/log-level';
 
 import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LoggerService {
+export class Logger {
   #trace = (level: LogLevel, context = '', ...args: unknown[]): void => {
     if (environment.production && level === LogLevel.DEBUG) {
       return;

@@ -1,10 +1,10 @@
-import { Injectable, effect, inject } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 
 import { TranslocoService } from '@jsverse/transloco';
 
-import { LanguageService } from '@core/i18n/language-service';
+import { LanguageStore } from '@core/i18n/language-store';
 
 const APP_TITLE = 'Angular Starter Web';
 
@@ -14,14 +14,16 @@ const APP_TITLE = 'Angular Starter Web';
 export class AppTitleStrategy extends TitleStrategy {
   #titleService = inject(Title);
   #translocoService = inject(TranslocoService);
-  #languageService = inject(LanguageService);
+  #languageStore = inject(LanguageStore);
   #lastSnapshot: RouterStateSnapshot | undefined;
+
+  readonly pageTitle = signal('');
 
   constructor() {
     super();
     // Re-translate the current page title whenever the active language changes.
     effect(() => {
-      this.#languageService.activeLang();
+      this.#languageStore.activeLang();
       if (this.#lastSnapshot) {
         this.updateTitle(this.#lastSnapshot);
       }
@@ -34,6 +36,7 @@ export class AppTitleStrategy extends TitleStrategy {
     const titleKey = this.buildTitle(snapshot);
     const pageTitle = titleKey ? this.#translocoService.translate(titleKey) : undefined;
 
+    this.pageTitle.set(pageTitle ?? '');
     this.#titleService.setTitle(pageTitle ? `${pageTitle} | ${APP_TITLE}` : APP_TITLE);
   }
 }

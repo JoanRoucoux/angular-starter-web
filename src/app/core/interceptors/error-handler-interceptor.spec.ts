@@ -5,14 +5,14 @@ import { TestBed } from '@angular/core/testing';
 import { throwError } from 'rxjs';
 import { vi } from 'vitest';
 
-import { LoggerService } from '@core/logger/logger-service';
+import { Logger } from '@core/logger/logger';
 
 import { errorHandlerInterceptor } from './error-handler-interceptor';
 
 describe('errorHandlerInterceptor', () => {
   let httpClient: HttpClient;
   let httpTesting: HttpTestingController;
-  let logger: LoggerService;
+  let logger: Logger;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,7 +21,7 @@ describe('errorHandlerInterceptor', () => {
 
     httpClient = TestBed.inject(HttpClient);
     httpTesting = TestBed.inject(HttpTestingController);
-    logger = TestBed.inject(LoggerService);
+    logger = TestBed.inject(Logger);
   });
 
   afterEach(() => {

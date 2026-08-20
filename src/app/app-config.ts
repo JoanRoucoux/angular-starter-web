@@ -1,6 +1,6 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { type ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
+import { TitleStrategy, provideRouter } from '@angular/router';
 
 import { AppTitleStrategy } from '@core/i18n/title-strategy';
 import { provideTranslocoGlobal } from '@core/i18n/transloco-provider';
@@ -11,7 +11,7 @@ import { routes } from './app-routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(routes),
     provideHttpClient(withInterceptors([errorHandlerInterceptor])),
     provideTranslocoGlobal(),
     { provide: TitleStrategy, useClass: AppTitleStrategy },

@@ -27,6 +27,7 @@
     ".github/workflows/release-please.yml",
     "src/app/features/home",
     "src/app/features/users",
+    "src/app/core/session",
     "src/app/core/api-client",
     "public/i18n/home",
     "public/i18n/users",

@@ -1,17 +1,17 @@
 import { type MockInstance, vi } from 'vitest';
 
-import { LogLevel } from '@core/models/log-level';
+import { LogLevel } from '@core/logger/log-level';
 
 import { environment } from '@environments/environment';
 
-import { LoggerService } from './logger-service';
+import { Logger } from './logger';
 
-describe('LoggerService', () => {
-  let logger: LoggerService;
+describe('Logger', () => {
+  let logger: Logger;
   let consoleSpies: Record<LogLevel, MockInstance>;
 
   beforeEach(() => {
-    logger = new LoggerService();
+    logger = new Logger();
     consoleSpies = {
       [LogLevel.DEBUG]: vi.spyOn(console, 'debug').mockImplementation(() => undefined),
       [LogLevel.LOG]: vi.spyOn(console, 'log').mockImplementation(() => undefined),

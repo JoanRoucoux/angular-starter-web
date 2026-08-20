@@ -65,7 +65,7 @@ export default defineConfig([
   },
   {
     // Only the centralized logger and the bootstrap entry point (no DI available yet) may call the console directly.
-    files: ['src/app/core/logger/logger-service.ts', 'src/main.ts'],
+    files: ['src/app/core/logger/logger.ts', 'src/main.ts'],
     rules: {
       'no-console': 'off',
     },

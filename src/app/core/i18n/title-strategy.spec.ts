@@ -43,6 +43,16 @@ describe('AppTitleStrategy', () => {
     expect(titleService.getTitle()).toBe('Angular Starter Web');
   });
 
+  it('should expose the page title for the route announcer', () => {
+    const strategy = TestBed.inject(AppTitleStrategy);
+
+    strategy.updateTitle(mockSnapshotWithTitle(strategy, 'pageTitle.home'));
+    expect(strategy.pageTitle()).toBe('Home');
+
+    strategy.updateTitle(mockSnapshotWithTitle(strategy, undefined));
+    expect(strategy.pageTitle()).toBe('');
+  });
+
   it('should re-translate the current title when the active language changes', () => {
     const strategy = TestBed.inject(AppTitleStrategy);
     const titleService = TestBed.inject(Title);

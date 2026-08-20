@@ -8,10 +8,12 @@ import { UserDetailPage } from './detail/user-detail-page';
 import { UserDetailStore } from './detail/user-detail-store';
 import { UserListPage } from './list/user-list-page';
 import { UserListStore } from './list/user-list-store';
+import { usersAccessGuard } from './users-access-guard';
 
 export const USERS_ROUTES: Routes = [
   {
     path: '',
+    canMatch: [usersAccessGuard],
     // Load the feature translations (public/i18n/users/) alongside the feature.
     providers: [provideTranslocoScope('users')],
     children: [
@@ -26,7 +28,7 @@ export const USERS_ROUTES: Routes = [
         // Declared before :userId so 'new' is not matched as an identifier.
         path: 'new',
         component: UserCreatePage,
-        title: 'pageTitle.createUser',
+        title: 'pageTitle.userCreate',
         providers: [UserCreateStore],
       },
       {

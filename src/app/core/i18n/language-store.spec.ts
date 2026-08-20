@@ -6,9 +6,9 @@ import { TranslocoService } from '@jsverse/transloco';
 
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
-import { LanguageService } from './language-service';
+import { LanguageStore } from './language-store';
 
-describe('LanguageService', () => {
+describe('LanguageStore', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [getTranslocoTestingModule()],
@@ -17,7 +17,7 @@ describe('LanguageService', () => {
   });
 
   it('should switch the active language and update <html lang>', () => {
-    const service = TestBed.inject(LanguageService);
+    const service = TestBed.inject(LanguageStore);
     const translocoService = TestBed.inject(TranslocoService);
     const document = TestBed.inject(DOCUMENT);
 

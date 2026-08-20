@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 import { tap } from 'rxjs';
 
-import { LoggerService } from '@core/logger/logger-service';
+import { Logger } from '@core/logger/logger';
 
 import { environment } from '@environments/environment';
 
@@ -11,7 +11,7 @@ import { environment } from '@environments/environment';
  * Catches error responses from the API in a single place.
  */
 export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
-  const logger = inject(LoggerService);
+  const logger = inject(Logger);
 
   return next(req).pipe(
     tap({
