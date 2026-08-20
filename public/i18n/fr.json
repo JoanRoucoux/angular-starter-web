@@ -3,7 +3,7 @@
     "home": "Accueil",
     "users": "Utilisateurs",
     "userDetail": "Détails de l'utilisateur",
-    "createUser": "Nouvel utilisateur",
+    "userCreate": "Nouvel utilisateur",
     "notFound": "Page introuvable"
   },
   "notFound": {

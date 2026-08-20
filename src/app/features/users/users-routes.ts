@@ -26,7 +26,7 @@ export const USERS_ROUTES: Routes = [
         // Declared before :userId so 'new' is not matched as an identifier.
         path: 'new',
         component: UserCreatePage,
-        title: 'pageTitle.createUser',
+        title: 'pageTitle.userCreate',
         providers: [UserCreateStore],
       },
       {
