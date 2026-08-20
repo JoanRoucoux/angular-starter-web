@@ -1,4 +1,4 @@
-import { Injectable, effect, inject } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 
@@ -17,6 +17,10 @@ export class AppTitleStrategy extends TitleStrategy {
   #languageService = inject(LanguageService);
   #lastSnapshot: RouterStateSnapshot | undefined;
 
+  // Bound to a live region in app.html: a route change swaps the content, and screen readers do not
+  // reliably report a document.title change.
+  readonly pageTitle = signal('');
+
   constructor() {
     super();
     // Re-translate the current page title whenever the active language changes.
@@ -34,6 +38,7 @@ export class AppTitleStrategy extends TitleStrategy {
     const titleKey = this.buildTitle(snapshot);
     const pageTitle = titleKey ? this.#translocoService.translate(titleKey) : undefined;
 
+    this.pageTitle.set(pageTitle ?? '');
     this.#titleService.setTitle(pageTitle ? `${pageTitle} | ${APP_TITLE}` : APP_TITLE);
   }
 }
