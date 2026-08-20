@@ -61,7 +61,9 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 
 Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Stores, interceptors and form schemas are tested with plain `TestBed`, without rendering a template. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
 
-E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test fixtures), next to the app rather than in a separate package.
+E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test fixtures), next to the app rather than in a separate package. They also run [axe](https://github.com/dequelabs/axe-core-npm) on the rendered page through `expectNoAccessibilityViolations`, which fails on any WCAG 2.1 A/AA violation — call it again once a dialog is open, since axe only sees what is currently rendered.
+
+Coverage counts **every** source file, not only the ones a spec imports: `coverageInclude` in [angular.json](angular.json) is what makes an untested file report as uncovered instead of disappearing from the report. `coverageExclude` holds the generated client and the pure wiring (bootstrap, `*-routes.ts`, `*-provider.ts`, environments).
 
 ## Project structure
 
@@ -75,16 +77,17 @@ src/
 │   │   ├── i18n/              # Transloco config, LanguageService, page title strategy
 │   │   ├── interceptors/      # HTTP interceptors (error handling, ...)
 │   │   ├── logger/            # LoggerService (only place allowed to call console)
-│   │   ├── models/            # Shared core models (LogLevel, ...)
+│   │   ├── session/           # SessionStore: what the current user is allowed to do
 │   │   └── not-found-page/    # 404 page
 │   ├── features/              # Business features, grouped by domain
 │   │   ├── home/              # Single-screen feature: the page sits at its root
 │   │   │   ├── home-page.ts
 │   │   │   └── home-routes.ts
-│   │   └── users/             # Example of a full feature (lazy loaded)
-│   │       ├── list/          # User list: page + route-scoped store (rxResource, search)
-│   │       ├── detail/        # User detail (route param + rxResource, no store needed)
-│   │       ├── create/        # User creation: page + its signal form
+│   │   └── users/             # Example of a full feature (lazy loaded, behind an access guard)
+│   │       ├── list/          # Page + route-scoped store, and delete-dialog/ with its own
+│   │       ├── detail/        # Page + store reading the route parameter
+│   │       ├── create/        # Page + store + its signal form
+│   │       ├── users-access-guard.ts
 │   │       └── users-routes.ts
 │   └── shared/                # Reusable code
 │       ├── forms/             # Generic form helpers (error display, ...)
