@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.4.0...v1.5.0) (2026-08-20)
+
+
+### Features
+
+* **a11y:** announce route changes in a live region ([49ce46f](https://github.com/JoanRoucoux/angular-starter-web/commit/49ce46fc00e459ad78517d16f85fcf07255c4d9a))
+* guard feature access with the session permissions ([0e5f650](https://github.com/JoanRoucoux/angular-starter-web/commit/0e5f65034349dde281a89b763a4ae71d9504b7e3))
+* **users:** confirm a deletion in an accessible dialog ([c7e9016](https://github.com/JoanRoucoux/angular-starter-web/commit/c7e901613dee99c1aeded4595a0a2638cd2ff413))
+
 ## [1.4.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.3.1...v1.4.0) (2026-08-18)
 
 
