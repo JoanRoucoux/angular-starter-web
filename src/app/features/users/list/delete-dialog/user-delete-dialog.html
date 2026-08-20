@@ -1,0 +1,44 @@
+<dialog
+  #dialogElement
+  aria-describedby="user-delete-description"
+  aria-labelledby="user-delete-title"
+  class="w-full max-w-md rounded-lg border border-(--border) bg-(--card) p-6 text-(--foreground) backdrop:bg-black/50"
+  data-testid="user-delete-dialog"
+  (cancel)="dismiss()"
+>
+  <h2 class="text-lg font-semibold tracking-tight" id="user-delete-title">
+    {{ 'users.delete.title' | transloco }}
+  </h2>
+
+  <p class="mt-2 text-sm text-(--muted-foreground)" id="user-delete-description">
+    {{ 'users.delete.description' | transloco: { name: userName() } }}
+  </p>
+
+  @if (error()) {
+    <p class="mt-4 text-sm text-(--destructive)" data-testid="user-delete-error" role="alert">
+      {{ 'users.delete.error' | transloco }}
+    </p>
+  }
+
+  <!-- Cancel comes first: showModal() puts the initial focus on the first focusable element, and it must not be the destructive one. -->
+  <div class="mt-6 flex justify-end gap-3">
+    <button
+      class="inline-flex items-center justify-center rounded-md border border-(--border) px-4 py-2 text-sm font-medium transition-colors hover:bg-(--accent) disabled:opacity-50"
+      data-testid="user-delete-cancel"
+      type="button"
+      [disabled]="deleting()"
+      (click)="dismiss()"
+    >
+      {{ 'users.delete.cancel' | transloco }}
+    </button>
+    <button
+      class="inline-flex items-center justify-center rounded-md bg-(--destructive) px-4 py-2 text-sm font-medium text-(--destructive-foreground) transition-colors hover:bg-(--destructive)/90 disabled:opacity-50"
+      data-testid="user-delete-confirm"
+      type="button"
+      [disabled]="deleting()"
+      (click)="confirm()"
+    >
+      {{ 'users.delete.submit' | transloco }}
+    </button>
+  </div>
+</dialog>

@@ -6,7 +6,10 @@
     "error": "Unable to load users.",
     "retry": "Retry",
     "empty": "No users.",
-    "create": "New user"
+    "create": "New user",
+    "delete": "Delete",
+    "deleteUser": "Delete {{name}}",
+    "deleted": "{{name}} has been deleted."
   },
   "detail": {
     "back": "← Back to the list",
@@ -24,6 +27,13 @@
       "required": "This field is required.",
       "email": "Enter a valid email address."
     }
+  },
+  "delete": {
+    "title": "Delete user",
+    "description": "{{name}} will be permanently deleted. This action cannot be undone.",
+    "cancel": "Cancel",
+    "submit": "Delete",
+    "error": "Unable to delete the user."
   },
   "status": {
     "active": "Active",

@@ -6,7 +6,10 @@
     "error": "Impossible de charger les utilisateurs.",
     "retry": "Réessayer",
     "empty": "Aucun utilisateur.",
-    "create": "Nouvel utilisateur"
+    "create": "Nouvel utilisateur",
+    "delete": "Supprimer",
+    "deleteUser": "Supprimer {{name}}",
+    "deleted": "{{name}} a été supprimé."
   },
   "detail": {
     "back": "← Retour à la liste",
@@ -24,6 +27,13 @@
       "required": "Ce champ est obligatoire.",
       "email": "Saisissez une adresse email valide."
     }
+  },
+  "delete": {
+    "title": "Supprimer l'utilisateur",
+    "description": "{{name}} sera définitivement supprimé. Cette action est irréversible.",
+    "cancel": "Annuler",
+    "submit": "Supprimer",
+    "error": "Impossible de supprimer l'utilisateur."
   },
   "status": {
     "active": "Actif",

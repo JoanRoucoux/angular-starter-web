@@ -34,3 +34,44 @@ test('displays an error state when the API is unavailable', async ({ page, users
   await expect(usersPage.errorState).toBeVisible();
   await expect(usersPage.retryButton).toBeVisible();
 });
+
+test('deletes a user through the confirmation dialog', async ({ page, usersPage }) => {
+  let users: User[] = [
+    { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' },
+    { id: 2, firstName: 'Alice', lastName: 'Smith', email: 'alice.smith@example.com', status: 'pending' },
+  ];
+  await page.route('**/api/users', (route) => route.fulfill({ json: users }));
+  await page.route('**/api/users/1', (route) => {
+    users = users.filter((user) => user.id !== 1);
+    return route.fulfill({ status: 204 });
+  });
+
+  await usersPage.goto();
+  await usersPage.deleteButtons.first().click();
+
+  await expect(usersPage.deleteDialog).toBeVisible();
+  await usersPage.confirmDeleteButton.click();
+
+  await expect(usersPage.userItems).toHaveText(['Alice Smith']);
+  await expect(usersPage.deleteDialog).toBeHidden();
+  await expect(usersPage.statusMessage).toHaveText('John Doe has been deleted.');
+});
+
+test('closes the confirmation dialog with the Escape key without deleting', async ({ page, usersPage }) => {
+  const users: User[] = [
+    { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' },
+  ];
+  await page.route('**/api/users', (route) => route.fulfill({ json: users }));
+
+  await usersPage.goto();
+  await usersPage.deleteButtons.first().click();
+
+  await expect(usersPage.deleteDialog).toBeVisible();
+  // showModal() puts the focus on the safe action first.
+  await expect(usersPage.cancelDeleteButton).toBeFocused();
+
+  await page.keyboard.press('Escape');
+
+  await expect(usersPage.deleteDialog).toBeHidden();
+  await expect(usersPage.userItems).toHaveText(['John Doe']);
+});

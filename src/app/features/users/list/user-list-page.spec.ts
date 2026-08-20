@@ -98,4 +98,44 @@ describe('UserListPage', () => {
     expect(await screen.findAllByRole('listitem')).toHaveLength(1);
     expect(screen.getByRole('link', { name: 'Alice Smith' })).toBeInTheDocument();
   });
+
+  it('should delete a user through the confirmation dialog', async () => {
+    await renderPage();
+
+    httpTesting
+      .expectOne('/api/users')
+      .flush([{ id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' }]);
+
+    await userEvent.click(await screen.findByRole('button', { name: 'users.list.deleteUser' }));
+
+    expect(await screen.findByRole('dialog', { name: 'users.delete.title' })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: 'users.delete.submit' }));
+    const deletion = await vi.waitFor(() => httpTesting.expectOne('/api/users/1'));
+    deletion.flush(null, { status: 204, statusText: 'No Content' });
+
+    // Deleting invalidates the list, the page reloads it.
+    const reload = await vi.waitFor(() => httpTesting.expectOne('/api/users'));
+    reload.flush([]);
+
+    expect(await screen.findByText('users.list.empty')).toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByTestId('user-list-status')).toHaveTextContent('users.list.deleted');
+    // The delete button that had the focus is gone with its row.
+    expect(screen.getByRole('heading', { name: 'users.list.title' })).toHaveFocus();
+  });
+
+  it('should close the confirmation dialog without deleting when it is cancelled', async () => {
+    await renderPage();
+
+    httpTesting
+      .expectOne('/api/users')
+      .flush([{ id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' }]);
+
+    await userEvent.click(await screen.findByRole('button', { name: 'users.list.deleteUser' }));
+    await userEvent.click(await screen.findByRole('button', { name: 'users.delete.cancel' }));
+
+    await vi.waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
+  });
 });
