@@ -58,6 +58,23 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
+  # No other job touches the production image, so the Dockerfile and its nginx
+  # config would rot unnoticed: build it and check what it actually serves.
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build the production image
+        run: docker build -t app:ci .
+
+      - name: Check that nginx serves the app and falls back to index.html
+        run: |
+          docker run -d --name web -p 8080:80 app:ci
+          timeout 60 sh -c 'until curl -sf http://localhost:8080/ > /dev/null; do sleep 2; done'
+          curl -sf http://localhost:8080/users/1 | grep -q "<app-root>"
+
   # Guards against drift between the starter and its generator manifest/templates
   # (generator.config.json, .generator/templates/): generates an app from this
   # working tree with starter-generator and runs the app's own quality gates.

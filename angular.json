@@ -10,11 +10,6 @@
   "projects": {
     "angular-starter-web": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -24,17 +19,13 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"],
-            "stylePreprocessorOptions": {
-              "includePaths": ["src"]
-            }
+            "styles": ["src/styles.css"]
           },
           "configurations": {
             "production": {

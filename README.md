@@ -31,6 +31,7 @@ Apps built from this starter are meant to be embedded in a portal that owns the 
 | [Husky](https://typicode.github.io/husky) + [lint-staged](https://github.com/lint-staged/lint-staged)                                                                                  | Git hooks (format + lint on commit)                   |
 | [commitlint](https://commitlint.js.org)                                                                                                                                                | Commit message validation (Conventional Commits)      |
 | [GitHub Actions](https://github.com/features/actions)                                                                                                                                  | CI: format, lint, tests, build, e2e                   |
+| [Docker](https://www.docker.com) + [nginx](https://nginx.org)                                                                                                                          | Production image: multi-stage build served by nginx   |
 
 The UI component library is not included: plug in the one of your choice.
 
@@ -81,9 +82,9 @@ src/
 │   │   ├── session/           # SessionStore: what the current user is allowed to do
 │   │   └── not-found-page/    # 404 page
 │   ├── features/              # Business features, grouped by domain
-│   │   ├── home/              # Single-screen feature: the page sits at its root
-│   │   │   ├── home-page.ts
-│   │   │   └── home-routes.ts
+│   │   ├── home/              # Single-screen feature
+│   │   │   ├── home-page.ts   # No screen folder: the page sits at the root
+│   │   │   └── home-routes.ts # Every feature owns one, even with a single screen
 │   │   └── users/             # Example of a full feature (lazy loaded, behind an access guard)
 │   │       ├── list/          # Page + route-scoped store, and delete-dialog/ with its own
 │   │       ├── detail/        # Page + store reading the route parameter
@@ -97,9 +98,9 @@ src/
 └── styles.css                 # Global styles: Tailwind import + --app-* CSS variables
 ```
 
-Anatomy of a feature: one folder per screen, named after its route segment (`list/`, `detail/`, `create/`), plus a routes file. A screen folder holds everything that serves only that screen — the page (component + template + spec), its store if it has one, its form — because grouping is by domain, not by technical type. Anything with an interior of its own takes a short-named subfolder there: `list/delete-dialog/` holds the confirmation dialog and the store the dialog provides itself, so opening it creates that state and closing it destroys it. **The folder carries the short name, the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`, selector `app-user-list-page`. A feature with a single screen keeps its page at the root (`home/home-page.ts`). Every feature owns a `<feature>-routes.ts`, whatever its number of screens: it is the feature's public API, carrying its paths, titles and `provideTranslocoScope`, and it is the only file [app-routes.ts](src/app/app-routes.ts) imports from it.
+Anatomy of a feature: one folder per screen named after its route segment (`list/`, `detail/`, `create/`), plus a `<feature>-routes.ts`. A screen folder holds everything that serves only that screen — page, store, form, dialogs — and **the folder carries the short name while the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`. A single-screen feature keeps its page at the root (`home/home-page.ts`). The routes file is the feature's public API: [app-routes.ts](src/app/app-routes.ts) imports nothing else from it, so a feature moves to another app by moving its folder.
 
-A page never injects the API client: any I/O lives in a `<screen>-store.ts` colocated with the screen, and the page interacts with nothing but that store, kept as a private dependency and re-exposed to the template member by member. A store is **provided by its route**, never in root, so it is created and destroyed with the screen — see [users-routes.ts](src/app/features/users/users-routes.ts). It reads from `ActivatedRoute` the parameters it depends on, and returns results rather than navigating: navigation stays in the page. A screen that does no I/O has no store (`home-page.ts`). Code shared by two screens moves up to the feature root; two sibling screens never import each other. Feature-specific configuration lives in a colocated file (e.g. an `InjectionToken` in `users-config.ts`) when a real need appears; configuration common to all features belongs in `core` or `src/environments`.
+A page never injects the API client: any I/O lives in a `<screen>-store.ts` beside it, provided by the route so it is created and destroyed with the screen — see [users-routes.ts](src/app/features/users/users-routes.ts). [AGENTS.md](AGENTS.md) holds the complete set of rules: where each kind of file goes, how state is scoped, and the recipe for adding a screen.
 
 Dependency rules, enforced at lint time by [Sheriff](https://sheriff.softarc.io) ([sheriff.config.ts](sheriff.config.ts)): `features` can import `core` and `shared`; `core` can import `shared`; `shared` imports neither `core` nor `features`; features cannot import each other — code shared between features belongs in `core` or `shared`. Modules are barrel-less: import files directly (no `index.ts`), and place files a module wants to keep private in an `internal/` subdirectory.
 
@@ -145,7 +146,7 @@ Add a hand-written `<feature>-repository.ts` at the feature root only when it ea
 
 HTTP error handling is centralized in `core/interceptors/error-handler-interceptor.ts`: hook up the toast/notification component of your UI library there.
 
-Access control travels the same way. [core/session/session-store.ts](src/app/core/session/session-store.ts) asks the backend once what the current user may do and replays that answer to every caller; each feature keeps its own decision in a `<feature>-access-guard.ts` beside its routes file — see [users-access-guard.ts](src/app/features/users/users-access-guard.ts), mounted with `canMatch` on the feature's wrapper route so a refusal redirects instead of cancelling the navigation. [app-routes.ts](src/app/app-routes.ts) never learns what a feature requires.
+Access control follows the same path: [core/session/session-store.ts](src/app/core/session/session-store.ts) asks the backend once what the current user may do, and each feature keeps its own decision in a `<feature>-access-guard.ts` mounted on its routes file — see [users-access-guard.ts](src/app/features/users/users-access-guard.ts).
 
 ## Internationalization
 
@@ -162,18 +163,29 @@ The language can be switched at runtime via `LanguageStore.setActiveLang()` (cal
 
 ## Styling
 
-[Tailwind CSS v4](https://tailwindcss.com) is wired up via PostCSS ([.postcssrc.json](.postcssrc.json)) and imported once in [src/styles.css](src/styles.css) with `@import 'tailwindcss';`. No `tailwind.config.js` is needed for basic usage (Tailwind v4 is CSS-first); use `@theme` in `styles.css` to customize tokens if needed. Component-level styles still use `.scss` (see the `home-page.html` template for an example combining both).
+[Tailwind CSS v4](https://tailwindcss.com) is wired up via PostCSS ([.postcssrc.json](.postcssrc.json)) and imported once in [src/styles.css](src/styles.css) with `@import 'tailwindcss';`. No `tailwind.config.js` is needed for basic usage (Tailwind v4 is CSS-first); use `@theme` in `styles.css` to customize tokens if needed. Components carry no stylesheet of their own — utilities in the template and `@theme` tokens cover it — but nothing prevents adding a `styleUrl` if one ever needs it.
 
 ## Quality and conventions
 
 - **On commit**: lint-staged formats and lints the staged files; commitlint enforces [Conventional Commits](https://www.conventionalcommits.org) (`feat: ...`, `fix: ...`, ...).
 - **In CI** ([.github/workflows/ci.yml](.github/workflows/ci.yml)): format check, lint, unit tests, build and e2e on every push/PR, plus a `generate` job that scaffolds an app from the working tree and runs its own gates, so the generator manifest and templates cannot drift.
-- **Code conventions**: see the [Angular style guide](https://angular.dev/style-guide). In short: standalone components (`OnPush` change detection is the Angular default since v22, no need to declare it), signals (`input()`, `computed()`, `rxResource`), `inject()`, private `#` properties, control flow (`@if`, `@for`), no `.component`/`.service` suffix anywhere — a class is named after its role (`Logger`, `LanguageStore`, `UserListStore`), never after its Angular type — and pages suffixed with `-page`.
+- **Code conventions**: signals, `inject()`, `#` private fields, control flow (`@if`, `@for`), no `.component`/`.service` suffix, classes named after their role rather than their Angular type, pages suffixed with `-page`. `OnPush` is Angular 22's default and is never declared. The full list lives in [AGENTS.md](AGENTS.md), next to the [Angular style guide](https://angular.dev/style-guide).
 - **Config files** use ESM `.mjs` where the tool supports it: [eslint.config.mjs](eslint.config.mjs), [prettier.config.mjs](prettier.config.mjs), [commitlint.config.mjs](commitlint.config.mjs).
 
 ## Environments
 
 `src/environments/environment.ts` holds local development values and is replaced at build time by `environment.production.ts` (see `fileReplacements` in [angular.json](angular.json)). Always import `@environments/environment`, never a specific file.
+
+## Deployment
+
+[Dockerfile](Dockerfile) builds the production image in two stages: Node installs the dependencies, generates the API client and builds the app; [nginx](nginx.conf) serves the result on port 80.
+
+```bash
+docker build -t my-app .
+docker run --rm -p 8080:80 my-app
+```
+
+The nginx config does the two things a single-page app needs: unmatched paths fall back to `index.html` so a refresh on `/users/1` still works, and `index.html` is never cached while the hashed asset filenames are. Calls to `/api` are **not** proxied there — [proxy.conf.json](proxy.conf.json) is a dev-server concern only. In production the host portal or an ingress routes them; add a `location /api` to [nginx.conf](nginx.conf) if the container has to reach the backend itself.
 
 ## Contributing
 
