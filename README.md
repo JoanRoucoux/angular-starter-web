@@ -33,7 +33,8 @@ The app ships no global chrome (header, sidebar, navigation): it renders only it
 | [GitHub Actions](https://github.com/features/actions)                                                                                                                                  | CI: format, lint, tests, build, e2e                   |
 | [Docker](https://www.docker.com) + [nginx](https://nginx.org)                                                                                                                          | Production image: multi-stage build served by nginx   |
 
-The UI component library is not included: plug in the one of your choice.
+> [!NOTE]
+> The UI component library is not included: plug in the one of your choice.
 
 ## Getting started
 
