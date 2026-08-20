@@ -7,7 +7,7 @@ import { environment } from '@environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class LoggerService {
+export class Logger {
   #trace = (level: LogLevel, context = '', ...args: unknown[]): void => {
     if (environment.production && level === LogLevel.DEBUG) {
       return;

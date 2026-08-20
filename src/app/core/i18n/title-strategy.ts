@@ -4,7 +4,7 @@ import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 
 import { TranslocoService } from '@jsverse/transloco';
 
-import { LanguageService } from '@core/i18n/language-service';
+import { LanguageStore } from '@core/i18n/language-store';
 
 const APP_TITLE = 'Angular Starter Web';
 
@@ -14,7 +14,7 @@ const APP_TITLE = 'Angular Starter Web';
 export class AppTitleStrategy extends TitleStrategy {
   #titleService = inject(Title);
   #translocoService = inject(TranslocoService);
-  #languageService = inject(LanguageService);
+  #languageStore = inject(LanguageStore);
   #lastSnapshot: RouterStateSnapshot | undefined;
 
   readonly pageTitle = signal('');
@@ -23,7 +23,7 @@ export class AppTitleStrategy extends TitleStrategy {
     super();
     // Re-translate the current page title whenever the active language changes.
     effect(() => {
-      this.#languageService.activeLang();
+      this.#languageStore.activeLang();
       if (this.#lastSnapshot) {
         this.updateTitle(this.#lastSnapshot);
       }
