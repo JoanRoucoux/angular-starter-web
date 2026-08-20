@@ -15,7 +15,6 @@ import { UserListStore } from './user-list-store';
 })
 export class UserListPage {
   #store = inject(UserListStore);
-  // viewChild cannot be declared on an ES private field (NG1053), hence the TypeScript modifier.
   private readonly heading = viewChild.required<ElementRef<HTMLElement>>('heading');
 
   protected readonly users = this.#store.users;

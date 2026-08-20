@@ -14,7 +14,6 @@ import { UserDeleteStore } from './user-delete-store';
 })
 export class UserDeleteDialog implements AfterViewInit {
   #store = inject(UserDeleteStore);
-  // viewChild cannot be declared on an ES private field (NG1053), hence the TypeScript modifier.
   private readonly dialogElement = viewChild.required<ElementRef<HTMLDialogElement>>('dialogElement');
 
   readonly user = input.required<User>();
@@ -26,7 +25,6 @@ export class UserDeleteDialog implements AfterViewInit {
   protected readonly userName = computed(() => `${this.user().firstName} ${this.user().lastName}`);
 
   ngAfterViewInit(): void {
-    // showModal() is what makes the dialog modal: focus trap, Esc, inert background. The open attribute alone does not.
     this.dialogElement().nativeElement.showModal();
   }
 

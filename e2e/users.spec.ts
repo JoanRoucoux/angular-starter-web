@@ -67,7 +67,6 @@ test('closes the confirmation dialog with the Escape key without deleting', asyn
   await usersPage.deleteButtons.first().click();
 
   await expect(usersPage.deleteDialog).toBeVisible();
-  // showModal() puts the focus on the safe action first.
   await expect(usersPage.cancelDeleteButton).toBeFocused();
 
   await page.keyboard.press('Escape');

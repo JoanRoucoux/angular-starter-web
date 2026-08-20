@@ -68,6 +68,7 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 - **Specs mirror the route wiring**: a spec provides the store the way the route does, like it already does for `provideTranslocoScope`.
 - **The store owns the route parameters it depends on**, read from `ActivatedRoute` (see `user-detail-store.ts`) — it is scoped to that route, so it is the natural owner of "what am I looking at". A page therefore has no route input to forward.
 - **Navigation stays in the page.** A store returns a result (`UserCreateStore.save()` returns the created user or `undefined`); the page decides where to go next. A store that injects `Router` knows too much.
+- **Reads are streams, writes return a result.** Queries live in an `rxResource` the template reads through signals; commands are `async` methods returning their outcome (`UserCreateStore.save()`, `UserDeleteStore.remove()`), awaited by the handler that triggered them. Do not hand the generated client's `Observable` back to the component: it makes the caller manage a subscription, and it invites cancelling a mutation because the component went away — the server has already run it.
 - **HTTP goes through the generated client**, injected by the store. Add a hand-written `<feature>-repository.ts` at the feature root only when it earns its place — aggregating several calls into one business operation, mapping DTOs to a view model shared by several pages, or absorbing an API quirk. Never as a pass-through.
 
 ## Conventions

@@ -114,14 +114,12 @@ describe('UserListPage', () => {
     const deletion = await vi.waitFor(() => httpTesting.expectOne('/api/users/1'));
     deletion.flush(null, { status: 204, statusText: 'No Content' });
 
-    // Deleting invalidates the list, the page reloads it.
     const reload = await vi.waitFor(() => httpTesting.expectOne('/api/users'));
     reload.flush([]);
 
     expect(await screen.findByText('users.list.empty')).toBeInTheDocument();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.getByTestId('user-list-status')).toHaveTextContent('users.list.deleted');
-    // The delete button that had the focus is gone with its row.
     expect(screen.getByRole('heading', { name: 'users.list.title' })).toHaveFocus();
   });
 
