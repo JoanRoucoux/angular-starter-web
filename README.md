@@ -12,7 +12,7 @@
 
 Ready-to-use Angular starter for building a new web application connected to a backend, with every best practice and tool already wired up.
 
-Apps built from this starter are meant to be embedded in a portal that owns the global chrome (header, sidebar, main navigation): the app only renders its body. No integration mechanism is assumed — the app remains a standalone SPA that builds, runs and tests on its own. Language is meant to be driven by the host portal through `LanguageStore.setActiveLang()`; the theme follows the OS preference unless the host forces one by setting `data-theme` on `<html>`.
+The app ships no global chrome (header, sidebar, navigation): it renders only its body, so it can be embedded in a host shell as-is, or run standalone. No integration mechanism is assumed — it builds, runs and tests on its own either way.
 
 ## Stack
 
@@ -159,11 +159,11 @@ Translations live in `public/i18n/` (en and fr) and are split in two layers:
 <h1>{{ 'users.list.title' | transloco }}</h1>
 ```
 
-The language can be switched at runtime via `LanguageStore.setActiveLang()` (called by the host portal) and is persisted in a cookie. Page titles are translated and suffixed automatically by `core/i18n/title-strategy.ts`.
+The language can be switched at runtime via `LanguageStore.setActiveLang()` — by the app itself, or by a host shell embedding it — and is persisted in a cookie. Page titles are translated and suffixed automatically by `core/i18n/title-strategy.ts`.
 
 ## Styling
 
-[Tailwind CSS v4](https://tailwindcss.com) is wired up via PostCSS ([.postcssrc.json](.postcssrc.json)) and imported once in [src/styles.css](src/styles.css) with `@import 'tailwindcss';`. No `tailwind.config.js` is needed for basic usage (Tailwind v4 is CSS-first); use `@theme` in `styles.css` to customize tokens if needed. Components carry no stylesheet of their own — utilities in the template and `@theme` tokens cover it — but nothing prevents adding a `styleUrl` if one ever needs it.
+[Tailwind CSS v4](https://tailwindcss.com) is wired up via PostCSS ([.postcssrc.json](.postcssrc.json)) and imported once in [src/styles.css](src/styles.css) with `@import 'tailwindcss';`. No `tailwind.config.js` is needed for basic usage (Tailwind v4 is CSS-first); use `@theme` in `styles.css` to customize tokens if needed. Components carry no stylesheet of their own — utilities in the template and `@theme` tokens cover it — but nothing prevents adding a `styleUrl` if one ever needs it. The active color scheme follows the OS preference, unless a host shell forces one by setting `data-theme` on `<html>`.
 
 ## Quality and conventions
 
@@ -185,7 +185,7 @@ docker build -t my-app .
 docker run --rm -p 8080:80 my-app
 ```
 
-The nginx config does the two things a single-page app needs: unmatched paths fall back to `index.html` so a refresh on `/users/1` still works, and `index.html` is never cached while the hashed asset filenames are. Calls to `/api` are **not** proxied there — [proxy.conf.json](proxy.conf.json) is a dev-server concern only. In production the host portal or an ingress routes them; add a `location /api` to [nginx.conf](nginx.conf) if the container has to reach the backend itself.
+The nginx config does the two things a single-page app needs: unmatched paths fall back to `index.html` so a refresh on `/users/1` still works, and `index.html` is never cached while the hashed asset filenames are. Calls to `/api` are **not** proxied there — [proxy.conf.json](proxy.conf.json) is a dev-server concern only. In production a host shell or an ingress routes them; add a `location /api` to [nginx.conf](nginx.conf) if the container has to reach the backend itself.
 
 ## Contributing
 

@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository. See the [README](READM
 
 ## Project
 
-Angular 22 starter (standalone components, zoneless, signals) for apps embedded in a host portal that owns the global chrome: the app only renders its body. It remains a standalone SPA that builds, runs and tests on its own.
+Angular 22 starter (standalone components, zoneless, signals). The app ships no global chrome (header, sidebar, navigation) and renders only its body: it can be embedded in a host shell, or run standalone. No integration mechanism is assumed.
 
 Package manager: **pnpm** (version pinned in the `packageManager` field of package.json). Node 24 (`.nvmrc`).
 

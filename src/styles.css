@@ -6,8 +6,8 @@
  * even without a component library installed.
  *
  * Each token declares its light and dark value with light-dark(); the active
- * scheme follows the OS preference unless the host (e.g. the portal embedding
- * this app) forces one by setting data-theme on <html>.
+ * scheme follows the OS preference unless a host shell forces one by setting
+ * data-theme on <html>.
  */
 
 :root {
