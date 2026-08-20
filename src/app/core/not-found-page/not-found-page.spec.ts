@@ -17,7 +17,6 @@ describe('NotFoundPage', () => {
   it('should display the not found message', async () => {
     await renderPage();
 
-    // Translations resolve to their key in tests.
     expect(screen.getByRole('heading', { name: 'notFound.title' })).toBeInTheDocument();
     expect(screen.getByText('notFound.description')).toBeInTheDocument();
   });

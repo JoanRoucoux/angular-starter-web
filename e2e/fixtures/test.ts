@@ -8,7 +8,6 @@ type Fixtures = {
 
 export const test = base.extend<Fixtures>({
   page: async ({ page }, use) => {
-    // Features sit behind an access guard: grant the permissions by default, a test can re-route to revoke them.
     await page.route('**/api/session', (route) => route.fulfill({ json: { permissions: ['users:read'] } }));
     await use(page);
   },

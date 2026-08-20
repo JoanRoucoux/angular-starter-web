@@ -74,6 +74,7 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 ## Conventions
 
 - Everything in the repo is written in **English** (code, comments, docs, commit messages).
+- **Comments are the exception, not the norm.** Write one only for a breakage no test can catch: `close()` on a `<dialog>` restores focus to the element that opened it, a live region has to render while empty to announce later, `resource.value()` throws in an error state. If a failing test would catch the edit the comment warns about, or if the sentence could sit in this file, the code does not need it — and neither does a compiler error that already names its own fix. Single lines, never doctrine blocks, never JSDoc restating a function name.
 - Commits follow [Conventional Commits](https://www.conventionalcommits.org), enforced by commitlint. lint-staged formats and lints staged files on commit.
 - OnPush is Angular 22's default change detection: do **not** add `ChangeDetectionStrategy.OnPush` to components.
 - `inject()` + `#` private fields; signals and `rxResource` for data/error/loading state; no NgRx.

@@ -13,7 +13,6 @@ export const usersAccessGuard: CanMatchFn = () => {
     .has('users:read')
     .pipe(
       map((allowed) => allowed || home()),
-      // Fail closed and visibly: a cancelled navigation would leave the user on a dead link.
       catchError(() => of(home())),
     );
 };

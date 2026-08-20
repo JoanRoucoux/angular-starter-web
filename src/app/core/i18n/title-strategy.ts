@@ -17,8 +17,6 @@ export class AppTitleStrategy extends TitleStrategy {
   #languageService = inject(LanguageService);
   #lastSnapshot: RouterStateSnapshot | undefined;
 
-  // Bound to a live region in app.html: a route change swaps the content, and screen readers do not
-  // reliably report a document.title change.
   readonly pageTitle = signal('');
 
   constructor() {
