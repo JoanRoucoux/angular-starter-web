@@ -93,7 +93,7 @@ src/
 └── styles.css                 # Global styles: Tailwind import + --app-* CSS variables
 ```
 
-Anatomy of a feature: one folder per screen, named after its route segment (`list/`, `detail/`, `create/`), plus a routes file. A screen folder holds everything that serves only that screen — the page (component + template + spec), its store if it has one, its form — because grouping is by domain, not by technical type. **The folder carries the short name, the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`, selector `app-user-list-page`. A feature with a single screen keeps its page at the root (`home/home-page.ts`). Every feature owns a `<feature>-routes.ts`, whatever its number of screens: it is the feature's public API, carrying its paths, titles and `provideTranslocoScope`, and it is the only file [app-routes.ts](src/app/app-routes.ts) imports from it.
+Anatomy of a feature: one folder per screen, named after its route segment (`list/`, `detail/`, `create/`), plus a routes file. A screen folder holds everything that serves only that screen — the page (component + template + spec), its store if it has one, its form — because grouping is by domain, not by technical type. Anything with an interior of its own takes a short-named subfolder there: `list/delete-dialog/` holds the confirmation dialog and the store the dialog provides itself, so opening it creates that state and closing it destroys it. **The folder carries the short name, the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`, selector `app-user-list-page`. A feature with a single screen keeps its page at the root (`home/home-page.ts`). Every feature owns a `<feature>-routes.ts`, whatever its number of screens: it is the feature's public API, carrying its paths, titles and `provideTranslocoScope`, and it is the only file [app-routes.ts](src/app/app-routes.ts) imports from it.
 
 A page never injects the API client: any I/O lives in a `<screen>-store.ts` colocated with the screen, and the page interacts with nothing but that store, kept as a private dependency and re-exposed to the template member by member. A store is **provided by its route**, never in root, so it is created and destroyed with the screen — see [users-routes.ts](src/app/features/users/users-routes.ts). It reads from `ActivatedRoute` the parameters it depends on, and returns results rather than navigating: navigation stays in the page. A screen that does no I/O has no store (`home-page.ts`). Code shared by two screens moves up to the feature root; two sibling screens never import each other. Feature-specific configuration lives in a colocated file (e.g. an `InjectionToken` in `users-config.ts`) when a real need appears; configuration common to all features belongs in `core` or `src/environments`.
 
@@ -109,7 +109,7 @@ To bootstrap a real project:
 
 1. Replace `openapi/openapi.yaml` with your backend's specification (or point `orval.config.ts` at its URL).
 2. Run `pnpm run generate:api`.
-3. Inject the generated client where the data is used — in the page, or in its store once the screen has enough state to deserve one. There is no hand-written pass-through layer: the generated client already is the data-access layer, and the tests mock HTTP, not the service.
+3. Inject the generated client into the screen's store — never into the page. There is no hand-written pass-through layer: the generated client already is the data-access layer, and the tests mock HTTP, not the service.
 
 ```ts
 // features/users/list/user-list-store.ts — provided by the route, not in root
@@ -129,7 +129,11 @@ export class UserListStore {
 
 // features/users/list/user-list-page.ts — the page is left with the rendering
 export class UserListPage {
-  protected readonly store = inject(UserListStore);
+  #store = inject(UserListStore);
+
+  protected readonly users = this.#store.users;
+  protected readonly filteredUsers = this.#store.filteredUsers;
+  protected readonly search = this.#store.search;
 }
 ```
 
