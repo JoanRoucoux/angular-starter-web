@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 /**
- * Page object for the users feature (browse + error states).
+ * Page object for the users feature (browse, search, delete, error states).
  * Centralizes selectors and navigation so tests read as behavior, not DOM queries.
  */
 export class UsersPage {
@@ -13,6 +13,11 @@ export class UsersPage {
   readonly loadingState: Locator;
   readonly errorState: Locator;
   readonly retryButton: Locator;
+  readonly deleteButtons: Locator;
+  readonly deleteDialog: Locator;
+  readonly confirmDeleteButton: Locator;
+  readonly cancelDeleteButton: Locator;
+  readonly statusMessage: Locator;
 
   constructor(page: Page) {
     this.#page = page;
@@ -23,6 +28,11 @@ export class UsersPage {
     this.loadingState = page.getByTestId('user-list-loading');
     this.errorState = page.getByTestId('user-list-error');
     this.retryButton = page.getByTestId('user-list-retry');
+    this.deleteButtons = page.getByTestId('user-item-delete');
+    this.deleteDialog = page.getByTestId('user-delete-dialog');
+    this.confirmDeleteButton = page.getByTestId('user-delete-confirm');
+    this.cancelDeleteButton = page.getByTestId('user-delete-cancel');
+    this.statusMessage = page.getByTestId('user-list-status');
   }
 
   async goto(): Promise<void> {

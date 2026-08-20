@@ -69,6 +69,23 @@ paths:
                 $ref: '#/components/schemas/User'
         default:
           $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - users
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: The user has been deleted
+        default:
+          $ref: '#/components/responses/Error'
 components:
   schemas:
     User:
