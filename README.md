@@ -31,6 +31,7 @@ Apps built from this starter are meant to be embedded in a portal that owns the 
 | [Husky](https://typicode.github.io/husky) + [lint-staged](https://github.com/lint-staged/lint-staged)                                                                                  | Git hooks (format + lint on commit)                   |
 | [commitlint](https://commitlint.js.org)                                                                                                                                                | Commit message validation (Conventional Commits)      |
 | [GitHub Actions](https://github.com/features/actions)                                                                                                                                  | CI: format, lint, tests, build, e2e                   |
+| [Docker](https://www.docker.com) + [nginx](https://nginx.org)                                                                                                                          | Production image: multi-stage build served by nginx   |
 
 The UI component library is not included: plug in the one of your choice.
 
@@ -81,9 +82,9 @@ src/
 │   │   ├── session/           # SessionStore: what the current user is allowed to do
 │   │   └── not-found-page/    # 404 page
 │   ├── features/              # Business features, grouped by domain
-│   │   ├── home/              # Single-screen feature: the page sits at its root
-│   │   │   ├── home-page.ts
-│   │   │   └── home-routes.ts
+│   │   ├── home/              # Single-screen feature
+│   │   │   ├── home-page.ts   # No screen folder: the page sits at the root
+│   │   │   └── home-routes.ts # Every feature owns one, even with a single screen
 │   │   └── users/             # Example of a full feature (lazy loaded, behind an access guard)
 │   │       ├── list/          # Page + route-scoped store, and delete-dialog/ with its own
 │   │       ├── detail/        # Page + store reading the route parameter
@@ -174,6 +175,17 @@ The language can be switched at runtime via `LanguageStore.setActiveLang()` (cal
 ## Environments
 
 `src/environments/environment.ts` holds local development values and is replaced at build time by `environment.production.ts` (see `fileReplacements` in [angular.json](angular.json)). Always import `@environments/environment`, never a specific file.
+
+## Deployment
+
+[Dockerfile](Dockerfile) builds the production image in two stages: Node installs the dependencies, generates the API client and builds the app; [nginx](nginx.conf) serves the result on port 80.
+
+```bash
+docker build -t my-app .
+docker run --rm -p 8080:80 my-app
+```
+
+The nginx config does the two things a single-page app needs: unmatched paths fall back to `index.html` so a refresh on `/users/1` still works, and `index.html` is never cached while the hashed asset filenames are. Calls to `/api` are **not** proxied there — [proxy.conf.json](proxy.conf.json) is a dev-server concern only. In production the host portal or an ingress routes them; add a `location /api` to [nginx.conf](nginx.conf) if the container has to reach the backend itself.
 
 ## Contributing
 
