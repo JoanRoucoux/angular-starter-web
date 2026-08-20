@@ -1,4 +1,5 @@
 import { User } from '../src/app/core/api-client/angularStarterWebAPI.schemas';
+import { expectNoAccessibilityViolations } from './fixtures/accessibility';
 import { expect, test } from './fixtures/test';
 
 test('displays users fetched from the API', async ({ page, usersPage }) => {
@@ -11,6 +12,7 @@ test('displays users fetched from the API', async ({ page, usersPage }) => {
   await usersPage.goto();
 
   await expect(usersPage.userItems).toHaveText(['John Doe']);
+  await expectNoAccessibilityViolations(page);
 });
 
 test('filters the users with the search field', async ({ page, usersPage }) => {
@@ -50,6 +52,8 @@ test('deletes a user through the confirmation dialog', async ({ page, usersPage 
   await usersPage.deleteButtons.first().click();
 
   await expect(usersPage.deleteDialog).toBeVisible();
+  await expectNoAccessibilityViolations(page);
+
   await usersPage.confirmDeleteButton.click();
 
   await expect(usersPage.userItems).toHaveText(['Alice Smith']);
@@ -73,4 +77,12 @@ test('closes the confirmation dialog with the Escape key without deleting', asyn
 
   await expect(usersPage.deleteDialog).toBeHidden();
   await expect(usersPage.userItems).toHaveText(['John Doe']);
+});
+
+test('redirects home when the session does not grant access to the feature', async ({ page, usersPage }) => {
+  await page.route('**/api/session', (route) => route.fulfill({ json: { permissions: [] } }));
+
+  await usersPage.goto();
+
+  await expect(page).toHaveURL('/');
 });
