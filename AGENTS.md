@@ -111,7 +111,7 @@ Keep them in sync with the starter:
 - The scaffold templates (feature page, routes, i18n files, e2e spec) follow the conventions of this file — when a convention changes, re-check the templates.
 - Template-only content (demo features, community files, release tooling) must be listed in the manifest's `remove`; new root-level files that should not ship in generated apps must be added there.
 - Templates contain tokens and are not valid syntax: `.generator/templates/` stays excluded in [.prettierignore](.prettierignore) and the ESLint `globalIgnores`.
-- The `generate` job in [ci.yml](.github/workflows/ci.yml) generates an app from the working tree and runs its quality gates — it fails when the manifest or templates drift.
+- [generator-check.yml](.github/workflows/generator-check.yml) generates an app from the working tree and runs its quality gates — it fails when the manifest or templates drift. It is starter-only: listed in the manifest's `remove` so generated apps don't inherit a self-check that fails outside the starter (no `generator.config.json` left to generate from).
 
 ## Gotchas
 

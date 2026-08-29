@@ -25,6 +25,7 @@
     ".github/ISSUE_TEMPLATE",
     ".github/PULL_REQUEST_TEMPLATE.md",
     ".github/workflows/release-please.yml",
+    ".github/workflows/generator-check.yml",
     "src/app/features/home",
     "src/app/features/users",
     "src/app/core/session",
