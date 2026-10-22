@@ -13,7 +13,6 @@ export const USERS_ROUTES: Routes = [
   {
     path: '',
     canMatch: [usersAccessGuard],
-    // Load the feature translations (public/i18n/users/) alongside the feature.
     providers: [provideTranslocoScope('users')],
     resolve: { translations: preloadScope('users') },
     children: [
@@ -23,7 +22,6 @@ export const USERS_ROUTES: Routes = [
         title: 'pageTitle.users',
       },
       {
-        // Declared before :userId so 'new' is not matched as an identifier.
         path: 'new',
         component: UserCreatePage,
         title: 'pageTitle.userCreate',

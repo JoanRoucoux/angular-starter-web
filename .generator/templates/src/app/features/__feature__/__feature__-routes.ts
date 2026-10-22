@@ -9,7 +9,6 @@ import { {{featurePascal}}Page } from './{{feature}}-page';
 export const {{featureConst}}_ROUTES: Routes = [
   {
     path: '',
-    // Load the feature translations (public/i18n/{{feature}}/) alongside the feature.
     providers: [provideTranslocoScope('{{feature}}')],
     resolve: { translations: preloadScope('{{feature}}') },
     children: [

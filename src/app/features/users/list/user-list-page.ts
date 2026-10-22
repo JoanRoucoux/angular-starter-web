@@ -41,7 +41,6 @@ export class UserListPage {
     this.deletedUserName.set(`${user.firstName} ${user.lastName}`);
     this.userToDelete.set(undefined);
     this.users.reload();
-    // The dialog handed the focus back to a row that is about to disappear: anchor it on the heading.
     this.heading().nativeElement.focus();
   }
 }

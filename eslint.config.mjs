@@ -19,7 +19,6 @@ export default defineConfig([
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      // Angular
       '@angular-eslint/directive-selector': [
         'error',
         {
@@ -41,7 +40,6 @@ export default defineConfig([
       '@angular-eslint/no-empty-lifecycle-method': 'warn',
       '@angular-eslint/prefer-output-readonly': 'warn',
 
-      // TypeScript
       '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
       '@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'no-public' }],
       '@typescript-eslint/no-explicit-any': 'warn',
@@ -49,7 +47,6 @@ export default defineConfig([
       '@typescript-eslint/no-shadow': 'warn',
       '@typescript-eslint/no-empty-function': 'warn',
 
-      // General
       'max-lines': ['error', 400],
       complexity: ['error', 20],
       eqeqeq: 'error',
@@ -59,12 +56,10 @@ export default defineConfig([
     },
   },
   {
-    // Module boundaries (core/features/shared) defined in sheriff.config.ts.
     files: ['**/*.ts'],
     extends: [sheriff.configs.all],
   },
   {
-    // Only the centralized logger and the bootstrap entry point (no DI available yet) may call the console directly.
     files: ['src/app/core/logger/logger.ts', 'src/main.ts'],
     rules: {
       'no-console': 'off',

@@ -1,15 +1,5 @@
 @import 'tailwindcss';
 
-/*
- * Global application stylesheet.
- * Design tokens follow the shadcn/ui convention so the app looks consistent
- * even without a component library installed.
- *
- * Each token declares its light and dark value with light-dark(); the active
- * scheme follows the OS preference unless a host shell forces one by setting
- * data-theme on <html>.
- */
-
 :root {
   color-scheme: light dark;
   --background: light-dark(hsl(0 0% 100%), hsl(240 10% 3.9%));

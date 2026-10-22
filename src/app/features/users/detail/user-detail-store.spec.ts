@@ -43,7 +43,6 @@ describe('UserDetailStore', () => {
   it('should load the user of the current route', async () => {
     createStore('1');
 
-    // tick() fires the request; the response reaches the resource through microtasks, hence whenStable().
     TestBed.tick();
     httpTesting.expectOne('/api/users/1').flush(user);
     await TestBed.inject(ApplicationRef).whenStable();

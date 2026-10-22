@@ -25,7 +25,6 @@ describe('UserListPage', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        // Provided by the route in the app, the test must mirror it.
         provideTranslocoScope('users'),
       ],
     });
@@ -54,7 +53,6 @@ describe('UserListPage', () => {
 
     httpTesting.expectOne('/api/users').flush(null, { status: 500, statusText: 'Internal Server Error' });
 
-    // Translations resolve to their key in tests.
     expect(await screen.findByText('users.list.error')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'users.list.retry' })).toBeInTheDocument();
   });
@@ -65,7 +63,6 @@ describe('UserListPage', () => {
     httpTesting.expectOne('/api/users').flush(null, { status: 500, statusText: 'Internal Server Error' });
     await userEvent.click(await screen.findByRole('button', { name: 'users.list.retry' }));
 
-    // reload() re-subscribes through the effect scheduler, wait for the new request to be issued.
     const request = await vi.waitFor(() => httpTesting.expectOne('/api/users'));
     request.flush([{ id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' }]);
 

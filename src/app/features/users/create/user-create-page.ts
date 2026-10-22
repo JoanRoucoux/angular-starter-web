@@ -21,7 +21,6 @@ export class UserCreatePage {
   protected readonly form = this.#store.form;
   protected readonly submitError = this.#store.submitError;
 
-  // Templates can only reach component members, so the form helpers are re-exposed here.
   readonly showError = showError;
   readonly hasRequiredError = hasRequiredError;
 

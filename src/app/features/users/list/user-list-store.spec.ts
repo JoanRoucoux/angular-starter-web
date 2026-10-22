@@ -16,7 +16,6 @@ describe('UserListStore', () => {
     { id: 2, firstName: 'Alice', lastName: 'Smith', email: 'alice.smith@example.com', status: 'pending' },
   ];
 
-  // tick() fires the request; the response reaches the resource through microtasks, hence whenStable().
   const respondWith = async (respond: (request: TestRequest) => void): Promise<void> => {
     TestBed.tick();
     respond(httpTesting.expectOne('/api/users'));
@@ -27,13 +26,7 @@ describe('UserListStore', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        // Provided by the route in the app, the test must mirror it.
-        UserListStore,
-      ],
+      providers: [provideZonelessChangeDetection(), provideHttpClient(), provideHttpClientTesting(), UserListStore],
     });
     store = TestBed.inject(UserListStore);
     httpTesting = TestBed.inject(HttpTestingController);

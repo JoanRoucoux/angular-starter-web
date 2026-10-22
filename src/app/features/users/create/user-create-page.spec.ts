@@ -25,7 +25,6 @@ describe('UserCreatePage', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        // Provided by the route in the app, the test must mirror it.
         provideTranslocoScope('users'),
       ],
     });
@@ -33,7 +32,6 @@ describe('UserCreatePage', () => {
   };
 
   const fillForm = async (email: string): Promise<void> => {
-    // Translations resolve to their key in tests.
     await userEvent.type(screen.getByLabelText('users.create.firstName'), 'John');
     await userEvent.type(screen.getByLabelText('users.create.lastName'), 'Doe');
     await userEvent.type(screen.getByLabelText('users.create.email'), email);
@@ -60,7 +58,6 @@ describe('UserCreatePage', () => {
     await fillForm('not-an-email');
     await userEvent.click(submitButton());
 
-    // The message distinguishes format from required errors.
     expect(await screen.findByText('users.create.errors.email')).toBeInTheDocument();
     httpTesting.expectNone('/api/users');
   });
@@ -74,7 +71,6 @@ describe('UserCreatePage', () => {
     await fillForm('john.doe@example.com');
     await userEvent.click(submitButton());
 
-    // submit() reaches the HTTP call through microtasks, wait for the request to be issued.
     const request = await vi.waitFor(() => httpTesting.expectOne('/api/users'));
     expect(request.request.method).toBe('POST');
     expect(request.request.body).toEqual({ firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com' });
