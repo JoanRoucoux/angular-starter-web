@@ -5,22 +5,30 @@ updates:
     schedule:
       interval: weekly
     ignore:
-      # TypeScript 7 breaks typescript-eslint (via ts-api-utils). Remove once
-      # typescript-eslint supports TS 7 — see AGENTS.md Gotchas.
       - dependency-name: 'typescript'
         versions: ['>=7']
     groups:
-      angular:
+      dependencies:
         patterns:
-          - '@angular/*'
-          - 'angular-eslint'
-      dev-dependencies:
-        dependency-type: development
-        exclude-patterns:
-          - '@angular/*'
-          - 'angular-eslint'
+          - '*'
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns:
+          - '*'
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
       interval: weekly
+    ignore:
+      - dependency-name: node
+        update-types: ['version-update:semver-major']
+    groups:
+      images:
+        patterns:
+          - '*'
