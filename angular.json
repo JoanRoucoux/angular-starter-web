@@ -84,6 +84,7 @@
             "coverageInclude": ["src/**/*.ts", "src/**/*.html"],
             "coverageExclude": [
               "src/app/core/api-client/**",
+              "src/index.html",
               "src/main.ts",
               "src/app/app-config.ts",
               "src/app/**/*-routes.ts",
@@ -102,7 +103,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html", "e2e/**/*.ts", "*.ts"]
           }
         }
       }
