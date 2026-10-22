@@ -13,7 +13,6 @@ import type { User } from '@core/api-client/angularStarterWebAPI.schemas';
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
 import { UserListPage } from './user-list-page';
-import { UserListStore } from './user-list-store';
 
 describe('UserListPage', () => {
   let httpTesting: HttpTestingController;
@@ -28,7 +27,6 @@ describe('UserListPage', () => {
         provideHttpClientTesting(),
         // Provided by the route in the app, the test must mirror it.
         provideTranslocoScope('users'),
-        UserListStore,
       ],
     });
     httpTesting = TestBed.inject(HttpTestingController);

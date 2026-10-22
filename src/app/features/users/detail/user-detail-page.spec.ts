@@ -13,7 +13,6 @@ import type { User } from '@core/api-client/angularStarterWebAPI.schemas';
 import { getTranslocoTestingModule } from '@shared/testing/transloco-testing';
 
 import { UserDetailPage } from './user-detail-page';
-import { UserDetailStore } from './user-detail-store';
 
 describe('UserDetailPage', () => {
   let httpTesting: HttpTestingController;
@@ -30,7 +29,6 @@ describe('UserDetailPage', () => {
         provideTranslocoScope('users'),
         // The store reads the route parameter, so the test supplies the route.
         { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: '1' })) } },
-        UserDetailStore,
       ],
     });
     httpTesting = TestBed.inject(HttpTestingController);

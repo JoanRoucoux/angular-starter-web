@@ -98,7 +98,7 @@ src/
 
 Anatomy of a feature: one folder per screen named after its route segment (`list/`, `detail/`, `create/`), plus a `<feature>-routes.ts`. A screen folder holds everything that serves only that screen — page, store, form, dialogs — and **the folder carries the short name while the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`. A single-screen feature keeps its page at the root (`home/home-page.ts`). The routes file is the feature's public API: [app-routes.ts](src/app/app-routes.ts) imports nothing else from it, so a feature moves to another app by moving its folder.
 
-A page never injects the API client: any I/O lives in a `<screen>-store.ts` beside it, provided by the route so it is created and destroyed with the screen — see [users-routes.ts](src/app/features/users/users-routes.ts). [AGENTS.md](AGENTS.md) holds the complete set of rules: where each kind of file goes, how state is scoped, and the recipe for adding a screen.
+A page never injects the API client: any I/O lives in a `<screen>-store.ts` beside it, provided by its page component so it is created and destroyed with the screen, see [user-list-page.ts](src/app/features/users/list/user-list-page.ts). [AGENTS.md](AGENTS.md) holds the complete set of rules: where each kind of file goes, how state is scoped, and the recipe for adding a screen.
 
 Dependency rules, enforced at lint time by [Sheriff](https://sheriff.softarc.io) ([sheriff.config.ts](sheriff.config.ts)): `features` can import `core` and `shared`; `core` can import `shared`; `shared` imports neither `core` nor `features`; features cannot import each other — code shared between features belongs in `core` or `shared`. Modules are barrel-less: import files directly (no `index.ts`), and place files a module wants to keep private in an `internal/` subdirectory.
 
@@ -115,7 +115,7 @@ To bootstrap a real project:
 3. Inject the generated client into the screen's store — never into the page. There is no hand-written pass-through layer: the generated client already is the data-access layer, and the tests mock HTTP, not the service.
 
 ```ts
-// features/users/list/user-list-store.ts — provided by the route, not in root
+// features/users/list/user-list-store.ts provided by its page component, not in root
 @Injectable()
 export class UserListStore {
   #usersApiClient = inject(UsersService); // the generated client
