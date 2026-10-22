@@ -13,22 +13,21 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  ci:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
 
       - name: Set up Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
           cache: pnpm
 
-      # Also generates the OpenAPI clients and models (postinstall).
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -44,6 +43,24 @@ jobs:
       - name: Build
         run: pnpm run build
 
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
@@ -58,8 +75,6 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-  # No other job touches the production image, so the Dockerfile and its nginx
-  # config would rot unnoticed: build it and check what it actually serves.
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -72,8 +87,35 @@ jobs:
       - name: Check that nginx is healthy, falls back to index.html, sends headers and 404s missing files
         run: |
           docker run -d --name web -p 8080:80 --health-interval 2s app:ci
-          timeout 60 sh -c 'until [ "$(docker inspect -f "{{.State.Health.Status}}" web)" = healthy ]; do sleep 2; done'
+          for _ in $(seq 30); do
+            [ "$(docker inspect -f '{{.State.Health.Status}}' web)" = healthy ] && break
+            sleep 2
+          done
+          [ "$(docker inspect -f '{{.State.Health.Status}}' web)" = healthy ]
           curl -sf http://localhost:8080/users/1 | grep -q "<app-root>"
           curl -sfI http://localhost:8080/ | tr -d '\r' | grep -qi "^content-security-policy:.*trusted-types angular"
           curl -sfI http://localhost:8080/i18n/en.json | tr -d '\r' | grep -qi "^cache-control: no-cache"
           [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/missing.js)" = 404 ]
+
+  ops:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check the workflows
+        run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12
+
+  ci:
+    if: always()
+    needs: [checks, e2e, docker, ops]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every job to pass
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "$RESULTS"
+          for result in $RESULTS; do
+            case "$result" in success|skipped) ;; *) exit 1 ;; esac
+          done
