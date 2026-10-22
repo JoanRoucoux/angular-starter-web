@@ -14,7 +14,9 @@ describe('AppTitleStrategy', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        getTranslocoTestingModule({ langs: { en: { 'pageTitle.home': 'Home' }, fr: { 'pageTitle.home': 'Accueil' } } }),
+        getTranslocoTestingModule({
+          langs: { en: { 'pageTitle.sample': 'Sample' }, fr: { 'pageTitle.sample': 'Exemple' } },
+        }),
       ],
       providers: [provideZonelessChangeDetection()],
     });
@@ -29,9 +31,9 @@ describe('AppTitleStrategy', () => {
     const strategy = TestBed.inject(AppTitleStrategy);
     const titleService = TestBed.inject(Title);
 
-    strategy.updateTitle(mockSnapshotWithTitle(strategy, 'pageTitle.home'));
+    strategy.updateTitle(mockSnapshotWithTitle(strategy, 'pageTitle.sample'));
 
-    expect(titleService.getTitle()).toBe('Home | Angular Starter Web');
+    expect(titleService.getTitle()).toBe('Sample | Angular Starter Web');
   });
 
   it('should fall back to the app name when the route has no title', () => {
@@ -46,8 +48,8 @@ describe('AppTitleStrategy', () => {
   it('should expose the page title for the route announcer', () => {
     const strategy = TestBed.inject(AppTitleStrategy);
 
-    strategy.updateTitle(mockSnapshotWithTitle(strategy, 'pageTitle.home'));
-    expect(strategy.pageTitle()).toBe('Home');
+    strategy.updateTitle(mockSnapshotWithTitle(strategy, 'pageTitle.sample'));
+    expect(strategy.pageTitle()).toBe('Sample');
 
     strategy.updateTitle(mockSnapshotWithTitle(strategy, undefined));
     expect(strategy.pageTitle()).toBe('');
@@ -58,11 +60,11 @@ describe('AppTitleStrategy', () => {
     const titleService = TestBed.inject(Title);
     const translocoService = TestBed.inject(TranslocoService);
 
-    strategy.updateTitle(mockSnapshotWithTitle(strategy, 'pageTitle.home'));
+    strategy.updateTitle(mockSnapshotWithTitle(strategy, 'pageTitle.sample'));
     translocoService.setActiveLang('fr');
     TestBed.tick();
 
-    expect(titleService.getTitle()).toBe('Accueil | Angular Starter Web');
+    expect(titleService.getTitle()).toBe('Exemple | Angular Starter Web');
   });
 
   it('should leave the title untouched when the language changes before any navigation', () => {

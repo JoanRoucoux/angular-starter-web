@@ -3,7 +3,6 @@ import { expectNoAccessibilityViolations } from './fixtures/accessibility';
 import { expect, test } from './fixtures/test';
 
 test('displays users fetched from the API', async ({ page, usersPage }) => {
-  // Mock the API, replace with your real backend or a dedicated mock server.
   const users: User[] = [
     { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' },
   ];

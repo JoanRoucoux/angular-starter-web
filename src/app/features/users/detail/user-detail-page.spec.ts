@@ -25,9 +25,7 @@ describe('UserDetailPage', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        // Provided by the route in the app, the test must mirror it.
         provideTranslocoScope('users'),
-        // The store reads the route parameter, so the test supplies the route.
         { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: '1' })) } },
       ],
     });
@@ -53,7 +51,6 @@ describe('UserDetailPage', () => {
 
     httpTesting.expectOne('/api/users/1').flush(null, { status: 500, statusText: 'Internal Server Error' });
 
-    // Translations resolve to their key in tests.
     expect(await screen.findByText('users.detail.error')).toBeInTheDocument();
   });
 });

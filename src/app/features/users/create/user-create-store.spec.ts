@@ -43,7 +43,6 @@ describe('UserCreateStore', () => {
     fillForm();
 
     const saved = store.save();
-    // save() reaches the HTTP call through microtasks, wait for the request to be issued.
     const request = await vi.waitFor(() => httpTesting.expectOne('/api/users'));
 
     expect(request.request.method).toBe('POST');

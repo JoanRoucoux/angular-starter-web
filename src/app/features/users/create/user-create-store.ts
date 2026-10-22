@@ -18,12 +18,10 @@ export class UserCreateStore {
 
   readonly submitError = signal(false);
 
-  // Returns the created user, or undefined when the form is invalid or the call failed.
   async save(): Promise<User | undefined> {
     this.submitError.set(false);
     let created: User | undefined;
 
-    // submit() marks every field as touched, skips the action while invalid and drives form().submitting().
     await submit(this.form, async () => {
       try {
         created = await firstValueFrom(this.#usersApiClient.createUser(this.#model()));

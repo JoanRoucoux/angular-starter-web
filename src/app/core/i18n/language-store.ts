@@ -16,7 +16,6 @@ export class LanguageStore {
   });
 
   constructor() {
-    // Keep the `lang` attribute on <html> in sync so assistive technologies announce the right language.
     effect(() => {
       this.#document.documentElement.lang = this.activeLang();
     });

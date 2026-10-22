@@ -13,7 +13,6 @@ describe('user-create-form', () => {
     TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] });
   });
 
-  // form() must be called from an injection context, like in a component.
   const createForm = (model: UserCreation = initialUserCreation()): FieldTree<UserCreation> => {
     return TestBed.runInInjectionContext(() => form(signal(model), userCreationSchema));
   };

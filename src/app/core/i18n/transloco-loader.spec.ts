@@ -26,16 +26,16 @@ describe('TranslocoHttpLoader', () => {
   it('should fetch the translation file of the requested language', async () => {
     const translation = firstValueFrom(loader.getTranslation('fr'));
 
-    httpTesting.expectOne('/i18n/fr.json').flush({ 'pageTitle.home': 'Accueil' });
+    httpTesting.expectOne('/i18n/fr.json').flush({ 'pageTitle.sample': 'Exemple' });
 
-    expect(await translation).toEqual({ 'pageTitle.home': 'Accueil' });
+    expect(await translation).toEqual({ 'pageTitle.sample': 'Exemple' });
   });
 
   it('should fetch a lazy scope with its scoped path', async () => {
-    const translation = firstValueFrom(loader.getTranslation('users/en'));
+    const translation = firstValueFrom(loader.getTranslation('sample/en'));
 
-    httpTesting.expectOne('/i18n/users/en.json').flush({ 'list.title': 'Users' });
+    httpTesting.expectOne('/i18n/sample/en.json').flush({ 'list.title': 'Sample' });
 
-    expect(await translation).toEqual({ 'list.title': 'Users' });
+    expect(await translation).toEqual({ 'list.title': 'Sample' });
   });
 });

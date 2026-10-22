@@ -11,13 +11,7 @@ describe('UserDeleteStore', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        // Provided by the dialog component in the app, the test must mirror it.
-        UserDeleteStore,
-      ],
+      providers: [provideZonelessChangeDetection(), provideHttpClient(), provideHttpClientTesting(), UserDeleteStore],
     });
     store = TestBed.inject(UserDeleteStore);
     httpTesting = TestBed.inject(HttpTestingController);

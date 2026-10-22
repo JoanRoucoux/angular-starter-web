@@ -11,7 +11,6 @@ export const HOME_ROUTES: Routes = [
     path: '',
     component: HomePage,
     title: 'pageTitle.home',
-    // Load the feature translations (public/i18n/home/) alongside the feature.
     providers: [provideTranslocoScope('home')],
     resolve: { translations: preloadScope('home') },
   },

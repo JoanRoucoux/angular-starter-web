@@ -13,12 +13,10 @@ describe('{{featurePascal}}Page', () => {
       imports: [getTranslocoTestingModule()],
       providers: [
         provideZonelessChangeDetection(),
-        // Provided by the route in the app, the test must mirror it.
         provideTranslocoScope('{{feature}}'),
       ],
     });
 
-    // Translations resolve to their key in tests; scoped keys use the camel-cased scope name.
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('{{featureCamel}}.title');
   });
 });

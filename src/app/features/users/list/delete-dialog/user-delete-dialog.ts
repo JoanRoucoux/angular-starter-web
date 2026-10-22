@@ -40,7 +40,6 @@ export class UserDeleteDialog implements AfterViewInit {
     }
   }
 
-  // close() hands focus back to the element that opened the dialog; dropping the element from the DOM does not.
   #close(): void {
     this.dialogElement().nativeElement.close();
   }

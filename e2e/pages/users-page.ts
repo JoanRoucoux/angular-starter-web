@@ -1,9 +1,5 @@
 import { Locator, Page } from '@playwright/test';
 
-/**
- * Page object for the users feature (browse, search, delete, error states).
- * Centralizes selectors and navigation so tests read as behavior, not DOM queries.
- */
 export class UsersPage {
   readonly #page: Page;
   readonly list: Locator;

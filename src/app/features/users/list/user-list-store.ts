@@ -15,7 +15,6 @@ export class UserListStore {
   });
 
   readonly filteredUsers = computed(() => {
-    // value() throws while the resource is in an error state, hasValue() guards it.
     const users = this.users.hasValue() ? this.users.value() : [];
     const search = this.search().trim().toLowerCase();
 

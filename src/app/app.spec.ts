@@ -26,8 +26,8 @@ describe('App', () => {
   it('should announce the current page in a live region', async () => {
     await renderApp();
 
-    TestBed.inject(AppTitleStrategy).pageTitle.set('Users');
+    TestBed.inject(AppTitleStrategy).pageTitle.set('Sample');
 
-    expect(await screen.findByTestId('route-announcer')).toHaveTextContent('Users');
+    expect(await screen.findByTestId('route-announcer')).toHaveTextContent('Sample');
   });
 });

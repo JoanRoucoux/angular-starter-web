@@ -21,7 +21,6 @@ export class AppTitleStrategy extends TitleStrategy {
 
   constructor() {
     super();
-    // Re-translate the current page title whenever the active language changes.
     effect(() => {
       this.#languageStore.activeLang();
       if (this.#lastSnapshot) {

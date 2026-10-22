@@ -11,7 +11,6 @@
   </a>
 </div>
 
-<!-- Rendered even when empty: a live region only announces changes to a region that was already there. -->
 <p class="sr-only" data-testid="user-list-status" role="status">
   @if (deletedUserName()) {
     {{ 'users.list.deleted' | transloco: { name: deletedUserName() } }}

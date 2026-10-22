@@ -30,7 +30,6 @@ describe('UserDeleteDialog', () => {
   const renderDialog = async (): Promise<void> => {
     await render(UserDeleteDialog, {
       imports: [getTranslocoTestingModule()],
-      // UserDeleteStore is provided by the component itself, the test does not wire it.
       providers: [
         provideZonelessChangeDetection(),
         provideHttpClient(),
@@ -68,7 +67,6 @@ describe('UserDeleteDialog', () => {
   it('should emit dismissed when the dialog is cancelled with the Escape key', async () => {
     await renderDialog();
 
-    // jsdom implements neither the Esc handling of <dialog> nor the cancel event it fires, dispatch it by hand.
     fireEvent(await screen.findByRole('dialog'), new Event('cancel'));
 
     await vi.waitFor(() => expect(dismissed).toHaveBeenCalledTimes(1));
