@@ -54,7 +54,7 @@
     {
       "file": "src/index.html",
       "search": "<title>Angular Starter Web</title>",
-      "value": "<title>{{title}}</title>"
+      "value": "<title>{{titleHtml}}</title>"
     },
     {
       "file": "openapi/openapi.yaml",
@@ -70,7 +70,7 @@
     },
     {
       "file": ".prettierignore",
-      "search": "/.generator/templates\n",
+      "search": "/.generator/templates\n\n",
       "value": "",
       "optional": true
     },
@@ -85,7 +85,7 @@
     {
       "extensions": [".ts"],
       "search": "Angular Starter Web",
-      "value": "{{title}}"
+      "value": "{{titleJs}}"
     }
   ],
   "openapiTarget": "openapi/openapi.yaml",

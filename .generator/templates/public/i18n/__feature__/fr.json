@@ -1,4 +1,4 @@
 {
-  "title": "{{title}}",
-  "description": "Bienvenue sur {{title}}. Construisez votre première page dans src/app/features/{{feature}}/."
+  "title": "{{titleJson}}",
+  "description": "Bienvenue sur {{titleJson}}. Construisez votre première page dans src/app/features/{{feature}}/."
 }

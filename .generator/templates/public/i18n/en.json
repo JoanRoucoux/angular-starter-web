@@ -1,6 +1,6 @@
 {
   "pageTitle": {
-    "{{featureCamel}}": "{{title}}",
+    "{{featureCamel}}": "{{titleJson}}",
     "notFound": "Page not found"
   },
   "notFound": {
