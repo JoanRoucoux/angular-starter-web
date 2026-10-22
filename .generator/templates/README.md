@@ -30,4 +30,4 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 - Build your pages in `src/app/features/{{feature}}/`: one folder per screen, named after its route segment (`list/`, `detail/`, ...), holding the page and everything that serves only it: see "Adding a page to a feature" in [AGENTS.md](AGENTS.md) for the exact naming recipe.
 - Adjust the dev proxy target in [proxy.conf.json](proxy.conf.json).
 
-See [AGENTS.md](AGENTS.md) for the architecture, conventions and testing guidelines inherited from the starter.
+See [AGENTS.md](AGENTS.md) for the architecture, conventions and testing guidelines.
