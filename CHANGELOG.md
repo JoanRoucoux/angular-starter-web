@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.5.0...v1.5.1) (2026-10-22)
+
+
+### Bug Fixes
+
+* **docker:** serve security headers, correct caching and a working healthcheck ([0453e24](https://github.com/JoanRoucoux/angular-starter-web/commit/0453e24107a6559dea24f41dd35149b83536e690))
+* **generator:** escape the title in code, JSON and HTML, rebase maintainer links ([d0daebc](https://github.com/JoanRoucoux/angular-starter-web/commit/d0daebc896befd488b052ea2d1874dec053734d6))
+* **generator:** replace the app title and keep starter text out of generated apps ([40d4798](https://github.com/JoanRoucoux/angular-starter-web/commit/40d47986c9b1742228a15ffe9f9e4ae304eb51b1))
+* **users:** provide each screen store on its page ([034e17e](https://github.com/JoanRoucoux/angular-starter-web/commit/034e17e1e7b69f057dc8e6abc8e0b01560f88f18))
+
+
+### Performance Improvements
+
+* preload translations, reserve the scrollbar gutter, follow the browser language ([7f0245f](https://github.com/JoanRoucoux/angular-starter-web/commit/7f0245f86f8d08ec8aa9c0ecbe6ae880701235bf))
+
 ## [1.5.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.4.0...v1.5.0) (2026-08-20)
 
 
