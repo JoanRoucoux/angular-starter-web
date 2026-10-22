@@ -130,6 +130,7 @@ export class UserListStore {
 }
 
 // features/users/list/user-list-page.ts
+@Component({ /* ..., */ providers: [UserListStore] })
 export class UserListPage {
   #store = inject(UserListStore);
 
