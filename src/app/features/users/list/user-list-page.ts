@@ -12,6 +12,7 @@ import { UserListStore } from './user-list-store';
   selector: 'app-user-list-page',
   imports: [RouterLink, TranslocoPipe, UserDeleteDialog],
   templateUrl: './user-list-page.html',
+  providers: [UserListStore],
 })
 export class UserListPage {
   #store = inject(UserListStore);

@@ -18,6 +18,13 @@ export class UsersPage {
   readonly confirmDeleteButton: Locator;
   readonly cancelDeleteButton: Locator;
   readonly statusMessage: Locator;
+  readonly createLink: Locator;
+  readonly firstNameInput: Locator;
+  readonly lastNameInput: Locator;
+  readonly emailInput: Locator;
+  readonly submitButton: Locator;
+  readonly heading: Locator;
+  readonly backToListLink: Locator;
 
   constructor(page: Page) {
     this.#page = page;
@@ -33,6 +40,13 @@ export class UsersPage {
     this.confirmDeleteButton = page.getByTestId('user-delete-confirm');
     this.cancelDeleteButton = page.getByTestId('user-delete-cancel');
     this.statusMessage = page.getByTestId('user-list-status');
+    this.createLink = page.getByTestId('user-list-create');
+    this.firstNameInput = page.getByTestId('user-create-first-name');
+    this.lastNameInput = page.getByTestId('user-create-last-name');
+    this.emailInput = page.getByTestId('user-create-email');
+    this.submitButton = page.getByTestId('user-create-submit');
+    this.heading = page.getByRole('heading', { level: 1 });
+    this.backToListLink = page.getByRole('link', { name: 'Back to the list' });
   }
 
   async goto(): Promise<void> {

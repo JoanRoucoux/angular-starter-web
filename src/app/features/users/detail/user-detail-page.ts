@@ -9,6 +9,7 @@ import { UserDetailStore } from './user-detail-store';
   selector: 'app-user-detail-page',
   imports: [RouterLink, TranslocoPipe],
   templateUrl: './user-detail-page.html',
+  providers: [UserDetailStore],
 })
 export class UserDetailPage {
   #store = inject(UserDetailStore);

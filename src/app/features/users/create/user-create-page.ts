@@ -12,6 +12,7 @@ import { UserCreateStore } from './user-create-store';
   selector: 'app-user-create-page',
   imports: [FormField, RouterLink, TranslocoPipe],
   templateUrl: './user-create-page.html',
+  providers: [UserCreateStore],
 })
 export class UserCreatePage {
   #store = inject(UserCreateStore);

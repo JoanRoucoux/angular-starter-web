@@ -86,3 +86,44 @@ test('redirects home when the session does not grant access to the feature', asy
 
   await expect(page).toHaveURL('/');
 });
+
+test("opens a user's detail from the list", async ({ page, usersPage }) => {
+  const john: User = { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' };
+  await page.route('**/api/users', (route) => route.fulfill({ json: [john] }));
+  await page.route('**/api/users/1', (route) => route.fulfill({ json: john }));
+
+  await usersPage.goto();
+  await usersPage.userItems.first().click();
+
+  await expect(page).toHaveURL('/users/1');
+  await expect(usersPage.heading).toHaveText('John Doe');
+});
+
+test('shows a created user back on the list', async ({ page, usersPage }) => {
+  const users: User[] = [
+    { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'active' },
+  ];
+  await page.route('**/api/users', (route) => {
+    if (route.request().method() === 'POST') {
+      const created: User = { id: 2, ...route.request().postDataJSON(), status: 'pending' };
+      users.push(created);
+      return route.fulfill({ status: 201, json: created });
+    }
+    return route.fulfill({ json: users });
+  });
+  await page.route('**/api/users/2', (route) => route.fulfill({ json: users[1] }));
+
+  await usersPage.goto();
+  await expect(usersPage.userItems).toHaveText(['John Doe']);
+  await usersPage.createLink.click();
+  await expect(usersPage.heading).toHaveText('New user');
+  await usersPage.firstNameInput.fill('Alice');
+  await usersPage.lastNameInput.fill('Smith');
+  await usersPage.emailInput.fill('alice.smith@example.com');
+  await usersPage.submitButton.click();
+
+  await expect(page).toHaveURL('/users/2');
+  await usersPage.backToListLink.click();
+
+  await expect(usersPage.userItems).toHaveText(['John Doe', 'Alice Smith']);
+});

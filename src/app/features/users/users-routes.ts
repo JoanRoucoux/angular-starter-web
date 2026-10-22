@@ -3,11 +3,8 @@ import { type Routes } from '@angular/router';
 import { provideTranslocoScope } from '@jsverse/transloco';
 
 import { UserCreatePage } from './create/user-create-page';
-import { UserCreateStore } from './create/user-create-store';
 import { UserDetailPage } from './detail/user-detail-page';
-import { UserDetailStore } from './detail/user-detail-store';
 import { UserListPage } from './list/user-list-page';
-import { UserListStore } from './list/user-list-store';
 import { usersAccessGuard } from './users-access-guard';
 
 export const USERS_ROUTES: Routes = [
@@ -21,21 +18,17 @@ export const USERS_ROUTES: Routes = [
         path: '',
         component: UserListPage,
         title: 'pageTitle.users',
-        // Scoped to this route: created and destroyed with the page.
-        providers: [UserListStore],
       },
       {
         // Declared before :userId so 'new' is not matched as an identifier.
         path: 'new',
         component: UserCreatePage,
         title: 'pageTitle.userCreate',
-        providers: [UserCreateStore],
       },
       {
         path: ':userId',
         component: UserDetailPage,
         title: 'pageTitle.userDetail',
-        providers: [UserDetailStore],
       },
     ],
   },
