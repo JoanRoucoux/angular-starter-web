@@ -1,7 +1,4 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/banner-dark.svg" />
-  <img src=".github/assets/banner-light.svg" alt="Angular Starter Web — ready-to-use Angular starter" />
-</picture>
+<img src=".github/assets/banner.png" alt="Angular Starter Web: ready-to-use Angular starter" />
 <br>
 <br>
 
