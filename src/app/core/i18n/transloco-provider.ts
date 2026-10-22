@@ -10,13 +10,14 @@ import { TranslocoService, provideTransloco } from '@jsverse/transloco';
 import { cookiesStorage, provideTranslocoPersistLang } from '@jsverse/transloco-persist-lang';
 import { firstValueFrom } from 'rxjs';
 
+import { AVAILABLE_LANGS, getInitialLang } from '@core/i18n/initial-lang';
 import { TranslocoHttpLoader } from '@core/i18n/transloco-loader';
 
 export const provideTranslocoGlobal = (): EnvironmentProviders => {
   return makeEnvironmentProviders([
     provideTransloco({
       config: {
-        availableLangs: ['en', 'fr'],
+        availableLangs: [...AVAILABLE_LANGS],
         defaultLang: 'en',
         // Remove this option if your application doesn't support changing language in runtime.
         reRenderOnLangChange: true,
@@ -25,6 +26,7 @@ export const provideTranslocoGlobal = (): EnvironmentProviders => {
       loader: TranslocoHttpLoader,
     }),
     provideTranslocoPersistLang({
+      getLangFn: getInitialLang,
       storage: {
         useValue: cookiesStorage(),
       },

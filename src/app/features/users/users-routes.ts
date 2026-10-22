@@ -2,6 +2,8 @@ import { type Routes } from '@angular/router';
 
 import { provideTranslocoScope } from '@jsverse/transloco';
 
+import { preloadScope } from '@core/i18n/preload-scope';
+
 import { UserCreatePage } from './create/user-create-page';
 import { UserDetailPage } from './detail/user-detail-page';
 import { UserListPage } from './list/user-list-page';
@@ -13,6 +15,7 @@ export const USERS_ROUTES: Routes = [
     canMatch: [usersAccessGuard],
     // Load the feature translations (public/i18n/users/) alongside the feature.
     providers: [provideTranslocoScope('users')],
+    resolve: { translations: preloadScope('users') },
     children: [
       {
         path: '',

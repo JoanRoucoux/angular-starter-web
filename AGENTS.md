@@ -89,6 +89,8 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 
 - The global `public/i18n/<lang>.json` files only hold keys needed synchronously before any scope loads: `pageTitle.*` (used by the title strategy on navigation) and the 404 page. They are preloaded by an app initializer — keep them minimal.
 - Each feature has a lazy scope in `public/i18n/<feature>/<lang>.json`, declared with `provideTranslocoScope('<feature>')` in the feature's routes. Keys are prefixed with the scope (`users.list.title`).
+- Every feature route resolves `preloadScope('<feature>')` next to `provideTranslocoScope`, so its texts are there at first paint.
+- English is the default language, a first visit follows the browser language when it is supported, and a persisted choice always wins (`core/i18n/initial-lang.ts`).
 - Every key must exist in both `en` and `fr`.
 
 ## Testing
