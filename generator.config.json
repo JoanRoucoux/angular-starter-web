@@ -40,7 +40,7 @@
       "set": {
         "name": "{{projectName}}",
         "version": "0.1.0",
-        "description": "{{title}} — Angular application generated from angular-starter-web."
+        "description": "{{title}}: Angular application generated from angular-starter-web."
       },
       "delete": ["keywords", "homepage", "bugs", "repository", "license", "author"]
     }
@@ -61,6 +61,31 @@
       "search": "angular-starter-web API",
       "value": "{{projectName}} API",
       "optional": true
+    },
+    {
+      "file": ".dockerignore",
+      "search": ".generator\n",
+      "value": "",
+      "optional": true
+    },
+    {
+      "file": ".prettierignore",
+      "search": "/.generator/templates\n",
+      "value": "",
+      "optional": true
+    },
+    {
+      "file": "eslint.config.mjs",
+      "search": ", '.generator'",
+      "value": "",
+      "optional": true
+    }
+  ],
+  "replaceAll": [
+    {
+      "extensions": [".ts"],
+      "search": "Angular Starter Web",
+      "value": "{{title}}"
     }
   ],
   "openapiTarget": "openapi/openapi.yaml",
