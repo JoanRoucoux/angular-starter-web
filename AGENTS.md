@@ -116,7 +116,9 @@ Keep them in sync with the starter:
 
 ## Gotchas
 
-- `typescript` is pinned to `~6.0.2`: TypeScript 7 breaks `typescript-eslint` (via `ts-api-utils`). Do not bump until typescript-eslint supports TS 7.
+- TypeScript stays on 6.x (Dependabot ignores `>=7`): TypeScript 7 breaks `typescript-eslint` (via `ts-api-utils`). Do not bump until typescript-eslint supports TS 7.
+- Orval writes a root `index.ts` into `core/api-client/` that turns it into a barrel Sheriff refuses deep imports from; the `afterAllFilesWrite` hook in `orval.config.ts` deletes it. `indexFiles: false` breaks the schemas import.
+- `pnpm-workspace.yaml` sets `saveExact: true`: `pnpm add` records exact versions, keep it that way.
 - `pnpm-workspace.yaml` `allowBuilds` is required for native postinstall scripts (esbuild, lmdb, ...) — do not remove it.
 - GitHub Actions in `.github/workflows/ci.yml` are pinned by commit SHA (Dependabot keeps them updated) — when adding one, pin it the same way.
 - Nothing is committed or pushed without an explicit request from the maintainer.

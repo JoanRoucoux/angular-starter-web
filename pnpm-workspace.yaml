@@ -3,5 +3,4 @@ allowBuilds:
   esbuild: true
   lmdb: true
   msgpackr-extract: true
-minimumReleaseAgeExclude:
-  - lint-staged@17.1.0
+saveExact: true
