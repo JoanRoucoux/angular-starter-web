@@ -69,8 +69,11 @@ jobs:
       - name: Build the production image
         run: docker build -t app:ci .
 
-      - name: Check that nginx serves the app and falls back to index.html
+      - name: Check that nginx is healthy, falls back to index.html, sends headers and 404s missing files
         run: |
-          docker run -d --name web -p 8080:80 app:ci
-          timeout 60 sh -c 'until curl -sf http://localhost:8080/ > /dev/null; do sleep 2; done'
+          docker run -d --name web -p 8080:80 --health-interval 2s app:ci
+          timeout 60 sh -c 'until [ "$(docker inspect -f "{{.State.Health.Status}}" web)" = healthy ]; do sleep 2; done'
           curl -sf http://localhost:8080/users/1 | grep -q "<app-root>"
+          curl -sfI http://localhost:8080/ | tr -d '\r' | grep -qi "^content-security-policy:.*trusted-types angular"
+          curl -sfI http://localhost:8080/i18n/en.json | tr -d '\r' | grep -qi "^cache-control: no-cache"
+          [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/missing.js)" = 404 ]
