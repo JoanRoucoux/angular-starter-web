@@ -1,19 +1,29 @@
 <img src=".github/assets/banner.png" alt="Angular Starter Web: ready-to-use Angular starter" />
 
 [![CI](https://github.com/JoanRoucoux/angular-starter-web/actions/workflows/ci.yml/badge.svg)](https://github.com/JoanRoucoux/angular-starter-web/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/JoanRoucoux/angular-starter-web)](https://github.com/JoanRoucoux/angular-starter-web/releases)
 [![Angular](https://img.shields.io/badge/Angular-22-dd0031?logo=angular)](https://angular.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![pnpm](https://img.shields.io/badge/pnpm-managed-f69220?logo=pnpm&logoColor=white)](https://pnpm.io)
 
 Ready-to-use Angular starter for building a new web application connected to a backend, with every best practice and tool already wired up.
 
-The app ships no global chrome (header, sidebar, navigation): it renders only its body, so it can be embedded in a host shell as-is, or run standalone. No integration mechanism is assumed, it builds, runs and tests on its own either way.
+The app ships no global chrome (header, sidebar, navigation): it renders only its body, so it can be embedded in a host shell as-is, or run standalone. No integration mechanism is assumed: it builds, runs and tests on its own either way. It talks to a backend such as [java-starter](https://github.com/JoanRoucoux/java-starter) through a client generated from the backend's OpenAPI contract.
 
-## Stack
+## The starters
+
+| Repository                                                                           | What it generates                                         |
+| ------------------------------------------------------------------------------------ | --------------------------------------------------------- |
+| [angular-starter-web](https://github.com/JoanRoucoux/angular-starter-web) (this one) | An Angular web application connected to a backend         |
+| [angular-starter-ui](https://github.com/JoanRoucoux/angular-starter-ui)              | An Angular design system: component library and Storybook |
+| [java-starter](https://github.com/JoanRoucoux/java-starter)                          | A Spring Boot backend in hexagonal architecture           |
+
+Create an application from any of them with [starter-generator](https://github.com/JoanRoucoux/starter-generator).
+
+## Tech stack
 
 | Tool                                                                                                                                                                                   | Role                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| [Angular 22](https://angular.dev)                                                                                                                                                      | Framework (standalone, zoneless, signals)             |
+| [Angular](https://angular.dev)                                                                                                                                                         | Framework (standalone, zoneless, signals)             |
 | [Tailwind CSS](https://tailwindcss.com)                                                                                                                                                | Utility-first CSS                                     |
 | [ESLint](https://eslint.org) + [angular-eslint](https://github.com/angular-eslint/angular-eslint)                                                                                      | Lint for TypeScript code and templates                |
 | [Prettier](https://prettier.io) + [sort-imports](https://github.com/trivago/prettier-plugin-sort-imports) + [tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) | Code formatting, import ordering and class sorting    |
@@ -33,6 +43,14 @@ The app ships no global chrome (header, sidebar, navigation): it renders only it
 
 ## Getting started
 
+Generate an application from this starter:
+
+```bash
+starter-generator portfolio-web --starter web
+```
+
+Then run it. Prerequisites: Node (supported versions in `engines` of [package.json](package.json)) and pnpm.
+
 ```bash
 pnpm install    # installs dependencies and generates the API clients (postinstall)
 pnpm start      # dev server on http://localhost:4200
@@ -40,7 +58,7 @@ pnpm start      # dev server on http://localhost:4200
 
 Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.conf.json](proxy.conf.json)): adjust the target to your backend.
 
-## Scripts
+### Scripts
 
 | Script                   | Description                                          |
 | ------------------------ | ---------------------------------------------------- |
@@ -56,12 +74,6 @@ Calls to `/api` are proxied to `http://localhost:8080` by the dev proxy ([proxy.
 | `pnpm run format`        | Format the whole project (Prettier)                  |
 | `pnpm run format:check`  | Check formatting without modifying anything          |
 | `pnpm run generate:api`  | Regenerates clients and models from the OpenAPI spec |
-
-Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Stores, interceptors and form schemas are tested with plain `TestBed`, without rendering a template. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
-
-E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test fixtures), next to the app rather than in a separate package. They also run [axe](https://github.com/dequelabs/axe-core-npm) on the rendered page through `expectNoAccessibilityViolations`, which fails on any WCAG 2.1 A/AA violation, call it again once a dialog is open, since axe only sees what is currently rendered.
-
-Coverage counts **every** source file, not only the ones a spec imports: `coverageInclude` in [angular.json](angular.json) is what makes an untested file report as uncovered instead of disappearing from the report. `coverageExclude` holds the generated client and the pure wiring (bootstrap, `*-routes.ts`, `*-provider.ts`, environments).
 
 ## Project structure
 
@@ -163,13 +175,6 @@ The language can be switched at runtime via `LanguageStore.setActiveLang()`, by 
 
 [Tailwind CSS v4](https://tailwindcss.com) is wired up via PostCSS ([.postcssrc.json](.postcssrc.json)) and imported once in [src/styles.css](src/styles.css) with `@import 'tailwindcss';`. No `tailwind.config.js` is needed for basic usage (Tailwind v4 is CSS-first); use `@theme` in `styles.css` to customize tokens if needed. Components carry no stylesheet of their own, utilities in the template and `@theme` tokens cover it, but nothing prevents adding a `styleUrl` if one ever needs it. The active color scheme follows the OS preference, unless a host shell forces one by setting `data-theme` on `<html>`.
 
-## Quality and conventions
-
-- **On commit**: lint-staged formats and lints the staged files; commitlint enforces [Conventional Commits](https://www.conventionalcommits.org) (`feat: ...`, `fix: ...`, ...).
-- **In CI** ([.github/workflows/ci.yml](.github/workflows/ci.yml)): format check, lint, unit tests, build and e2e on every push/PR, with the required check `ci` as the gate job that waits for all the others (the e2e, `docker` and `ops` jobs included). A separate workflow, [generator-check.yml](.github/workflows/generator-check.yml), scaffolds an app from the working tree and runs its own gates, so the generator manifest and templates cannot drift (maintainer notes in [.generator/README.md](.generator/README.md)).
-- **Code conventions**: signals, `inject()`, `#` private fields, control flow (`@if`, `@for`), no `.component`/`.service` suffix, classes named after their role rather than their Angular type, pages suffixed with `-page`. `OnPush` is Angular 22's default and is never declared. The full list lives in [AGENTS.md](AGENTS.md), next to the [Angular style guide](https://angular.dev/style-guide).
-- **Config files** use ESM `.mjs` where the tool supports it: [eslint.config.mjs](eslint.config.mjs), [prettier.config.mjs](prettier.config.mjs), [commitlint.config.mjs](commitlint.config.mjs).
-
 ## Environments
 
 `src/environments/environment.ts` holds local development values and is replaced at build time by `environment.production.ts` (see `fileReplacements` in [angular.json](angular.json)). Always import `@environments/environment`, never a specific file.
@@ -184,6 +189,21 @@ docker run --rm -p 8080:80 my-app
 ```
 
 The nginx config does the two things a single-page app needs: unmatched paths fall back to `index.html` so a refresh on `/users/1` still works, and hashed assets are cached for a year while everything else is revalidated. A missing file answers 404, and nginx also sends the security headers (a strict CSP with Trusted Types, `frame-ancestors 'none'`). Calls to `/api` are **not** proxied there, [proxy.conf.json](proxy.conf.json) is a dev-server concern only. In production a host shell or an ingress routes them; add a `location /api` to [nginx.conf](nginx.conf) if the container has to reach the backend itself. The strict CSP forbids embedding the app in an iframe and writing HTML from a UI library: relax `frame-ancestors` and `X-Frame-Options` for an iframe host, and add a named Trusted Types policy for a library.
+
+## Testing
+
+Component tests use [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) (`render`, `screen`, `userEvent`): querying by role or label asserts accessibility for free and matches the Playwright `getByRole` style used in e2e. Stores, interceptors and form schemas are tested with plain `TestBed`, without rendering a template. The [jest-dom](https://github.com/testing-library/jest-dom) matchers (`toBeInTheDocument`, `toBeEnabled`, ...) are registered in [src/test-setup.ts](src/test-setup.ts).
+
+E2e tests live in `e2e/` (`pages/` for page objects, `fixtures/` for custom test fixtures), next to the app rather than in a separate package. They also run [axe](https://github.com/dequelabs/axe-core-npm) on the rendered page through `expectNoAccessibilityViolations`, which fails on any WCAG 2.1 A/AA violation (call it again once a dialog is open, since axe only sees what is currently rendered).
+
+Coverage counts **every** source file, not only the ones a spec imports: `coverageInclude` in [angular.json](angular.json) is what makes an untested file report as uncovered instead of disappearing from the report. `coverageExclude` holds the generated client and the pure wiring (bootstrap, `*-routes.ts`, `*-provider.ts`, environments).
+
+## Quality and conventions
+
+- **On commit**: lint-staged formats and lints the staged files; commitlint enforces [Conventional Commits](https://www.conventionalcommits.org) (`feat: ...`, `fix: ...`, ...).
+- **In CI** ([.github/workflows/ci.yml](.github/workflows/ci.yml)): format check, lint, unit tests, build and e2e on every push/PR, with the required check `ci` as the gate job that waits for all the others (the e2e, `docker` and `ops` jobs included). A separate workflow, [generator-check.yml](.github/workflows/generator-check.yml), scaffolds an app from the working tree and runs its own gates, so the generator manifest and templates cannot drift (maintainer notes in [.generator/README.md](.generator/README.md)).
+- **Code conventions**: signals, `inject()`, `#` private fields, control flow (`@if`, `@for`), no `.component`/`.service` suffix, classes named after their role rather than their Angular type, pages suffixed with `-page`. `OnPush` is Angular 22's default and is never declared. The full list lives in [AGENTS.md](AGENTS.md), next to the [Angular style guide](https://angular.dev/style-guide).
+- **Config files** use ESM `.mjs` where the tool supports it: [eslint.config.mjs](eslint.config.mjs), [prettier.config.mjs](prettier.config.mjs), [commitlint.config.mjs](commitlint.config.mjs).
 
 ## Contributing
 
