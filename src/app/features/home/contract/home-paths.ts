@@ -1,2 +1,6 @@
-export const HOME_SEGMENT = '';
-export const HOME_PATH = `/${HOME_SEGMENT}`;
+const SEGMENT = '';
+
+export const HOME_PATHS = {
+  segment: SEGMENT,
+  home: `/${SEGMENT}`,
+} as const;

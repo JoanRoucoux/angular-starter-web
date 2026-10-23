@@ -5,11 +5,11 @@ import { catchError, map, of } from 'rxjs';
 
 import { SessionStore } from '@core/session/session-store';
 
-import { HOME_PATH } from '@features/home/contract/home-paths';
+import { HOME_PATHS } from '@features/home/contract/home-paths';
 
 export const usersAccessGuard: CanMatchFn = () => {
   const router = inject(Router);
-  const home = (): RedirectCommand => new RedirectCommand(router.parseUrl(HOME_PATH));
+  const home = (): RedirectCommand => new RedirectCommand(router.parseUrl(HOME_PATHS.home));
 
   return inject(SessionStore)
     .has('users:read')

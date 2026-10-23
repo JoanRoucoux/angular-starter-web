@@ -37,8 +37,8 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 
 - A contract holds pure data only: route segments, absolute paths, functions that build link commands, query param keys and values, and their types. Never a component, service, store, `inject()` or any `@angular/*` import.
 - Why: importing another feature's contract must pull only constants into the importer's chunk (lazy loading), and a shared injectable would be state shared between features, which belongs in `core` or the backend.
-- One file per concern, barrel-less, no `index.ts`. Every feature has `contract/<feature>-paths.ts` with at least its segment: `app-routes.ts` mounts the feature on it and cannot take it from `<feature>-routes.ts`, since a static import would make a lazy chunk eager.
-- Something enters a contract only when a second module needs it. Route parameter names (`:userId`) stay private: the path builder (`userPath(id)`) hides them.
+- One file per concern, barrel-less, no `index.ts`. Every feature has `contract/<feature>-paths.ts` with at least its segment (one `<FEATURE>_PATHS` object per feature: `segment`, a `<child>Segment` per child route, then absolute links or link builders): `app-routes.ts` mounts the feature on it and cannot take it from `<feature>-routes.ts`, since a static import would make a lazy chunk eager.
+- Something enters a contract only when a second module needs it. Route parameter names (`:userId`) stay private: the path builder (`USERS_PATHS.detail(id)`) hides them.
 - No route path is written as a string outside the feature that owns it: templates and navigation read the contract through a `protected readonly` field of the component. Specs and e2e keep literal URLs on purpose, since they assert the user-facing URL.
 
 ## Adding a page to a feature
@@ -132,7 +132,7 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 - `close()` on a `<dialog>` restores focus to the element that opened it. After a deletion the focus is moved to the list heading (`user-list-page.ts`), because the row that held it is about to disappear.
 - A live region only announces changes to a region that was already in the DOM: the status paragraph of the user list renders even when empty.
 - `showModal()` focuses the first focusable element of the dialog: keep the destructive action second (`user-delete-dialog.html`).
-- In `users-routes.ts`, `USER_CREATE_SEGMENT` (`'new'`) is declared before `':userId'` so it is not matched as an identifier.
+- In `users-routes.ts`, `USERS_PATHS.createSegment` (`'new'`) is declared before `':userId'` so it is not matched as an identifier.
 - `resource.value()` throws while the resource is in an error state: guard it with `hasValue()` (`user-list-store.ts`).
 - `submit()` of Signal Forms marks every field as touched, skips the action while the form is invalid and drives `form().submitting()`; `form()` must be called from an injection context, also in specs.
 - jsdom 30 ships `HTMLDialogElement` without `showModal` and `close`, and implements neither the Esc handling of `<dialog>` nor the `cancel` event it fires: specs dispatch it by hand and the e2e suite covers the real behavior.

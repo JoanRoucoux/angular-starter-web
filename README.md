@@ -95,7 +95,7 @@ src/
 |   |   |   |-- home-page.ts   # No screen folder: the page sits at the root
 |   |   |   `-- home-routes.ts # Every feature owns one, even with a single screen
 |   |   `-- users/             # Example of a full feature (lazy loaded, behind an access guard)
-|   |       |-- contract/      # users-paths.ts: segments, paths, userPath(id)
+|   |       |-- contract/      # users-paths.ts: USERS_PATHS: segments, links, detail(id)
 |   |       |-- list/          # Page + its store, and delete-dialog/ with its own
 |   |       |-- detail/        # Page + store reading the route parameter
 |   |       |-- create/        # Page + store + its signal form
