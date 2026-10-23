@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.5.1...v1.6.0) (2026-10-23)
+
+
+### Features
+
+* expose each feature's paths through a contract module ([46f5948](https://github.com/JoanRoucoux/angular-starter-web/commit/46f59484f47a1254375591c18e9dce437db71c86))
+
 ## [1.5.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.5.0...v1.5.1) (2026-10-22)
 
 
