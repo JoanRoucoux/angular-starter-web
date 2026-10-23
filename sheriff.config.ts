@@ -6,13 +6,15 @@ export const config: SheriffConfig = {
   modules: {
     'src/app/core': 'core',
     'src/app/features/<feature>': 'feature:<feature>',
+    'src/app/features/<feature>/contract': 'contract:<feature>',
     'src/app/shared': 'shared',
     'src/environments': 'env',
   },
   depRules: {
-    root: ['core', 'feature:*', 'shared', 'env'],
-    'feature:*': ['core', 'shared', 'env'],
-    core: ['shared', 'env'],
+    root: ['core', 'feature:*', 'contract:*', 'shared', 'env'],
+    'feature:*': ['core', 'contract:*', 'shared', 'env'],
+    'contract:*': [],
+    core: ['contract:*', 'shared', 'env'],
     shared: ['env'],
     env: [],
   },

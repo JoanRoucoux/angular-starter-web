@@ -79,14 +79,16 @@ src/
 |   |   `-- not-found-page/    # 404 page
 |   |-- features/              # Business features, grouped by domain
 |   |   |-- home/              # Single-screen feature
+|   |   |   |-- contract/      # home-paths.ts: the only part other modules may import
 |   |   |   |-- home-page.ts   # No screen folder: the page sits at the root
 |   |   |   `-- home-routes.ts # Every feature owns one, even with a single screen
 |   |   `-- users/             # Example of a full feature (lazy loaded, behind an access guard)
+|   |       |-- contract/      # users-paths.ts: segments, paths, userPath(id)
 |   |       |-- list/          # Page + its store, and delete-dialog/ with its own
 |   |       |-- detail/        # Page + store reading the route parameter
 |   |       |-- create/        # Page + store + its signal form
 |   |       |-- users-access-guard.ts   # canMatch: redirects when the session says no
-|   |       `-- users-routes.ts         # The feature's public API: paths, titles, scope, guard
+|   |       `-- users-routes.ts         # Titles, scope, guard; paths come from the contract
 |   `-- shared/                # Reusable code
 |       |-- forms/             # Generic form helpers (error display, ...)
 |       `-- testing/           # Test utilities
@@ -94,11 +96,11 @@ src/
 `-- styles.css                 # Global styles: Tailwind import + --app-* CSS variables
 ```
 
-Anatomy of a feature: one folder per screen named after its route segment (`list/`, `detail/`, `create/`), plus a `<feature>-routes.ts`. A screen folder holds everything that serves only that screen (page, store, form, dialogs) and **the folder carries the short name while the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`. A single-screen feature keeps its page at the root (`home/home-page.ts`). The routes file is the feature's public API: [app-routes.ts](src/app/app-routes.ts) imports nothing else from it, so a feature moves to another app by moving its folder.
+Anatomy of a feature: one folder per screen named after its route segment (`list/`, `detail/`, `create/`), plus a `<feature>-routes.ts` and a `contract/`. A screen folder holds everything that serves only that screen (page, store, form, dialogs) and **the folder carries the short name while the files carry the full one**: `users/list/user-list-page.ts`, class `UserListPage`. A single-screen feature keeps its page at the root (`home/home-page.ts`). The `contract/` folder is the feature's public surface: pure data (route segments, paths, link builders), no component or service. [app-routes.ts](src/app/app-routes.ts) imports a feature's routes file and its contract, nothing else, so a feature moves to another app by moving its folder, and no route path is written as a string outside the feature that owns it.
 
 A page never injects the API client: any I/O lives in a `<screen>-store.ts` beside it, provided by its page component so it is created and destroyed with the screen, see [user-list-page.ts](src/app/features/users/list/user-list-page.ts). [AGENTS.md](AGENTS.md) holds the complete set of rules: where each kind of file goes, how state is scoped, and the recipe for adding a screen.
 
-Dependency rules, enforced at lint time by [Sheriff](https://sheriff.softarc.io) ([sheriff.config.ts](sheriff.config.ts)): `features` can import `core` and `shared`; `core` can import `shared`; `shared` imports neither `core` nor `features`; features cannot import each other, code shared between features belongs in `core` or `shared`. Modules are barrel-less: import files directly (no `index.ts`), and place files a module wants to keep private in an `internal/` subdirectory.
+Dependency rules, enforced at lint time by [Sheriff](https://sheriff.softarc.io) ([sheriff.config.ts](sheriff.config.ts)): `features` can import `core` and `shared`; `core` can import `shared`; `shared` imports neither `core` nor `features`; features import each other only through `contract/`, `core` may import contracts, and a contract imports nothing from the app; other code shared between features belongs in `core` or `shared`. Modules are barrel-less: import files directly (no `index.ts`), and place files a module wants to keep private in an `internal/` subdirectory.
 
 Available import aliases: `@core/*`, `@features/*`, `@shared/*`, `@environments/*`.
 

@@ -5,6 +5,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 import type { User } from '@core/api-client/angularStarterWebAPI.schemas';
 
+import { USER_CREATE_PATH, userPath } from '../contract/users-paths';
 import { UserDeleteDialog } from './delete-dialog/user-delete-dialog';
 import { UserListStore } from './user-list-store';
 
@@ -21,6 +22,8 @@ export class UserListPage {
   protected readonly users = this.#store.users;
   protected readonly filteredUsers = this.#store.filteredUsers;
   protected readonly search = this.#store.search;
+  protected readonly userCreatePath = USER_CREATE_PATH;
+  protected readonly userPath = userPath;
 
   protected readonly userToDelete = signal<User | undefined>(undefined);
   protected readonly deletedUserName = signal('');

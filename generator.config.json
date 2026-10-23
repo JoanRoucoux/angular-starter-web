@@ -79,6 +79,16 @@
       "search": ", '.generator'",
       "value": "",
       "optional": true
+    },
+    {
+      "file": "src/app/core/not-found-page/not-found-page.ts",
+      "search": "@features/home/contract/home-paths",
+      "value": "@features/{{feature}}/contract/{{feature}}-paths"
+    },
+    {
+      "file": "src/app/core/not-found-page/not-found-page.ts",
+      "search": "HOME_PATH",
+      "value": "{{featureConst}}_PATH"
     }
   ],
   "replaceAll": [

@@ -4,6 +4,7 @@ import { provideTranslocoScope } from '@jsverse/transloco';
 
 import { preloadScope } from '@core/i18n/preload-scope';
 
+import { USER_CREATE_SEGMENT } from './contract/users-paths';
 import { UserCreatePage } from './create/user-create-page';
 import { UserDetailPage } from './detail/user-detail-page';
 import { UserListPage } from './list/user-list-page';
@@ -22,7 +23,7 @@ export const USERS_ROUTES: Routes = [
         title: 'pageTitle.users',
       },
       {
-        path: 'new',
+        path: USER_CREATE_SEGMENT,
         component: UserCreatePage,
         title: 'pageTitle.userCreate',
       },
