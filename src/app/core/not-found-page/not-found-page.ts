@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { HOME_PATH } from '@features/home/contract/home-paths';
+import { HOME_PATHS } from '@features/home/contract/home-paths';
 
 @Component({
   selector: 'app-not-found-page',
@@ -11,5 +11,5 @@ import { HOME_PATH } from '@features/home/contract/home-paths';
   templateUrl: './not-found-page.html',
 })
 export class NotFoundPage {
-  protected readonly homePath = HOME_PATH;
+  protected readonly homePaths = HOME_PATHS;
 }

@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { USERS_PATH } from '@features/users/contract/users-paths';
+import { USERS_PATHS } from '@features/users/contract/users-paths';
 
 @Component({
   selector: 'app-home-page',
@@ -11,5 +11,5 @@ import { USERS_PATH } from '@features/users/contract/users-paths';
   templateUrl: './home-page.html',
 })
 export class HomePage {
-  protected readonly usersPath = USERS_PATH;
+  protected readonly usersPaths = USERS_PATHS;
 }

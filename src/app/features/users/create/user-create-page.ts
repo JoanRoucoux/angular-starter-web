@@ -6,7 +6,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 import { hasRequiredError, showError } from '@shared/forms/form-helpers';
 
-import { USERS_PATH, userPath } from '../contract/users-paths';
+import { USERS_PATHS } from '../contract/users-paths';
 import { UserCreateStore } from './user-create-store';
 
 @Component({
@@ -22,7 +22,7 @@ export class UserCreatePage {
   protected readonly form = this.#store.form;
   protected readonly submitError = this.#store.submitError;
 
-  protected readonly usersPath = USERS_PATH;
+  protected readonly usersPaths = USERS_PATHS;
 
   readonly showError = showError;
   readonly hasRequiredError = hasRequiredError;
@@ -31,7 +31,7 @@ export class UserCreatePage {
     const user = await this.#store.save();
 
     if (user) {
-      await this.#router.navigate(userPath(user.id));
+      await this.#router.navigate(USERS_PATHS.detail(user.id));
     }
   }
 }

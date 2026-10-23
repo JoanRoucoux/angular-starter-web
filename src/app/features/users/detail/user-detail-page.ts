@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { USERS_PATH } from '../contract/users-paths';
+import { USERS_PATHS } from '../contract/users-paths';
 import { UserDetailStore } from './user-detail-store';
 
 @Component({
@@ -16,5 +16,5 @@ export class UserDetailPage {
   #store = inject(UserDetailStore);
 
   protected readonly user = this.#store.user;
-  protected readonly usersPath = USERS_PATH;
+  protected readonly usersPaths = USERS_PATHS;
 }

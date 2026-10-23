@@ -5,7 +5,7 @@
   <a
     class="inline-flex items-center justify-center rounded-md bg-(--primary) px-4 py-2 text-sm font-medium text-(--primary-foreground) transition-colors hover:bg-(--primary)/90"
     data-testid="user-list-create"
-    [routerLink]="userCreatePath"
+    [routerLink]="usersPaths.create"
   >
     {{ 'users.list.create' | transloco }}
   </a>
@@ -53,7 +53,11 @@
   >
     @for (user of filteredUsers(); track user.id) {
       <li class="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-(--accent)/50">
-        <a class="flex-1 text-sm font-medium hover:underline" data-testid="user-item" [routerLink]="userPath(user.id)">
+        <a
+          class="flex-1 text-sm font-medium hover:underline"
+          data-testid="user-item"
+          [routerLink]="usersPaths.detail(user.id)"
+        >
           {{ user.firstName }} {{ user.lastName }}
         </a>
         <span class="rounded-full bg-(--secondary) px-2.5 py-0.5 text-xs font-semibold text-(--secondary-foreground)">
