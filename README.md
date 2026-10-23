@@ -1,6 +1,4 @@
 <img src=".github/assets/banner.png" alt="Angular Starter Web: ready-to-use Angular starter" />
-<br>
-<br>
 
 [![CI](https://github.com/JoanRoucoux/angular-starter-web/actions/workflows/ci.yml/badge.svg)](https://github.com/JoanRoucoux/angular-starter-web/actions/workflows/ci.yml)
 [![Angular](https://img.shields.io/badge/Angular-22-dd0031?logo=angular)](https://angular.dev)
