@@ -46,7 +46,7 @@ Create an application from any of them with [starter-generator](https://github.c
 Generate an application from this starter:
 
 ```bash
-starter-generator portfolio-web --starter web
+starter-generator portfolio-web --starter angular-web
 ```
 
 Then run it. Prerequisites: Node (supported versions in `engines` of [package.json](package.json)) and pnpm.
