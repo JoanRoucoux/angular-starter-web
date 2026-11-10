@@ -15,6 +15,7 @@ The app ships no global chrome (header, sidebar, navigation): it renders only it
 | ------------------------------------------------------------------------------------ | --------------------------------------------------------- |
 | [angular-starter-web](https://github.com/JoanRoucoux/angular-starter-web) (this one) | An Angular web application connected to a backend         |
 | [angular-starter-ui](https://github.com/JoanRoucoux/angular-starter-ui)              | An Angular design system: component library and Storybook |
+| [react-starter-web](https://github.com/JoanRoucoux/react-starter-web)                | A React web application connected to a backend            |
 | [java-starter](https://github.com/JoanRoucoux/java-starter)                          | A Spring Boot backend in hexagonal architecture           |
 
 Create an application from any of them with [starter-generator](https://github.com/JoanRoucoux/starter-generator).
@@ -46,7 +47,7 @@ Create an application from any of them with [starter-generator](https://github.c
 Generate an application from this starter:
 
 ```bash
-starter-generator portfolio-web --starter web
+starter-generator portfolio-web --starter angular-web
 ```
 
 Then run it. Prerequisites: Node (supported versions in `engines` of [package.json](package.json)) and pnpm.
