@@ -9,16 +9,7 @@ Ready-to-use Angular starter for building a new web application connected to a b
 
 The app ships no global chrome (header, sidebar, navigation): it renders only its body, so it can be embedded in a host shell as-is, or run standalone. No integration mechanism is assumed: it builds, runs and tests on its own either way. It talks to a backend such as [java-starter](https://github.com/JoanRoucoux/java-starter) through a client generated from the backend's OpenAPI contract.
 
-## The starters
-
-| Repository                                                                           | What it generates                                         |
-| ------------------------------------------------------------------------------------ | --------------------------------------------------------- |
-| [angular-starter-web](https://github.com/JoanRoucoux/angular-starter-web) (this one) | An Angular web application connected to a backend         |
-| [angular-starter-ui](https://github.com/JoanRoucoux/angular-starter-ui)              | An Angular design system: component library and Storybook |
-| [react-starter-web](https://github.com/JoanRoucoux/react-starter-web)                | A React web application connected to a backend            |
-| [java-starter](https://github.com/JoanRoucoux/java-starter)                          | A Spring Boot backend in hexagonal architecture           |
-
-Create an application from any of them with [starter-generator](https://github.com/JoanRoucoux/starter-generator).
+This starter is part of a family: [starter-generator](https://github.com/JoanRoucoux/starter-generator) lists them all and creates an application from any of them.
 
 ## Tech stack
 
