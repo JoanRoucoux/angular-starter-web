@@ -29,6 +29,7 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 - **`<feature>-routes.ts` is the feature's routing entry point**: every feature has one, whatever its number of screens, and it owns the feature's titles, guards and `provideTranslocoScope`. Its paths come from the feature's contract (`contract/<feature>-paths.ts`), never from string literals. `app-routes.ts` imports a feature's routes file and its contract, nothing else: it never reaches for a page directly. A feature is then relocatable (to another app, to another MFE) by moving its folder and changing those imports.
 - `src/app/shared/`: reusable presentation/test helpers, imports neither `core` nor `features`.
 - Module boundaries are enforced at lint time by Sheriff ([sheriff.config.ts](sheriff.config.ts)): `features` -> `core`/`shared`; `core` -> `shared`; features import each other only through `contract/`; `core` may import contracts; contracts import nothing from the app. Modules are barrel-less: no `index.ts`, import files directly; private files go in an `internal/` subdirectory.
+- Sheriff only follows imports reachable from `src/main.ts`, so specs and test helpers are outside its graph and a boundary crossed there is not reported. Review their imports by hand: they follow the same rules.
 - Import aliases: `@core/*`, `@features/*`, `@shared/*`, `@environments/*`.
 
 ## Feature contract
