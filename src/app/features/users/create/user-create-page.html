@@ -16,7 +16,7 @@
     <label class="block text-sm font-medium" for="firstName">{{ 'users.create.firstName' | transloco }}</label>
     <input
       autocomplete="given-name"
-      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
+      class="mt-1 block w-full rounded-md border border-(--input) bg-(--background) px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
       data-testid="user-create-first-name"
       id="firstName"
       type="text"
@@ -35,7 +35,7 @@
     <label class="block text-sm font-medium" for="lastName">{{ 'users.create.lastName' | transloco }}</label>
     <input
       autocomplete="family-name"
-      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
+      class="mt-1 block w-full rounded-md border border-(--input) bg-(--background) px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
       data-testid="user-create-last-name"
       id="lastName"
       type="text"
@@ -54,7 +54,7 @@
     <label class="block text-sm font-medium" for="email">{{ 'users.create.email' | transloco }}</label>
     <input
       autocomplete="email"
-      class="mt-1 block w-full rounded-md border border-(--border) bg-(--background) px-3 py-2 text-sm"
+      class="mt-1 block w-full rounded-md border border-(--input) bg-(--background) px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
       data-testid="user-create-email"
       id="email"
       type="email"
