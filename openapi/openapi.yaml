@@ -153,23 +153,27 @@ components:
         email:
           type: string
           format: email
-    ErrorResponse:
+    Problem:
       type: object
-      required:
-        - code
-        - error
-        - message
+      description: Problem detail (RFC 9457)
       properties:
-        code:
+        type:
           type: string
-        error:
+          format: uri-reference
+        title:
           type: string
-        message:
+        status:
+          type: integer
+          format: int32
+        detail:
           type: string
+        instance:
+          type: string
+          format: uri-reference
   responses:
     Error:
-      description: Generic error response
+      description: Problem detail (RFC 9457)
       content:
-        application/json:
+        application/problem+json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Problem'
