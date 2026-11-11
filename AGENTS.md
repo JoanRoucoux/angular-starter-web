@@ -114,6 +114,7 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 - `coverageInclude` in [angular.json](angular.json) makes every source file count, including those no spec imports: without it v8 reports only what a test loaded, so a file with no spec is invisible rather than uncovered. `coverageExclude` holds the generated client and the pure wiring (bootstrap, `*-routes.ts`, `*-provider.ts`, environments); anything with behavior gets a spec.
 - Coverage is at 100% and must stay there; the CI thresholds (85/80/70/85) are intentionally lower so downstream users of the starter are not blocked: do not raise them.
 - `data-testid` attributes in templates are used by the Playwright e2e page objects: keep them even where unit tests query by role.
+- The Playwright suite runs twice, as the `chromium` (light) and `chromium-dark` projects, so axe checks both color schemes.
 
 ## Gotchas
 
@@ -141,3 +142,4 @@ Before considering a change done, run the same pipeline as CI: `format:check`, `
 - `transloco-testing.ts` provides Transloco in unit tests: translations resolve to their key, and scoped keys use the camel-cased scope name.
 - The bundle budget of `angular.json` (500 kB warning, 1 MB error) is loose on purpose: tighten it to the measured size once the UI library is in.
 - A merge made with `GITHUB_TOKEN` triggers no `push` workflow, which is why `dependabot-auto-merge.yml` uses the `DEPENDABOT_MERGE_TOKEN` secret when it exists.
+- The token block of `src/styles.css` mirrors the design system starter's `tokens.css`. Dark `--destructive` is a light red so it passes 4.5:1 as text, which is why the dark `--destructive-foreground` is the dark background color. `--input` is the 3:1 border of form controls, `--border` is for decoration only. Never pair `outline-none` with a `focus-visible:outline-*` ring in Tailwind 4: it sets `outline-style: none` and no ring is drawn.
