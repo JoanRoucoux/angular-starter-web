@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.7.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.6.0...v1.7.0) (2026-11-11)
+
+
+### Features
+
+* offer a reload when a navigation fails ([#76](https://github.com/JoanRoucoux/angular-starter-web/issues/76)) ([e0ffa3f](https://github.com/JoanRoucoux/angular-starter-web/commit/e0ffa3f36f74908b07a1b4251b006132c7bbf705))
+
+
+### Bug Fixes
+
+* describe API errors as problem details ([#71](https://github.com/JoanRoucoux/angular-starter-web/issues/71)) ([3da8da5](https://github.com/JoanRoucoux/angular-starter-web/commit/3da8da5f197da934a20088830f67412b6b1fd275))
+* keep the delete dialog open while a deletion is pending ([#74](https://github.com/JoanRoucoux/angular-starter-web/issues/74)) ([b27436b](https://github.com/JoanRoucoux/angular-starter-web/commit/b27436b6c71b8f212128fda0cdadff8c56fc5307))
+* reach AA contrast in dark mode and on form controls ([#75](https://github.com/JoanRoucoux/angular-starter-web/issues/75)) ([7fc845c](https://github.com/JoanRoucoux/angular-starter-web/commit/7fc845c288751f857eaa198664f727d0b432f709))
+
 ## [1.6.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.5.1...v1.6.0) (2026-10-23)
 
 
