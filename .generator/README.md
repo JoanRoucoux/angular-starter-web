@@ -9,6 +9,7 @@ Keep them in sync with the starter:
 - `.generator/templates/src/app/shared/testing/transloco-testing.ts` mirrors [src/app/shared/testing/transloco-testing.ts](../src/app/shared/testing/transloco-testing.ts) with the demo scopes swapped for `{{feature}}`: when one changes, change the other.
 - `.generator/templates/e2e/fixtures/accessibility.ts` is a verbatim copy of [e2e/fixtures/accessibility.ts](../e2e/fixtures/accessibility.ts): same rule.
 - `src/app/core/not-found-page/not-found-page.ts` imports `HOME_PATHS` from the home contract: two `replace` entries in the manifest repoint it at the generated feature's contract (`{{featureConst}}_PATHS`). Keep the import path and constant name in sync with them.
+- `.generator/templates/src/app/app-routes.ts` carries the navigation error route (`NAVIGATION_ERROR_PATH`, `NavigationErrorPage`) next to the 404 route: keep them in step with [src/app/app-routes.ts](../src/app/app-routes.ts).
 - The scaffold templates (feature page, routes, contract, i18n files, e2e spec) follow the conventions of AGENTS.md: when a convention changes, re-check the templates.
 - Template-only content (demo features, community files, release tooling) must be listed in the manifest's `remove`; new root-level files that should not ship in generated apps must be added there.
 - Templates contain tokens and are not valid syntax: `.generator/templates/` stays excluded in [.prettierignore](../.prettierignore) and the ESLint `globalIgnores`.
