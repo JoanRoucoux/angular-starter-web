@@ -58,6 +58,7 @@ test('deletes a user through the confirmation dialog', async ({ page, usersPage 
   await expect(usersPage.userItems).toHaveText(['Alice Smith']);
   await expect(usersPage.deleteDialog).toBeHidden();
   await expect(usersPage.statusMessage).toHaveText('John Doe has been deleted.');
+  await expect(usersPage.heading).toBeFocused();
 });
 
 test('closes the confirmation dialog with the Escape key without deleting', async ({ page, usersPage }) => {
@@ -76,6 +77,7 @@ test('closes the confirmation dialog with the Escape key without deleting', asyn
 
   await expect(usersPage.deleteDialog).toBeHidden();
   await expect(usersPage.userItems).toHaveText(['John Doe']);
+  await expect(usersPage.deleteButtons.first()).toBeFocused();
 });
 
 test('redirects home when the session does not grant access to the feature', async ({ page, usersPage }) => {

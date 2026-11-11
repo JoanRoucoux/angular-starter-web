@@ -73,6 +73,25 @@ describe('UserDeleteDialog', () => {
     expect(deleted).not.toHaveBeenCalled();
   });
 
+  it('should stay open while a deletion is pending when the Escape key is pressed', async () => {
+    await renderDialog();
+
+    await userEvent.click(await screen.findByRole('button', { name: 'users.delete.submit' }));
+    const request = await vi.waitFor(() => httpTesting.expectOne('/api/users/1'));
+
+    const cancelEvent = new Event('cancel', { cancelable: true });
+    fireEvent(screen.getByRole('dialog'), cancelEvent);
+
+    expect(cancelEvent.defaultPrevented).toBe(true);
+    expect(screen.getByRole('dialog')).toHaveAttribute('open');
+    expect(dismissed).not.toHaveBeenCalled();
+
+    request.flush(null, { status: 204, statusText: 'No Content' });
+
+    await vi.waitFor(() => expect(deleted).toHaveBeenCalledTimes(1));
+    expect(dismissed).not.toHaveBeenCalled();
+  });
+
   it('should delete the user and emit deleted when confirming', async () => {
     await renderDialog();
 
