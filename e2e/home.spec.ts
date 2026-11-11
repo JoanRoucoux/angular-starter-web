@@ -1,6 +1,5 @@
-import { expect, test } from '@playwright/test';
-
 import { expectNoAccessibilityViolations } from './fixtures/accessibility';
+import { expect, test } from './fixtures/base-test';
 
 test('displays the home page', async ({ page }) => {
   await page.goto('/');

@@ -1,6 +1,5 @@
-import { test as base } from '@playwright/test';
-
 import { UsersPage } from '../pages/users-page';
+import { test as base } from './base-test';
 
 type Fixtures = {
   usersPage: UsersPage;
@@ -16,4 +15,4 @@ export const test = base.extend<Fixtures>({
   },
 });
 
-export { expect } from '@playwright/test';
+export { expect } from './base-test';
