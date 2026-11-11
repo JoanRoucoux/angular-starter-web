@@ -80,6 +80,7 @@ src/
 |   |   |-- interceptors/      # HTTP interceptors (error handling, ...)
 |   |   |-- logger/            # Logger + LogLevel (only place allowed to call console)
 |   |   |-- session/           # SessionStore: what the current user is allowed to do
+|   |   |-- navigation-error-page/ # Reload page shown when a navigation fails
 |   |   `-- not-found-page/    # 404 page
 |   |-- features/              # Business features, grouped by domain
 |   |   |-- home/              # Single-screen feature

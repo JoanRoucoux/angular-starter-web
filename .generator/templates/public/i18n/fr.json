@@ -1,11 +1,17 @@
 {
   "pageTitle": {
     "{{featureCamel}}": "{{titleJson}}",
-    "notFound": "Page introuvable"
+    "notFound": "Page introuvable",
+    "navigationError": "Page indisponible"
   },
   "notFound": {
     "title": "Page introuvable",
     "description": "La page demandée n'existe pas.",
     "home": "Retour à l'accueil"
+  },
+  "navigationError": {
+    "title": "Cette page n'a pas pu être chargée",
+    "description": "L'application a peut-être été mise à jour. Rechargez la page pour réessayer.",
+    "reload": "Recharger la page"
   }
 }

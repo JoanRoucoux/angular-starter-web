@@ -4,11 +4,17 @@
     "users": "Users",
     "userDetail": "User details",
     "userCreate": "New user",
-    "notFound": "Page not found"
+    "notFound": "Page not found",
+    "navigationError": "Page unavailable"
   },
   "notFound": {
     "title": "Page not found",
     "description": "The requested page does not exist.",
     "home": "Back to home"
+  },
+  "navigationError": {
+    "title": "This page could not be loaded",
+    "description": "The application may have been updated. Reload the page to try again.",
+    "reload": "Reload the page"
   }
 }
