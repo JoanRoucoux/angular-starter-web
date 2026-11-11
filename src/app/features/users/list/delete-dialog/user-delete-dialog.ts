@@ -28,7 +28,15 @@ export class UserDeleteDialog implements AfterViewInit {
     this.dialogElement().nativeElement.showModal();
   }
 
+  protected onCancel(event: Event): void {
+    event.preventDefault();
+    this.dismiss();
+  }
+
   protected dismiss(): void {
+    if (this.deleting()) {
+      return;
+    }
     this.#close();
     this.dismissed.emit();
   }
