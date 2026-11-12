@@ -174,11 +174,11 @@ The language can be switched at runtime via `LanguageStore.setActiveLang()`, by 
 
 ## Deployment
 
-[Dockerfile](Dockerfile) builds the production image in two stages: Node installs the dependencies, generates the API client and builds the app; [nginx](nginx.conf) serves the result on port 80.
+[Dockerfile](Dockerfile) builds the production image in two stages: Node installs the dependencies, generates the API client and builds the app; [nginx](nginx.conf) serves the result on port 8080 as an unprivileged user.
 
 ```bash
 docker build -t my-app .
-docker run --rm -p 8080:80 my-app
+docker run --rm -p 8080:8080 my-app
 ```
 
 The nginx config does the two things a single-page app needs: unmatched paths fall back to `index.html` so a refresh on `/users/1` still works, and hashed assets are cached for a year while everything else is revalidated. A missing file answers 404, and nginx also sends the security headers (a strict CSP with Trusted Types, `frame-ancestors 'none'`). Calls to `/api` are **not** proxied there, [proxy.conf.json](proxy.conf.json) is a dev-server concern only. In production a host shell or an ingress routes them; add a `location /api` to [nginx.conf](nginx.conf) if the container has to reach the backend itself. The strict CSP forbids embedding the app in an iframe and writing HTML from a UI library: relax `frame-ancestors` and `X-Frame-Options` for an iframe host, and add a named Trusted Types policy for a library.
