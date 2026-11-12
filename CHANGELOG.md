@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.7.0...v1.7.1) (2026-11-12)
+
+
+### Bug Fixes
+
+* run nginx as an unprivileged user ([#78](https://github.com/JoanRoucoux/angular-starter-web/issues/78)) ([0e435a4](https://github.com/JoanRoucoux/angular-starter-web/commit/0e435a4337448ddd8afbfc3083b5b7208a552981))
+
 ## [1.7.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.6.0...v1.7.0) (2026-11-11)
 
 
