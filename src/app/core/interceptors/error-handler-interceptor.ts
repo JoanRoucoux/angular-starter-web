@@ -7,6 +7,8 @@ import { Logger } from '@core/logger/logger';
 
 import { environment } from '@environments/environment';
 
+const TRACE_ID_HEADER = 'X-Trace-Id';
+
 export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   const logger = inject(Logger);
 
@@ -17,7 +19,9 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           return;
         }
         if (error instanceof HttpErrorResponse) {
-          logger.error('HttpInterceptor', `API error on ${req.method} ${req.url}`, error);
+          const traceId = error.headers.get(TRACE_ID_HEADER);
+          const trace = traceId ? ` (trace ${traceId})` : '';
+          logger.error('HttpInterceptor', `API error on ${req.method} ${req.url}${trace}`, error);
         }
       },
     }),
