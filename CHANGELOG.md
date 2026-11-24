@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.7.1...v1.8.0) (2026-11-24)
+
+
+### Features
+
+* log the API trace id with a failed call ([#81](https://github.com/JoanRoucoux/angular-starter-web/issues/81)) ([9704c1c](https://github.com/JoanRoucoux/angular-starter-web/commit/9704c1c179ff3b8a93ccbf0d9765428f7641f957))
+
 ## [1.7.1](https://github.com/JoanRoucoux/angular-starter-web/compare/v1.7.0...v1.7.1) (2026-11-12)
 
 
